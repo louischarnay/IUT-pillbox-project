@@ -16,7 +16,13 @@ public class Moteur {
         angleRotation= angle;
         
     }
-    public boolean rotation(){
-        return rotation();
+    private void setAngle(int angle){
+        angleRotation= angle;
     }
+    private int getAngleRotation(){
+        return angleRotation;
+    }
+   // public boolean rotation(){
+  
+    //}
 }
