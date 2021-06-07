@@ -5,10 +5,15 @@
  */
 package main;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author p2018172
  */
 public class Notification {
-    
+  
+    public void envoiNotification(String s, ArrayList<String> list){
+        //a coder
+    }
 }
