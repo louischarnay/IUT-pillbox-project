@@ -13,7 +13,12 @@ import java.util.ArrayList;
  */
 public class Notification {
   
-    public void envoiNotification(String s, ArrayList<String> list){
+   /**
+   * envoie un mail à chaque destinataire contenant message, return false si problème, true sinon
+   * @param message contenu du message envoyé
+   * @param destinataire liste des destinatires
+   */
+    public void envoiNotification(String message, ArrayList<String> destinataire){
         //a coder
     }
 }
