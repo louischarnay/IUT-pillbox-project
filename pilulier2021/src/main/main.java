@@ -14,9 +14,11 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Interface fenetre=new Interface();
+        fenetre.setVisible(true);
         // TODO code application logic here
         
-        // test2
+        // test
     }
  
 }
