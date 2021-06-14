@@ -40,11 +40,13 @@ public class Interface extends JFrame{
         heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
         prochainTrait.setText("Prochain traitement dans 19 minutes");
         nbCases.setText("3 cases restantes");
+        calendrier.setText("C");
+        informations.setText("I");
+        menuSU.setText("M");
         GridBagConstraints cont=new GridBagConstraints();
         
         cont.anchor=GridBagConstraints.WEST;
-        cont.gridheight=2;
-        cont.gridwidth=2;
+        cont.gridwidth=3;
         cont.gridx=0;
         cont.gridy=0;
         Border bordure=BorderFactory.createLineBorder(Color.blue);
@@ -57,6 +59,17 @@ public class Interface extends JFrame{
         
         cont.gridy=2;
         pano.add(nbCases, cont);
+        
+        cont.gridwidth=1;
+        cont.gridx=0;
+        cont.gridy=3;
+        pano.add(calendrier, cont);
+        
+        cont.gridx++;
+        pano.add(informations, cont);
+        
+        cont.gridx++;
+        pano.add(menuSU, cont);
         
         this.setContentPane(pano);
         this.pack();
