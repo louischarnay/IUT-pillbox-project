@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package main.modele;
+
+import java.util.Date;
 
 /**
  *
@@ -11,6 +13,7 @@ package main;
  */
 public class Case {
     protected int index;
+    protected Date date;
     protected boolean etatRemplissage;
     protected boolean retardAccepte;
     
@@ -18,6 +21,10 @@ public class Case {
         this.index = index;
         this.etatRemplissage = false;
         this.retardAccepte = false;
+    }
+
+    public Date getDate() {
+        return date;
     }
     
     public int getIndex(){
@@ -42,5 +49,10 @@ public class Case {
     
     public void setRetardAccepte(boolean retardAccepte){
         this.retardAccepte = retardAccepte;
+    }
+    
+    public void setDate(Date date) {
+        this.date = date;
+        
     }
 }
