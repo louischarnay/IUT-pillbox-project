@@ -24,8 +24,7 @@ public class main {
     
         int i = 0;
         while(i == 0){
-            Date heure=new Date();
-            fenetre.getHeureAffiche().setText(heure.getHours()+":"+heure.getMinutes());
+            fenetre.setHeureAffiche();
             Thread.sleep(1000);
         }
     }
