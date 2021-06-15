@@ -5,8 +5,6 @@
  */
 package main;
 
-import java.util.Calendar;
-import java.util.Date;
 import main.vue.Interface;
 
 /**
@@ -21,11 +19,13 @@ public class main {
         Interface fenetre=new Interface();
         fenetre.setVisible(true);
         // TODO code application logic here
-    
         int i = 0;
         while(i == 0){
             fenetre.setHeureAffiche();
             Thread.sleep(1000);
         }
+
+        // test
     }
+ 
 }

@@ -5,6 +5,7 @@
  */
 package main.modele;
 
+import main.modele.Case;
 import java.util.ArrayList;
 import java.util.Date;
 
