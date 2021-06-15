@@ -17,20 +17,24 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 /**
  *
  * @author p2008965
  */
-public class Interface extends JFrame implements ActionListener{
+public class Interface extends JFrame implements ActionListener, FocusListener{
     protected JLabel heureAffiche=new JLabel();
-    protected JTextArea infosMenu=new JTextArea();
-    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton();
+    protected JTextArea infosMenu=new JTextArea(), infosEcriture=new JTextArea();
+    protected JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), ageEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
+    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton();
     protected LedMarche ledMarche= new LedMarche();
     
     JPanel pano=new JPanel();
@@ -55,6 +59,12 @@ public class Interface extends JFrame implements ActionListener{
     Image image4 = imageBase4.getImage();
     Image newimg4 = image4.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
     ImageIcon menuSUImage = new ImageIcon(newimg4);
+    
+    ImageIcon imageBase5=new ImageIcon(getClass().getResource("flecheImage.png"));
+    Image image5 = imageBase5.getImage();
+    Image newimg5 = image5.getScaledInstance(50, 300,  java.awt.Image.SCALE_SMOOTH);
+    ImageIcon flecheGaucheImage = new ImageIcon(newimg5);
+    ImageIcon flecheDroiteImage = flecheGaucheImage;
     
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
@@ -81,19 +91,26 @@ public class Interface extends JFrame implements ActionListener{
         boutonMenuSU0.addActionListener(this);
         boutonMenuSU1.addActionListener(this);
         boutonMenuSU2.addActionListener(this);
-       
+        flecheDroite.addActionListener(this);
+        flecheGauche.addActionListener(this);
+        nomEcriture.addFocusListener(this);
+        prenomEcriture.addFocusListener(this);
+        adresseEcriture.addFocusListener(this);
+        telEcriture.addFocusListener(this);
+        mailEcriture.addFocusListener(this);
+        ageEcriture.addFocusListener(this);
     }
     
     public void initialisation(){
         pano.setLayout(new GridBagLayout());
         Date heure=new Date();
-        Border bordure;
+        Border bordure=BorderFactory.createLineBorder(Color.white);
+        String newLine=System.getProperty("line.separator");
         
         setHeureAffiche();
         heureAffiche.setFont(new Font("Arial", Font.BOLD, 65));
         heureAffiche.setForeground(Color.white);
         
-        String newLine=System.getProperty("line.separator");
         infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
         infosMenu.setForeground(Color.white);
         infosMenu.setText("Prochain traitement dans 20 minutes"+newLine+newLine+"3 cases restantes");
@@ -101,8 +118,52 @@ public class Interface extends JFrame implements ActionListener{
         
         //création des composants
         
+        //création des fields infos
+        nomEcriture.setBackground(vertFond);
+        nomEcriture.setForeground(Color.white);
+        nomEcriture.setBorder(bordure);
+        nomEcriture.setFont(new Font("Arial", Font.BOLD, 30));
+        nomEcriture.setText("Nom : ");
+        
+        prenomEcriture.setBackground(vertFond);
+        prenomEcriture.setForeground(Color.white);
+        prenomEcriture.setBorder(bordure);
+        prenomEcriture.setFont(new Font("Arial", Font.BOLD, 30));
+        prenomEcriture.setText("Prénom : ");
+        
+        mailEcriture.setBackground(vertFond);
+        mailEcriture.setForeground(Color.white);
+        mailEcriture.setBorder(bordure);
+        mailEcriture.setFont(new Font("Arial", Font.BOLD, 30));
+        mailEcriture.setText("Mail : ");
+        
+        ageEcriture.setBackground(vertFond);
+        ageEcriture.setForeground(Color.white);
+        ageEcriture.setBorder(bordure);
+        ageEcriture.setFont(new Font("Arial", Font.BOLD, 30));
+        ageEcriture.setText("Age : ");
+        
+        adresseEcriture.setBackground(vertFond);
+        adresseEcriture.setForeground(Color.white);
+        adresseEcriture.setBorder(bordure);
+        adresseEcriture.setFont(new Font("Arial", Font.BOLD, 30));
+        adresseEcriture.setText("Adresse : ");
+        
+        telEcriture.setBackground(vertFond);
+        telEcriture.setForeground(Color.white);
+        telEcriture.setBorder(bordure);
+        telEcriture.setFont(new Font("Arial", Font.BOLD, 50));
+        telEcriture.setText("Tel : ");
+        
+//        //création JTextArea infos
+//        infosEcriture.setBackground(vertFond);
+//        infosEcriture.setForeground(Color.white);
+//        infosEcriture.setBorder(bordure);
+//        infosEcriture.setFont(new Font("Arial", Font.BOLD, 50));
+        
         //création des boutons
         panicButton.setIcon(panicImage);
+        bordure = BorderFactory.createLineBorder(Color.red);
         panicButton.setBorderPainted(false);
         panicButton.setBackground(vertFond);
         panicButton.setSize(100, 100);
@@ -123,7 +184,6 @@ public class Interface extends JFrame implements ActionListener{
         calendrier.setBackground(vertFond);
         
         boutonAlerte.setBackground(vertFond);
-        bordure=BorderFactory.createLineBorder(Color.red);
         boutonAlerte.setBorder(bordure);
         boutonAlerte.setForeground(Color.red);
         boutonAlerte.setFont(new Font("Arial", Font.BOLD, 30));        
@@ -153,6 +213,16 @@ public class Interface extends JFrame implements ActionListener{
         boutonRetour.setForeground(Color.white);
         boutonRetour.setFont(new Font("Arial", Font.BOLD, 30));
         
+        flecheGauche.setIcon(flecheGaucheImage);
+        flecheGauche.setBorder(bordure);
+        flecheGauche.setBackground(vertFond);
+        flecheGauche.setForeground(Color.white);
+        
+        flecheDroite.setIcon(flecheGaucheImage);
+        flecheDroite.setBorder(bordure);
+        flecheDroite.setBackground(vertFond);
+        flecheDroite.setForeground(Color.white);
+        
         
         pano.setBackground(vertFond);
         //placement heure
@@ -168,12 +238,17 @@ public class Interface extends JFrame implements ActionListener{
         boutonMenuSUAffiche(cont, pano);
         //placement bouton retour
         boutonRetourAffiche(cont, pano);
+        //placement fleches
+        flechesAffiche(cont, pano);
+        //placement infos ecriture
+        infosEcritureAffiche(cont, pano);
         
         
         this.setContentPane(pano);
         this.pack();
         
-        
+        infosEcritureVisible(false);
+        flechesVisible(false);
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
         boutonAlerte.setVisible(false);
@@ -199,7 +274,7 @@ public class Interface extends JFrame implements ActionListener{
         
         else if(e.getSource()==informations){
             ledMarche.couleurLedChange(Color.green);
-            System.out.println("bouton ifnormations pressed");
+            System.out.println("bouton informations pressed");
         }
         else if(e.getSource()==calendrier){
             ledMarche.couleurLedChange(Color.red);
@@ -219,17 +294,64 @@ public class Interface extends JFrame implements ActionListener{
             boutonMenuSUVisible(false);
             boutonsMenuVisible(true);
             infosMenuVisible(true);
+            flechesVisible(false);
+            infosEcritureVisible(false);
         }
-        else if(e.getSource()==boutonMenuSU0)
+        else if(e.getSource()==boutonMenuSU0){
             System.out.println("bouton menu SU0 pressed");
+            boutonMenuSUVisible(false);
+            flechesVisible(true);
+            boutonRetourVisible(true);
+            infosEcritureVisible(true);
+        }
         else if(e.getSource()==boutonMenuSU1)
             System.out.println("bouton menu SU1 pressed");
         else if(e.getSource()==boutonMenuSU2)
             System.out.println("bouton menu SU2 pressed");
+        else if(e.getSource()==nomEcriture){
+            nomEcriture.setText(" ");
+            System.out.println("zebi");
+        }
+    }
+    
+    public void infosEcritureAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridwidth=4;
+        cont.gridx=2;
+        cont.gridy=1;
+        pano.add(nomEcriture, cont);
+        cont.gridy=2;
+        pano.add(prenomEcriture, cont);
+        cont.gridy=3;
+        pano.add(ageEcriture, cont);
+        cont.gridy=4;
+        pano.add(adresseEcriture, cont);
+        cont.gridy=5;
+        pano.add(telEcriture, cont);
+        cont.gridy=6;
+        pano.add(mailEcriture, cont);
+        cont.gridwidth=1;
+    }
+    
+    
+    public void flechesAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridwidth=1;
+        cont.gridheight=6;
+        cont.gridx=0;
+        cont.gridy=1;
+        pano.add(flecheGauche, cont);
+        cont.gridx=6;
+        pano.add(flecheDroite, cont);
+        cont.gridheight=1;
+    }
+    
+    public void infosReferentEcritureAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=1;
+        cont.gridy=1;
     }
     
     public void boutonsMenuAffiche(GridBagConstraints cont, JPanel pano){
         cont.weightx=1;
+        cont.insets=new Insets(20, 5, 20, 5);
         cont.insets=new Insets(5, 5, 5, 5);
         cont.gridy=3;
         cont.gridx=0;
@@ -279,9 +401,9 @@ public class Interface extends JFrame implements ActionListener{
     
     public void boutonRetourAffiche(GridBagConstraints cont, JPanel pano){
         cont.fill=GridBagConstraints.BOTH;
-        cont.gridy=4;
+        cont.gridy=8;
         cont.gridx=0;
-        cont.gridwidth=4;
+        cont.gridwidth=10;
         cont.gridheight=1;
         pano.add(boutonRetour, cont);
     }
@@ -350,5 +472,40 @@ public class Interface extends JFrame implements ActionListener{
         boutonMenuSU0.setVisible(b);
         boutonMenuSU1.setVisible(b);
         boutonMenuSU2.setVisible(b);
+    }
+    
+    public void flechesVisible(boolean b){
+        flecheGauche.setVisible(b);
+        flecheDroite.setVisible(b);
+    }
+    
+    public void infosEcritureVisible(boolean b){
+        nomEcriture.setVisible(b);
+        prenomEcriture.setVisible(b);
+        ageEcriture.setVisible(b);
+        mailEcriture.setVisible(b);
+        telEcriture.setVisible(b);
+        adresseEcriture.setVisible(b);
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        if(e.getSource()==nomEcriture)
+            nomEcriture.setText("");
+        else if(e.getSource()==telEcriture)
+        telEcriture.setText("");
+        else if(e.getSource()==mailEcriture)
+        mailEcriture.setText("");
+        else if(e.getSource()==prenomEcriture)
+        prenomEcriture.setText("");
+        else if(e.getSource()==ageEcriture)
+        ageEcriture.setText("");
+        else if(e.getSource()==adresseEcriture)
+        adresseEcriture.setText("");
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
