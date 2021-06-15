@@ -189,7 +189,7 @@ public class Interface extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==panicButton){
             infosMenuVisible(false);
-            boutonAlerteAffiche(cont, pano, "SAlut Adrien");
+            boutonAlerteAffiche(cont, pano, "Heure du traitement");
             boutonAlerteVisible(true);
             System.out.println("panic button pressed");
         }
