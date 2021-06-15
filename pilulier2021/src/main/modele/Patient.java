@@ -12,12 +12,14 @@ import java.util.ArrayList;
  * @author p2007867
  */
 public class Patient extends Personne {
+
     protected ArrayList<String> maladie;
     protected ArrayList<String> allergie;
 
-    public Patient(String n,String p,String ag,String ad){
-        super(n,p,ag,ad);
+    public Patient(String n, String p, String ag, String ad) {
+        super(n, p, ag, ad);
     }
+
     public ArrayList<String> getAllergie() {
         return allergie;
     }
@@ -25,12 +27,12 @@ public class Patient extends Personne {
     public ArrayList<String> getMaladie() {
         return maladie;
     }
-    
-    public void addAllergie(String allergie){
+
+    public void addAllergie(String allergie) {
         this.allergie.add(allergie);
     }
-  
-    public void addMaladie(String maladie){
+
+    public void addMaladie(String maladie) {
         this.maladie.add(maladie);
     }
 }
