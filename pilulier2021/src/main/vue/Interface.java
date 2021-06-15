@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,22 +25,39 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
-import main.LedMarche;
+import main.vue.LedMarche;
 
 /**
  *
  * @author p2008965
  */
 public class Interface extends JFrame implements ActionListener{
-    protected JLabel heureAffiche=new JLabel(), prochainTrait=new JLabel(), nbCases=new JLabel();
-    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton();
+    protected JLabel heureAffiche=new JLabel();
+    protected JTextArea infosMenu=new JTextArea();
+    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton();
     protected LedMarche ledMarche= new LedMarche();
     
-    ImageIcon panicImage=new ImageIcon(getClass().getResource("panicImage.png"));
-    ImageIcon calendrierImage=new ImageIcon(getClass().getResource("calendrierImage.png"));
-    ImageIcon informationsImage=new ImageIcon(getClass().getResource("informationImage.png"));
-    ImageIcon menuSUImage=new ImageIcon(getClass().getResource("menuSUImage.png"));
+    ImageIcon imageBase=new ImageIcon(getClass().getResource("panicImage.png"));
+    Image image = imageBase.getImage();
+    Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+    ImageIcon panicImage = new ImageIcon(newimg);
+    
+    ImageIcon imageBase2=new ImageIcon(getClass().getResource("calendrierImage.png"));
+    Image image2 = imageBase2.getImage();
+    Image newimg2 = image2.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+    ImageIcon calendrierImage = new ImageIcon(newimg2);
+    
+    ImageIcon imageBase3=new ImageIcon(getClass().getResource("informationImage.png"));
+    Image image3 = imageBase3.getImage();
+    Image newimg3 = image3.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+    ImageIcon informationsImage = new ImageIcon(newimg3);
+    
+    ImageIcon imageBase4=new ImageIcon(getClass().getResource("menuSUImage.png"));
+    Image image4 = imageBase4.getImage();
+    Image newimg4 = image4.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+    ImageIcon menuSUImage = new ImageIcon(newimg4);
     
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
@@ -48,6 +66,7 @@ public class Interface extends JFrame implements ActionListener{
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
+        this.setSize(800, 480);
         calendrier.addActionListener(this);
         informations.addActionListener(this);
         menuSU.addActionListener(this);
@@ -58,46 +77,55 @@ public class Interface extends JFrame implements ActionListener{
         JPanel pano=new JPanel();
         pano.setLayout(new GridBagLayout());
         Date heure=new Date();
+        Border bordure;
+        
         heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
-        prochainTrait.setText("Prochain traitement dans 19 minutes");
-        nbCases.setText("3 cases restantes");
-        //création des boutons
+        heureAffiche.setFont(new Font("Arial", Font.BOLD, 65));
+        heureAffiche.setForeground(Color.white);
+        
+        String newLine=System.getProperty("line.separator");
+        infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
+        infosMenu.setForeground(Color.white);
+        infosMenu.setText("Prochain traitement dans 20 minutes"+newLine+newLine+"3 cases restantes");
+        infosMenu.setBackground(vertFond);
+        
+        //création des composants
         panicButton.setIcon(panicImage);
-        informations.setIcon(informationsImage);
-        menuSU.setIcon(menuSUImage);
-        calendrier.setIcon(calendrierImage);
         panicButton.setBorderPainted(false);
         panicButton.setBackground(vertFond);
+        panicButton.setSize(100, 100);
+        
         informations.setOpaque(false);
         informations.setBorderPainted(false);
         informations.setBackground(vertFond);
+        informations.setIcon(informationsImage);
+        
+        menuSU.setIcon(menuSUImage);
         menuSU.setOpaque(false);
         menuSU.setBorderPainted(false);
         menuSU.setBackground(vertFond);
+        
+        calendrier.setIcon(calendrierImage);
         calendrier.setOpaque(false);
         calendrier.setBorderPainted(false);
         calendrier.setBackground(vertFond);
         
+        boutonAlerte.setText("Bonjour");
+        boutonAlerte.setBackground(vertFond);
+        bordure=BorderFactory.createLineBorder(Color.red);
+        boutonAlerte.setBorder(bordure);
+        boutonAlerte.setForeground(Color.red);
+        boutonAlerte.setFont(new Font("Arial", Font.BOLD, 30));
+        
+        
+        
         GridBagConstraints cont=new GridBagConstraints();
-        cont.insets=new Insets(5, 5, 5, 5);
-        heureAffiche.setFont(new Font("Arial", Font.BOLD, 30));
         pano.setBackground(vertFond);
         //placement heure
-        cont.anchor=GridBagConstraints.WEST;
-        cont.gridwidth=3;
-        cont.gridx=0;
-        cont.gridy=0;
-        Border bordure=BorderFactory.createLineBorder(Color.white);
-        heureAffiche.setBorder(bordure);
-        pano.add(heureAffiche, cont);
-        //placement prochain traitement
-        cont.fill=GridBagConstraints.BOTH;
-        cont.gridy=1;
-        cont.insets=new Insets(15, 5, 15, 5);
-        pano.add(prochainTrait, cont);
-        //placement nb cases restantes
-        cont.gridy=2;
-        pano.add(nbCases, cont);
+        heurePlacement(cont, pano);
+        //placement prochain traitement + nb cases restantes
+        prochainTraitPlacement(cont, pano);
+        //boutonAlertePlacement(cont, pano, "Heure de traitement");
         //placement bouton calendrier
         cont.gridwidth=1;
         cont.gridx=0;
@@ -105,21 +133,10 @@ public class Interface extends JFrame implements ActionListener{
         cont.weightx=1;
         cont.insets=new Insets(5, 5, 5, 5);
         pano.add(calendrier, cont);
-        //placement bouton informations
-        cont.gridx=1;
-        pano.add(informations, cont);
-        //placement bouton menu SU
-        cont.gridx=2;
-        pano.add(menuSU, cont);
-        //placement panic button
-        cont.gridx=3;
-        pano.add(panicButton, cont);
+        //placement des boutons menu
+        boutonsMenuPlacement(cont, pano);
         //placement led de marche
-        cont.gridy=0;
-        cont.gridx=3;
-        cont.fill=GridBagConstraints.NONE;
-        cont.anchor=GridBagConstraints.NORTHEAST;
-        pano.add(ledMarche, cont);
+        ledMarchePlacement(cont, pano);
         
         this.setContentPane(pano);
         this.pack();
@@ -136,5 +153,51 @@ public class Interface extends JFrame implements ActionListener{
             System.out.println("informations pressed");
         else if(e.getSource()==calendrier)
             System.out.println("calendrier pressed");
+    }
+    
+    //fonctions de placement des éléments
+    public void heurePlacement(GridBagConstraints cont, JPanel pano){
+        cont.insets=new Insets(5, 5, 5, 5);
+        cont.fill=GridBagConstraints.BOTH;
+        cont.anchor=GridBagConstraints.NORTHWEST;
+        cont.gridwidth=3;
+        cont.gridx=0;
+        cont.gridy=0;
+        pano.add(heureAffiche, cont);
+    }
+    
+    public void ledMarchePlacement(GridBagConstraints cont, JPanel pano){
+        cont.gridy=0;
+        cont.gridx=3;
+        cont.fill=GridBagConstraints.NONE;
+        cont.anchor=GridBagConstraints.NORTHEAST;
+        pano.add(ledMarche, cont);
+    }
+    
+    public void prochainTraitPlacement(GridBagConstraints cont, JPanel pano){
+        cont.fill=GridBagConstraints.BOTH;
+        cont.gridy=1;
+        cont.insets=new Insets(15, 5, 15, 5);
+        pano.add(infosMenu, cont);
+    }
+    
+    public void boutonsMenuPlacement(GridBagConstraints cont, JPanel pano){
+        cont.gridx=1;
+        pano.add(informations, cont);
+        cont.gridx=2;
+        pano.add(menuSU, cont);
+        cont.gridx=3;
+        pano.add(panicButton, cont);
+    }
+    
+    public void boutonAlertePlacement(GridBagConstraints cont, JPanel pano, String msg){
+        boutonAlerte.setText(msg);
+        cont.fill=GridBagConstraints.BOTH;
+        cont.anchor=GridBagConstraints.CENTER;
+        cont.insets=new Insets(5, 5, 5, 5);
+        cont.gridx=0;
+        cont.gridheight=2;
+        cont.gridy=1;
+        pano.add(boutonAlerte, cont);
     }
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package main.modele.modele;
 
+import main.modele.Case;
 import java.util.ArrayList;
 
 /**
