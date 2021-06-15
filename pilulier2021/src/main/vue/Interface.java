@@ -43,7 +43,7 @@ public class Interface extends JFrame implements ActionListener{
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
     
-    public Interface(){
+    public Interface() throws InterruptedException{
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
@@ -52,13 +52,14 @@ public class Interface extends JFrame implements ActionListener{
         informations.addActionListener(this);
         menuSU.addActionListener(this);
         panicButton.addActionListener(this);
+       
     }
     
     public void initialisation(){
         JPanel pano=new JPanel();
         pano.setLayout(new GridBagLayout());
-        Date heure=new Date();
-        heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
+        
+        setHeureAffiche();
         prochainTrait.setText("Prochain traitement dans 19 minutes");
         nbCases.setText("3 cases restantes");
         //création des boutons
@@ -126,8 +127,12 @@ public class Interface extends JFrame implements ActionListener{
         
     }
     
-    public JLabel getHeureAffiche(){
-        return heureAffiche;
+    public void setHeureAffiche(){
+        Date heure=new Date();
+        if (heure.getMinutes() < 10)
+            heureAffiche.setText((heure.getHours()+": 0"+heure.getMinutes()));
+        else
+            heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
     }
 
     @Override
