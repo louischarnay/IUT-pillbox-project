@@ -22,15 +22,11 @@ public class main {
         fenetre.setVisible(true);
         // TODO code application logic here
     
-    int i = 0;
-    while(i == 0){
-        Date heure=new Date();
-        fenetre.getHeureAffiche().setText(heure.getHours()+":"+heure.getMinutes());
-        Thread.sleep(1000);
-    }    
-    
-        
-        // test
+        int i = 0;
+        while(i == 0){
+            Date heure=new Date();
+            fenetre.getHeureAffiche().setText(heure.getHours()+":"+heure.getMinutes());
+            Thread.sleep(1000);
+        }
     }
- 
 }
