@@ -62,7 +62,7 @@ public class Interface extends JFrame implements ActionListener{
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
     
-    public Interface(){
+    public Interface() throws InterruptedException{
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
@@ -71,6 +71,7 @@ public class Interface extends JFrame implements ActionListener{
         informations.addActionListener(this);
         menuSU.addActionListener(this);
         panicButton.addActionListener(this);
+       
     }
     
     public void initialisation(){
@@ -79,7 +80,7 @@ public class Interface extends JFrame implements ActionListener{
         Date heure=new Date();
         Border bordure;
         
-        heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
+        setHeureAffiche();
         heureAffiche.setFont(new Font("Arial", Font.BOLD, 65));
         heureAffiche.setForeground(Color.white);
         
@@ -90,6 +91,8 @@ public class Interface extends JFrame implements ActionListener{
         infosMenu.setBackground(vertFond);
         
         //création des composants
+        
+        //création des boutons
         panicButton.setIcon(panicImage);
         panicButton.setBorderPainted(false);
         panicButton.setBackground(vertFond);
@@ -142,6 +145,14 @@ public class Interface extends JFrame implements ActionListener{
         this.pack();
         
     }
+    
+    public void setHeureAffiche(){
+        Date heure=new Date();
+        if (heure.getMinutes() < 10)
+            heureAffiche.setText((heure.getHours()+": 0"+heure.getMinutes()));
+        else
+            heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -154,6 +165,7 @@ public class Interface extends JFrame implements ActionListener{
         else if(e.getSource()==calendrier)
             System.out.println("calendrier pressed");
     }
+    
     
     //fonctions de placement des éléments
     public void heurePlacement(GridBagConstraints cont, JPanel pano){
