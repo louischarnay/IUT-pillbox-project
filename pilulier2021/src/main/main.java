@@ -19,7 +19,12 @@ public class main {
         Interface fenetre=new Interface();
         fenetre.setVisible(true);
         // TODO code application logic here
-        
+        int i = 0;
+        while(i == 0){
+            fenetre.setHeureAffiche();
+            Thread.sleep(1000);
+        }
+
         // test
     }
  
