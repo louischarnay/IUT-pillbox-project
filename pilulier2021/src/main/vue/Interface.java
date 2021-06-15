@@ -80,7 +80,7 @@ public class Interface extends JFrame implements ActionListener{
         Date heure=new Date();
         Border bordure;
         
-        heureAffiche.setText((heure.getHours()+":"+heure.getMinutes()));
+        setHeureAffiche();
         heureAffiche.setFont(new Font("Arial", Font.BOLD, 65));
         heureAffiche.setForeground(Color.white);
         
@@ -92,7 +92,6 @@ public class Interface extends JFrame implements ActionListener{
         
         //création des composants
         
-        setHeureAffiche();
         //création des boutons
         panicButton.setIcon(panicImage);
         panicButton.setBorderPainted(false);
@@ -166,6 +165,7 @@ public class Interface extends JFrame implements ActionListener{
         else if(e.getSource()==calendrier)
             System.out.println("calendrier pressed");
     }
+    
     
     //fonctions de placement des éléments
     public void heurePlacement(GridBagConstraints cont, JPanel pano){
