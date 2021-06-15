@@ -25,7 +25,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.border.Border;
-import main.LedMarche;
 
 /**
  *
@@ -48,6 +47,7 @@ public class Interface extends JFrame implements ActionListener{
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
+        this.setSize(800, 480);
         calendrier.addActionListener(this);
         informations.addActionListener(this);
         menuSU.addActionListener(this);
@@ -124,6 +124,10 @@ public class Interface extends JFrame implements ActionListener{
         this.setContentPane(pano);
         this.pack();
         
+    }
+    
+    public JLabel getHeureAffiche(){
+        return heureAffiche;
     }
 
     @Override
