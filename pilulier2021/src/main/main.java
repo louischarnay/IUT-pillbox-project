@@ -15,7 +15,7 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Interface fenetre=new Interface();
         fenetre.setVisible(true);
         // TODO code application logic here
