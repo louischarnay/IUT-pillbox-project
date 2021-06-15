@@ -36,10 +36,10 @@ public class Interface extends JFrame implements ActionListener{
     protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton();
     protected LedMarche ledMarche= new LedMarche();
     
-    ImageIcon panicImage=new ImageIcon(getClass().getResource("images/panicImage.png"));
-    ImageIcon calendrierImage=new ImageIcon(getClass().getResource("images/calendrierImage.png"));
-    ImageIcon informationsImage=new ImageIcon(getClass().getResource("images/informationImage.png"));
-    ImageIcon menuSUImage=new ImageIcon(getClass().getResource("images/MenuSUImage.png"));
+    ImageIcon panicImage=new ImageIcon(getClass().getResource("panicImage.png"));
+    ImageIcon calendrierImage=new ImageIcon(getClass().getResource("calendrierImage.png"));
+    ImageIcon informationsImage=new ImageIcon(getClass().getResource("informationImage.png"));
+    ImageIcon menuSUImage=new ImageIcon(getClass().getResource("menuSUImage.png"));
     
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
