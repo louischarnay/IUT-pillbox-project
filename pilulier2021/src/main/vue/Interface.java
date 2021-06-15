@@ -36,8 +36,11 @@ import main.vue.LedMarche;
 public class Interface extends JFrame implements ActionListener{
     protected JLabel heureAffiche=new JLabel();
     protected JTextArea infosMenu=new JTextArea();
-    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton();
+    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU=new JButton();
     protected LedMarche ledMarche= new LedMarche();
+    
+    JPanel pano=new JPanel();
+    GridBagConstraints cont=new GridBagConstraints();
     
     ImageIcon imageBase=new ImageIcon(getClass().getResource("panicImage.png"));
     Image image = imageBase.getImage();
@@ -62,6 +65,14 @@ public class Interface extends JFrame implements ActionListener{
     Color transparent=new Color(0, 0, 0, 0);
     Color vertFond=new Color(0, 128, 128, 255);
     
+    public JPanel getPano() {
+        return pano;
+    }
+
+    public GridBagConstraints getCont() {
+        return cont;
+    }
+    
     public Interface() throws InterruptedException{
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,11 +82,11 @@ public class Interface extends JFrame implements ActionListener{
         informations.addActionListener(this);
         menuSU.addActionListener(this);
         panicButton.addActionListener(this);
+        boutonAlerte.addActionListener(this);
        
     }
     
     public void initialisation(){
-        JPanel pano=new JPanel();
         pano.setLayout(new GridBagLayout());
         Date heure=new Date();
         Border bordure;
@@ -118,24 +129,18 @@ public class Interface extends JFrame implements ActionListener{
         bordure=BorderFactory.createLineBorder(Color.red);
         boutonAlerte.setBorder(bordure);
         boutonAlerte.setForeground(Color.red);
-        boutonAlerte.setFont(new Font("Arial", Font.BOLD, 30));
+        boutonAlerte.setFont(new Font("Arial", Font.BOLD, 60));
         
+        //boutonMenuSU.setText
         
-        
-        GridBagConstraints cont=new GridBagConstraints();
         pano.setBackground(vertFond);
         //placement heure
         heurePlacement(cont, pano);
         //placement prochain traitement + nb cases restantes
-        prochainTraitPlacement(cont, pano);
-        //boutonAlertePlacement(cont, pano, "Heure de traitement");
+        //prochainTraitPlacement(cont, pano);
+        boutonAlertePlacement(cont, pano, "Traitement pris");
         //placement bouton calendrier
-        cont.gridwidth=1;
-        cont.gridx=0;
-        cont.gridy=3;
-        cont.weightx=1;
-        cont.insets=new Insets(5, 5, 5, 5);
-        pano.add(calendrier, cont);
+        
         //placement des boutons menu
         boutonsMenuPlacement(cont, pano);
         //placement led de marche
@@ -164,6 +169,10 @@ public class Interface extends JFrame implements ActionListener{
             System.out.println("informations pressed");
         else if(e.getSource()==calendrier)
             System.out.println("calendrier pressed");
+        else if(e.getSource()==boutonAlerte)
+            System.out.println("bouton alerte pressed");
+            boutonAlerte.setVisible(false);
+            prochainTraitPlacement(cont, pano);
     }
     
     
@@ -176,6 +185,7 @@ public class Interface extends JFrame implements ActionListener{
         cont.gridx=0;
         cont.gridy=0;
         pano.add(heureAffiche, cont);
+        cont.gridwidth=1;
     }
     
     public void ledMarchePlacement(GridBagConstraints cont, JPanel pano){
@@ -188,12 +198,23 @@ public class Interface extends JFrame implements ActionListener{
     
     public void prochainTraitPlacement(GridBagConstraints cont, JPanel pano){
         cont.fill=GridBagConstraints.BOTH;
+        cont.gridheight=2;
+        cont.gridwidth=4;
         cont.gridy=1;
-        cont.insets=new Insets(15, 5, 15, 5);
+        cont.gridx=0;
+        cont.fill=GridBagConstraints.BOTH;
+        cont.insets=new Insets(50, 5, 50, 5);
         pano.add(infosMenu, cont);
+        cont.gridheight=1;
+        cont.gridwidth=1;
     }
     
     public void boutonsMenuPlacement(GridBagConstraints cont, JPanel pano){
+        cont.weightx=1;
+        cont.insets=new Insets(5, 5, 5, 5);
+        cont.gridy=3;
+        cont.gridx=0;
+        pano.add(calendrier, cont);
         cont.gridx=1;
         pano.add(informations, cont);
         cont.gridx=2;
@@ -206,10 +227,17 @@ public class Interface extends JFrame implements ActionListener{
         boutonAlerte.setText(msg);
         cont.fill=GridBagConstraints.BOTH;
         cont.anchor=GridBagConstraints.CENTER;
-        cont.insets=new Insets(5, 5, 5, 5);
+        cont.insets=new Insets(70, 5, 70, 5);
         cont.gridx=0;
         cont.gridheight=2;
+        cont.gridwidth=4;
         cont.gridy=1;
         pano.add(boutonAlerte, cont);
+        cont.gridheight=1;
+        cont.gridwidth=1;
+    }
+    
+    public void menuMenuSUPlacement(GridBagConstraints cont, JPanel pano){
+        
     }
 }
