@@ -54,43 +54,34 @@ public class DigitaBCMGpio implements Execute{
         System.out.println("--> GPIO state should be: ON");
 
         try {
-            Thread.sleep(1000);
+            while (true){
+                Thread.sleep(1);
 
-            // turn off gpio pin 
-            pin.low();
-            System.out.println("--> GPIO state should be: OFF");
+                // turn off gpio pin 
+                pin.low();
+                Thread.sleep(1);
 
-            Thread.sleep(1000);
+                // toggle the current state of gpio pin  (should turn on)
+                pin.toggle();
+                Thread.sleep(1);
 
-            // toggle the current state of gpio pin  (should turn on)
-            pin.toggle();
-            System.out.println("--> GPIO state should be: ON");
+                // toggle the current state of gpio pin (should turn off)
+                pin.toggle();
+                Thread.sleep(1);
 
-            Thread.sleep(1000);
+                // turn on gpio pin  for 1 second and then off
+                pin.pulseSync(1);
 
-            // toggle the current state of gpio pin (should turn off)
-            pin.toggle();
-            System.out.println("--> GPIO state should be: OFF");
-
-            Thread.sleep(1000);
-
-            // turn on gpio pin  for 1 second and then off
-            System.out.println("--> GPIO state should be: ON for only 1 second");
-            pin.pulseSync(1000);
-
-            // stop all GPIO activity/threads by shutting down the GPIO controller
-            // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
-            gpio.shutdown();
-
-            System.out.println("Exiting DigitaBCMGpio");
+                // stop all GPIO activity/threads by shutting down the GPIO controller
+                // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+                gpio.shutdown();
+            }
+            
         
         }catch (InterruptedException ex) {
             Logger.getLogger(DigitaBCMGpio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-        
-    
     
     public static void main(String[] args) throws InterruptedException {
     // test unitaire sur GPIO_16

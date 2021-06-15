@@ -52,8 +52,7 @@ public class SS2_Rpi_2021 {
 //            AnalogInput analogInput = new AnalogInput(0);
 //            analogInput.start();
 //              
-//            DigitaBCMGpio digitaBCMGpio = new DigitaBCMGpio(RaspiBcmPin.GPIO_16);
-//            digitaBCMGpio.start();
+
             
 //            DigitaBCMGpioListener digitaBCMGpioListener = new DigitaBCMGpioListener(RaspiBcmPin.GPIO_05);
 //            digitaBCMGpioListener.start();
