@@ -45,9 +45,9 @@ public class SS2_Rpi_2021 {
          try {
                
              
-      //      DHT dht22 = new DHT(BCM_26);
-            DHTMock dht22 = new DHTMock();
-            dht22.getTemperature();
+//            DHT dht22 = new DHT(BCM_26);
+//            DHTMock dht22 = new DHTMock();
+//            dht22.getTemperature();
               
 //            AnalogInput analogInput = new AnalogInput(0);
 //            analogInput.start();
@@ -59,7 +59,7 @@ public class SS2_Rpi_2021 {
 //            digitaBCMGpioListener.start();
             
 //            StepperMotorGpio cx28byj48 = new StepperMotorGpio(RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
-////          cx28byj48.start();
+//            cx28byj48.start();
            
         } catch (Exception ex) {
             Logger.getLogger(SS2_Rpi_2021.class.getName()).log(Level.SEVERE, null, ex);

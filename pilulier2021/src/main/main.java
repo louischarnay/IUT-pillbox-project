@@ -5,6 +5,8 @@
  */
 package main;
 
+import com.pi4j.io.gpio.RaspiBcmPin;
+import com.pi4j.device.pibrella.PibrellaBuzzer;
 import main.vue.Interface;
 
 /**
@@ -19,6 +21,7 @@ public class main {
         Interface fenetre=new Interface();
         fenetre.setVisible(true);
         // TODO code application logic here
+             
         int i = 0;
         while(i == 0){
             fenetre.setHeureAffiche();
