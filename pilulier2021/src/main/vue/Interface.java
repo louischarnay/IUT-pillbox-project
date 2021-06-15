@@ -118,9 +118,7 @@ public class Interface extends JFrame implements ActionListener{
         bordure=BorderFactory.createLineBorder(Color.red);
         boutonAlerte.setBorder(bordure);
         boutonAlerte.setForeground(Color.red);
-        boutonAlerte.setFont(new Font("Arial", Font.BOLD, 30));
-        
-        
+        boutonAlerte.setFont(new Font("Arial", Font.BOLD, 30));        
         
         GridBagConstraints cont=new GridBagConstraints();
         pano.setBackground(vertFond);
