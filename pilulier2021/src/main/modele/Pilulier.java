@@ -25,7 +25,13 @@ public class Pilulier {
             calendrier.add(new Case(i));
         }
     }
-   
+    public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+        patient=p;
+        referents=r;
+        calendrier=c;
+        buzzer=b;
+        moteur=m;
+    }
     public Patient getPatient() {
         return patient;
     }
@@ -63,9 +69,36 @@ public class Pilulier {
     }
     
     public void addCase(Case c){
+        c.setEtatRemplissage(true);
         calendrier.add(c);
         
-       
+    }
+    public void isTime(){
+        Date heure=new Date();
+        for(int i=0;i<calendrier.size();i++){
+            if(heure.getDay()==calendrier.get(i).getDate().getDay() && heure.getHours()==calendrier.get(i).getDate().getHours() && heure.getMinutes()==calendrier.get(i).getDate().getMinutes()){
+                //faire tourner le moteur d'une case
+                calendrier.remove(i);
+               
+            }
+        }
+        
+    }
+    public String getInfo(){
+        String res="";
+        res+="réferents : \n";
+        for(int i = 0;i < referents.size();i++){
+            res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getAge()+"ans  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
+        }
+        res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
+        for(int i = 0; i<patient.maladie.size();i++){
+            res+="- "+ patient.maladie.get(i)+"\n";
+        }
+        for(int i = 0; i<patient.allergie.size();i++){
+            res+="- "+ patient.allergie.get(i)+"\n";
+        }
+        
+        return res;
     }
     
 }

@@ -31,6 +31,6 @@ public class Historique {
      * @param action actionHistorique à ajouter
      */
     public void addActionHistorique(ActionHistorique action){
-        //a coder
+        listeHistorique.add(action);
     }
 }
