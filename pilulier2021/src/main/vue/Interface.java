@@ -37,10 +37,10 @@ import javax.swing.text.StyledDocument;
  * @author p2008965
  */
 public class Interface extends JFrame implements ActionListener, FocusListener{
-    protected JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoAge=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel();
+    protected JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel();
     protected JTextArea infosMenu=new JTextArea();
-    protected JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), ageEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
-    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerAge=new JButton(), validerMail=new JButton(), validerTel=new JButton();
+    protected JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
+    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerFonction=new JButton(), validerMail=new JButton(), validerTel=new JButton();
     protected LedMarche ledMarche= new LedMarche();
     
     EnumEtat etat;
@@ -110,11 +110,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         adresseEcriture.addFocusListener(this);
         telEcriture.addFocusListener(this);
         mailEcriture.addFocusListener(this);
-        ageEcriture.addFocusListener(this);
+        fonctionEcriture.addFocusListener(this);
         validerNom.addActionListener(this);
         validerPrenom.addActionListener(this);
         validerAdresse.addActionListener(this);
-        validerAge.addActionListener(this);
+        validerFonction.addActionListener(this);
         validerTel.addActionListener(this);
         validerMail.addActionListener(this);
     }
@@ -138,7 +138,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setLabel(infoNom, 30, transparent, false, "Nom :");
         setLabel(infoPrenom, 30, transparent, false, "Prenom :");
         setLabel(infoAdresse, 30, transparent, false, "Adresse :");
-        setLabel(infoAge, 30, transparent, false, "Age :");
+        setLabel(infoFonction, 30, transparent, false, "Fonction :");
         setLabel(infoTel, 30, transparent, false, "Tel :");
         setLabel(infoMail, 30, transparent, false, "Mail :");
         
@@ -152,7 +152,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setTextFieldInfo(nomEcriture, "Nom");
         setTextFieldInfo(prenomEcriture, "Prenom");
         setTextFieldInfo(adresseEcriture, "Adresse");
-        setTextFieldInfo(ageEcriture, "Age");
+        setTextFieldInfo(fonctionEcriture, "Fonction");
         setTextFieldInfo(mailEcriture, "Mail");
         setTextFieldInfo(telEcriture, "Tel");
         
@@ -181,7 +181,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setBoutonIcon(validerNom, flecheGaucheImage);
         setBoutonIcon(validerPrenom, flecheGaucheImage);
         setBoutonIcon(validerAdresse, flecheGaucheImage);
-        setBoutonIcon(validerAge, flecheGaucheImage);
+        setBoutonIcon(validerFonction, flecheGaucheImage);
         setBoutonIcon(validerTel, flecheGaucheImage);
         setBoutonIcon(validerMail, flecheGaucheImage);
         
@@ -256,6 +256,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         
         else if(e.getSource()==informations){
             etat=EnumEtat.INFOLECTURE;
+            ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
             flechesVisible(true);
@@ -267,6 +268,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==calendrier){
             System.out.println("bouton calendrier pressed");
             etat=EnumEtat.CALENDRIERLECTURE;
+            ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
             boutonRetourVisible(true);
@@ -276,6 +278,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==menuSU){
             tmp=true;
             etat=EnumEtat.MENUSU;
+            ledMarcheVisible(false);
             boutonAlerteVisible(false);
             boutonsMenuVisible(false);
             infosMenuVisible(false);
@@ -320,6 +323,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
                     
             }
             if(tmp==true){
+                ledMarcheVisible(true);
                 boutonRetourVisible(false);
                 boutonMenuSUVisible(false);
                 boutonsMenuVisible(true);
@@ -334,6 +338,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==boutonMenuSU0){
             etat=EnumEtat.INFOECRITURE;
             tmp=false;
+            ledMarcheVisible(false);
             boutonMenuSUVisible(false);
             flechesVisible(true);
             boutonRetourVisible(true);
@@ -353,8 +358,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         }            
         else if(e.getSource()==validerPrenom)
             System.out.println("valider prenom pressed");
-        else if(e.getSource()==validerAge)
-            System.out.println("valider age pressed");
+        else if(e.getSource()==validerFonction)
+            System.out.println("valider fonction pressed");
         else if(e.getSource()==validerAdresse)
             System.out.println("valider adresse pressed");
         else if(e.getSource()==validerTel)
@@ -393,11 +398,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.weightx=1/2;
         cont.gridx=1;
         cont.gridy=1;
-        pano.add(infoNom, cont);
+        pano.add(infoFonction, cont);
         cont.gridy=2;
         pano.add(infoPrenom, cont);
         cont.gridy=3;
-        pano.add(infoAge, cont);
+        pano.add(infoNom, cont);
         cont.gridy=4;
         pano.add(infoAdresse, cont);
         cont.gridy=5;
@@ -412,11 +417,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.weighty=2/1;
         cont.gridx=2;
         cont.gridy=1;
-        pano.add(nomEcriture, cont);
+        pano.add(fonctionEcriture, cont);
         cont.gridy=2;
         pano.add(prenomEcriture, cont);
         cont.gridy=3;
-        pano.add(ageEcriture, cont);
+        pano.add(nomEcriture, cont);
         cont.gridy=4;
         pano.add(adresseEcriture, cont);
         cont.gridy=5;
@@ -432,11 +437,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.gridheight=1;
         cont.gridx=6;
         cont.gridy=1;
-        pano.add(validerNom, cont);
+        pano.add(validerFonction, cont);
         cont.gridy=2;
         pano.add(validerPrenom, cont);
         cont.gridy=3;
-        pano.add(validerAge, cont);
+        pano.add(validerNom, cont);
         cont.gridy=4;
         pano.add(validerAdresse, cont);
         cont.gridy=5;
@@ -571,7 +576,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         infoNom.setVisible(b);
         infoPrenom.setVisible(b);
         infoMail.setVisible(b);
-        infoAge.setVisible(b);
+        infoFonction.setVisible(b);
         infoTel.setVisible(b);
         infoAdresse.setVisible(b);
     }
@@ -615,13 +620,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     public void infosEcritureVisible(boolean b, boolean c){
         nomEcriture.setVisible(b);
         prenomEcriture.setVisible(b);
-        ageEcriture.setVisible(b);
+        fonctionEcriture.setVisible(b);
         mailEcriture.setVisible(b);
         telEcriture.setVisible(b);
         adresseEcriture.setVisible(b);
         nomEcriture.setEditable(c);
         prenomEcriture.setEditable(c);
-        ageEcriture.setEditable(c);
+        fonctionEcriture.setEditable(c);
         telEcriture.setEditable(c);
         mailEcriture.setEditable(c);
         adresseEcriture.setEditable(c);
@@ -630,7 +635,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     public void boutonsValiderInfosVisible(boolean b){
         validerNom.setVisible(b);
         validerPrenom.setVisible(b);
-        validerAge.setVisible(b);
+        validerFonction.setVisible(b);
         validerAdresse.setVisible(b);
         validerTel.setVisible(b);
         validerMail.setVisible(b);
@@ -701,8 +706,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             mailEcriture.setText("");
             else if(e.getSource()==prenomEcriture)
             prenomEcriture.setText("");
-            else if(e.getSource()==ageEcriture)
-            ageEcriture.setText("");
+            else if(e.getSource()==fonctionEcriture)
+            fonctionEcriture.setText("");
             else if(e.getSource()==adresseEcriture)
             adresseEcriture.setText("");
         }
