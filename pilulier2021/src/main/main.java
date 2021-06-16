@@ -45,13 +45,10 @@ public class main {
         
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
-        Patient Michel=new Patient("Michel","Polnareff","Patitent","Rue Peter Fink");
-        Michel.addAllergie("polen");
-        Michel.addAllergie("cacahuetes");
-        Michel.addMaladie("mal au ventre");
-        Michel.addMaladie("Rhum");
+        Referent Michel=new Referent("Michel","Polnareff","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
         Referent Natacha=new Referent("Natacha","Tte","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
         Referent Salima=new Referent("Salima","Rdigra","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
+        referents.add(Michel);
         referents.add(Natacha);
         referents.add(Salima);
         for(int i=0;i<8;i++){
@@ -59,7 +56,7 @@ public class main {
         }
         Moteur m=new Moteur(2);
         HautParleur buzzer=new HautParleur(2);
-        Pilulier pilulier=new Pilulier(Michel,referents,calendrier,buzzer, m);
+        Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, m);
         String res=pilulier.getInfoAll();
         System.out.println(res);
         System.out.println("Calendrier : ");

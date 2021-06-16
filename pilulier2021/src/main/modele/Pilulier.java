@@ -27,9 +27,9 @@ public class Pilulier {
         }
         referents=new ArrayList<>();
     }
-    public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+    public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
         
-        patient=p;
+        
         referents=r;
         calendrier=c;
         buzzer=b;
@@ -107,13 +107,7 @@ public class Pilulier {
         for(int i = 0;i < referents.size();i++){
             res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
         }
-        res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
-        for(int i = 0; i<patient.maladie.size();i++){
-            res+="- "+ patient.maladie.get(i)+"\n";
-        }
-        for(int i = 0; i<patient.allergie.size();i++){
-            res+="- "+ patient.allergie.get(i)+"\n";
-        }
+     
         
         return res;
     }

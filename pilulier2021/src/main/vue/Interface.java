@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -29,7 +30,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import main.modele.Patient;
 import main.modele.Pilulier;
+import main.modele.Referent;
 
 /**
  *
@@ -39,7 +42,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     private JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel(), caseRemplissage=new JLabel(), caseMois=new JLabel(), caseJour=new JLabel(), caseHeure=new JLabel(), caseMinute=new JLabel(), retardAccepte=new JLabel();
     private JTextArea infosMenu=new JTextArea();
     private JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
-    private JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerFonction=new JButton(), validerMail=new JButton(), validerTel=new JButton();
+    private JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerInfos=new JButton();
     private LedMarche ledMarche= new LedMarche();
     private JComboBox boxMois=new JComboBox(), boxJour=new JComboBox(), boxHeure=new JComboBox(), boxMinute=new JComboBox();
     private JCheckBox checkRetard=new JCheckBox();
@@ -114,12 +117,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         telEcriture.addFocusListener(this);
         mailEcriture.addFocusListener(this);
         fonctionEcriture.addFocusListener(this);
-        validerNom.addActionListener(this);
-        validerPrenom.addActionListener(this);
-        validerAdresse.addActionListener(this);
-        validerFonction.addActionListener(this);
-        validerTel.addActionListener(this);
-        validerMail.addActionListener(this);
+        validerInfos.addActionListener(this);
     }
 
     public void initialisation() {
@@ -206,24 +204,27 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setFleche(flecheDroite, flecheGaucheImage);
 
         //boutons valider information
-        setBoutonIcon(validerNom, flecheGaucheImage);
-        setBoutonIcon(validerPrenom, flecheGaucheImage);
-        setBoutonIcon(validerAdresse, flecheGaucheImage);
-        setBoutonIcon(validerFonction, flecheGaucheImage);
-        setBoutonIcon(validerTel, flecheGaucheImage);
-        setBoutonIcon(validerMail, flecheGaucheImage);
-
+        setBoutonTexte(validerInfos, "Valider", 30, Color.white);
+        
         //cases calendrier
-        setLabel(case1, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(0), 1));
-        setLabel(case2, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(1), 2));
-        setLabel(case3, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(2), 3));
-        setLabel(case4, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(3), 4));
-        setLabel(case5, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(4), 5));
-        setLabel(case6, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(5), 6));
-        setLabel(case7, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(6), 7));
-        setLabel(case8, 30, Color.white, true, pilulier.getDateString(pilulier.getdate(7), 8));
-        case1.setText("");
-
+        setLabel(case1, 30, Color.white, true, "<html>Case 1<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case2, 30, Color.white, true, "<html>Case 2<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case3, 30, Color.white, true, "<html>Case 3<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case4, 30, Color.white, true, "<html>Case 4<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case5, 30, Color.white, true, "<html>Case 5<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case6, 30, Color.white, true, "<html>Case 6<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case7, 30, Color.white, true, "<html>Case 7<br/>15 / 06<br/>22 : 15</html>");
+        setLabel(case8, 30, Color.white, true, "<html>Case 8<br/>15 / 06<br/>22 : 15</html>");
+        
+        //comboBox remplissage
+        setComboBox(boxMois);
+        setComboBox(boxJour);
+        setComboBox(boxHeure);
+        setComboBox(boxMinute);
+        
+        //label retard accepté
+        setLabel(retardAccepte, 20, Color.white, true, "Retard accepté");
+        
         pano.setBackground(vertFond);
         //placement heure
         heureAffiche(cont, pano);
@@ -242,7 +243,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         //placement infos ecriture
         infosEcritureAffiche(cont, pano);
         //placement boutons valider infos
-        boutonsValiderInfosAffiche(cont, pano);
+        boutonValiderInfosAffiche(cont, pano);
         //placement labels infos
         infosLabelsAffiche(cont, pano);
         //placement cases menu calendrier
@@ -296,6 +297,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
+            chargerReferent();
             flechesVisible(true);
             boutonRetourVisible(true);
             infosEcritureVisible(true, false);
@@ -395,22 +397,72 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             boutonMenuSUVisible(false);
             flechesVisible(true);
             infosEcritureVisible(true, false);
-        } else if (e.getSource() == validerPrenom) {
-            pilulier.getPatient().setNom(nomEcriture.getText());
-            System.out.println(pilulier.getPatient().getNom());
-        } else if (e.getSource() == validerFonction) {
-            System.out.println("valider fonction pressed");
-        } else if (e.getSource() == validerAdresse) {
-            System.out.println("valider adresse pressed");
-        } else if (e.getSource() == validerTel) {
-            System.out.println("valider tel pressed");
-        } else if (e.getSource() == validerMail) {
-            System.out.println("valider mail pressed");
-        } else if (e.getSource() == validerNom) {
-            System.out.println("valider nom pressed");
+        }
+        else if(e.getSource()==validerInfos){
+            
+            pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
+            pilulier.getReferents().get(0).setNom(nomEcriture.getText());
+            pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
+            pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
+            pilulier.getReferents().get(0).setTel(telEcriture.getText());
+            pilulier.getReferents().get(0).setMail(mailEcriture.getText());
+                
+            System.out.println(pilulier.getReferents());
+              
+                
+           
+                
+           
+                
+            
+            System.out.println("infos changées");
+        }
+        else if(e.getSource()==flecheGauche){
+            switch(etat){
+                case CALENDRIERECRITURE:
+                    System.out.println("salut bg on tourne à gauche");
+                    break;
+                case INFOLECTURE:
+                    System.out.println("lecture info à gauche");
+                    break;
+                case INFOECRITURE:
+                    System.out.println("ecriture info à gauche");
+                    break;
+                case HISTORIQUE:
+                    System.out.println("historique à gauche");
+                    break;
+            }
+        }
+        else if(e.getSource()==flecheDroite){
+            if(etat==EnumEtat.CALENDRIERECRITURE){
+                switch(etat){
+                case CALENDRIERECRITURE:
+                    System.out.println("salut bg on tourne à droite");
+                    break;
+                case INFOLECTURE:
+                    System.out.println("lecture info à droite");
+                    break;
+                case INFOECRITURE:
+                    System.out.println("ecriture info à droite");
+                    break;
+                case HISTORIQUE:
+                    System.out.println("historique à droite");
+                    break;
+            }
+            }
         }
     }
+  
 
+    //charger les patients
+    public void chargerReferent(){
+        nomEcriture.setText(pilulier.getReferents().get(0).getNom());
+        prenomEcriture.setText(pilulier.getReferents().get(0).getPrenom());
+        fonctionEcriture.setText(pilulier.getReferents().get(0).getFonction());
+        adresseEcriture.setText(pilulier.getReferents().get(0).getAdresse());
+        mailEcriture.setText(pilulier.getReferents().get(0).getMail());
+        telEcriture.setText(pilulier.getReferents().get(0).getTel());
+    }
     //placement des éléments
     public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 1;
@@ -439,7 +491,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.gridx=1;
         cont.gridy=3;
         pano.add(boxMois, cont);
-        cont.gridx = 2;
+        cont.gridx=2;
         pano.add(boxJour, cont);
         cont.gridy=4;
         cont.gridx=1;
@@ -513,32 +565,23 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.gridwidth = 1;
         cont.weighty = 1;
     }
-
-    public void boutonsValiderInfosAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.weightx = 1 / 10;
-        cont.gridheight = 1;
-        cont.gridx = 6;
-        cont.gridy = 1;
-        pano.add(validerFonction, cont);
-        cont.gridy = 2;
-        pano.add(validerPrenom, cont);
-        cont.gridy = 3;
-        pano.add(validerNom, cont);
-        cont.gridy = 4;
-        pano.add(validerAdresse, cont);
-        cont.gridy = 5;
-        pano.add(validerTel, cont);
-        cont.gridy = 6;
-        pano.add(validerMail, cont);
-        cont.weightx = 1;
+    
+    public void boutonValiderInfosAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridwidth=2;
+        cont.gridheight=1;
+        cont.gridx=1;
+        cont.gridy=7;
+        pano.add(validerInfos, cont);
+        cont.gridwidth=1;
     }
-
-    public void flechesAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridwidth = 1;
-        cont.weightx = 1 / 100;
-        cont.gridheight = 6;
-        cont.gridx = 0;
-        cont.gridy = 1;
+    
+    
+    public void flechesAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridwidth=1;
+        cont.weightx=1/100;
+        cont.gridheight=7;
+        cont.gridx=0;
+        cont.gridy=1;
         pano.add(flecheGauche, cont);
         cont.gridx = 7;
         pano.add(flecheDroite, cont);
@@ -649,6 +692,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         boxMois.setVisible(b);
         boxJour.setVisible(b);
         boxHeure.setVisible(b);
+        boxMinute.setVisible(b);
         caseMinute.setVisible(b);
         caseMois.setVisible(b);
         caseJour.setVisible(b);
@@ -733,14 +777,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         mailEcriture.setEditable(c);
         adresseEcriture.setEditable(c);
     }
-
-    public void boutonsValiderInfosVisible(boolean b) {
-        validerNom.setVisible(b);
-        validerPrenom.setVisible(b);
-        validerFonction.setVisible(b);
-        validerAdresse.setVisible(b);
-        validerTel.setVisible(b);
-        validerMail.setVisible(b);
+    
+    public void boutonsValiderInfosVisible(boolean b){
+        validerInfos.setVisible(b);
     }
 
     //setters des éléments
