@@ -89,7 +89,7 @@ public class Pilulier {
         String res="";
         res+="réferents : \n";
         for(int i = 0;i < referents.size();i++){
-            res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getAge()+"ans  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
+            res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"ans  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
         }
         res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
         for(int i = 0; i<patient.maladie.size();i++){
