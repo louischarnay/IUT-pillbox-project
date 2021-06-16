@@ -55,19 +55,19 @@ public class DigitaBCMGpio implements Execute{
 
         try {
             while (true){
-                Thread.sleep(1);
+                Thread.sleep(1/100000);
 
                 // turn off gpio pin 
                 pin.low();
-                Thread.sleep(1);
+                Thread.sleep(1/100000);
 
                 // toggle the current state of gpio pin  (should turn on)
                 pin.toggle();
-                Thread.sleep(1);
+                Thread.sleep(1/100000);
 
                 // toggle the current state of gpio pin (should turn off)
                 pin.toggle();
-                Thread.sleep(1);
+                Thread.sleep(1/100000);
 
                 // turn on gpio pin  for 1 second and then off
                 pin.pulseSync(1);

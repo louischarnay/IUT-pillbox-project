@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,6 +6,7 @@
  */
 package main.vue;
 
+import com.pi4j.io.gpio.RaspiBcmPin;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -19,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,7 +31,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import main.modele.Patient;
 import main.modele.Pilulier;
+import main.modele.Moteur;
+import main.modele.Referent;
 
 /**
  *
@@ -298,6 +304,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
+            chargerReferent();
             flechesVisible(true);
             boutonRetourVisible(true);
             infosEcritureVisible(true, false);
@@ -306,7 +313,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == calendrier) {
             System.out.println("bouton calendrier pressed");
             etat = EnumEtat.CALENDRIERLECTURE;
-            //fonction qui set toutes les cases
+            case1.setText(pilulier.getDateString(pilulier.getdate(0), 1));
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
@@ -399,6 +406,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             infosEcritureVisible(true, false);
         } else if (e.getSource() == validerInfos) {
+
+            pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
+            pilulier.getReferents().get(0).setNom(nomEcriture.getText());
+            pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
+            pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
+            pilulier.getReferents().get(0).setTel(telEcriture.getText());
+            pilulier.getReferents().get(0).setMail(mailEcriture.getText());
+
+            System.out.println(pilulier.getReferents());
+
             System.out.println("infos changées");
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
@@ -431,6 +448,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
             }
         }
+    }
+
+//charger les patients
+    public void chargerReferent() {
+        nomEcriture.setText(pilulier.getReferents().get(0).getNom());
+        prenomEcriture.setText(pilulier.getReferents().get(0).getPrenom());
+        fonctionEcriture.setText(pilulier.getReferents().get(0).getFonction());
+        adresseEcriture.setText(pilulier.getReferents().get(0).getAdresse());
+        mailEcriture.setText(pilulier.getReferents().get(0).getMail());
+        telEcriture.setText(pilulier.getReferents().get(0).getTel());
     }
 
     //placement des éléments
@@ -839,47 +866,45 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteAffiche(cont, pano, "Heure du traitement");
         boutonAlerteVisible(true);
         timerAlarme = 0;
-        boolean tamp=false;
+        boolean tamp = false;
         while (!boutonPressed) {
             timerAlarme++;
             setHeureAffiche();
             Thread.sleep(1000);
             if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
                     System.out.println("envoi mail");
                     boutonAlerteVisible(false);
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
-                    tamp=true;
+                    tamp = true;
                     return false;
-                }
-                else if(!tamp){
+                } else if (!tamp) {
                     System.out.println("en retard michel");
-                    tamp=true;
+                    tamp = true;
                 }
             }
         }
         //moteur qui ouvre
         boutonPressed = false;
         boutonAlerte.setText("Refermer le pilulier");
-        timerAlarme=0;
-        tamp=false;
+        timerAlarme = 0;
+        tamp = false;
         while (!boutonPressed) {
             timerAlarme++;
             setHeureAffiche();
             Thread.sleep(1000);
             if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
                     System.out.println("envoi mail");
                     boutonAlerteVisible(false);
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
-                    tamp=true;
+                    tamp = true;
                     return false;
-                }
-                else if(!tamp){
+                } else if (!tamp) {
                     System.out.println("en retard michel");
-                    tamp=true;
+                    tamp = true;
                 }
             }
         }

@@ -42,7 +42,7 @@ public class Patient extends Personne {
     public String getInfo(){
         String newLine=System.getProperty("line.separator");
         String res="";
-        res+="Nom : "+nom+newLine+"Prenom : "+prenom+"Allergies : ";
+        res+="Nom : "+nom+newLine+"Prenom : "+prenom+newLine+"Adresse : "+this.getAdresse()+newLine+"Allergies :" ;
         for (int i = 0; i < allergie.size(); i++) {
             res+="- "+allergie.get(i)+newLine;
         }

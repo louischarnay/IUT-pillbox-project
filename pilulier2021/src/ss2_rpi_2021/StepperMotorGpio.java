@@ -96,7 +96,7 @@ public class StepperMotorGpio implements Execute{
 
         // test motor control : STEPPING FORWARD for half revolution
         System.out.println("   Motor FORWARD for 2048 steps.");
-        motor.step(2048);
+        motor.step(2048*4);
         System.out.println("   Motor STOPPED for 2 seconds.");
        try {
            Thread.sleep(2000);

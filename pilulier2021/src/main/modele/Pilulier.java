@@ -5,6 +5,7 @@
  */
 package main.modele;
 
+import com.pi4j.io.gpio.RaspiBcmPin;
 import main.modele.Case;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,9 +28,14 @@ public class Pilulier {
         }
         referents=new ArrayList<>();
     }
-    public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+
+    
+    
+
+    public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+
         
-        patient=p;
+        
         referents=r;
         calendrier=c;
         buzzer=b;
@@ -50,12 +56,14 @@ public class Pilulier {
     public ArrayList<Referent> getReferents() {
         return referents;
     }
+    
+    public Moteur getMotor(){
+        return moteur;
+    }
 
     public HautParleur getBuzzer() {
         return buzzer;
     }
-    
-    
 
     public void setBuzzer(HautParleur buzzer) {
         this.buzzer = buzzer;
@@ -81,7 +89,20 @@ public class Pilulier {
         referents.add(r);
     }
     
+    public int getCalendrierSize(){
+        return calendrier.size();
+    }
     
+    public String getDateString(Date d, int ind){
+         String res="";
+        
+            res="<html>Case "+ind+"<br/>"+(d.getDate())+" / "+(d.getMonth()+1)+"<br/>"+(d.getHours()+1)+" : "+(d.getMinutes()+1)+"</html>";
+        
+        return res;
+    }
+    public Date getdate(int i){
+        return calendrier.get(i).getDate();
+    }
     public void addCase(Case c){
         c.setEtatRemplissage(true);
         calendrier.add(c);
@@ -104,13 +125,7 @@ public class Pilulier {
         for(int i = 0;i < referents.size();i++){
             res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
         }
-        res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
-        for(int i = 0; i<patient.maladie.size();i++){
-            res+="- "+ patient.maladie.get(i)+"\n";
-        }
-        for(int i = 0; i<patient.allergie.size();i++){
-            res+="- "+ patient.allergie.get(i)+"\n";
-        }
+     
         
         return res;
     }
