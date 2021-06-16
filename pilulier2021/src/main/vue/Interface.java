@@ -50,7 +50,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     private JCheckBox checkRetard=new JCheckBox();
     
     private Pilulier pilulier;
-
+    private  boolean boutonPressed=false;
+    
     EnumEtat etat;
 
     JPanel pano = new JPanel();
@@ -272,9 +273,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         flechesVisible(false);
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
-        boutonAlerte.setVisible(false);
-
-        etat = EnumEtat.MENU;
+        boutonAlerteVisible(false);
+        
+        etat=EnumEtat.MENU;
     }
 
     //mise à jour de l'heure
@@ -851,7 +852,26 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
     }
-
+    
+    //heure de prendre la pilule
+    public void itsTime(){
+        //efface tous les composants
+        numCaseVisible(false);
+        checkRetardVisible(false);
+        boxCalendrierVisible(false);
+        casesCalendrierVisible(false);
+        infosLabelsVisible(false);
+        boutonsValiderInfosVisible(false);
+        infosEcritureVisible(false, false);
+        flechesVisible(false);
+        boutonMenuSUVisible(false);
+        boutonRetourVisible(false);
+        boutonAlerteVisible(false);
+        //affiche bouton alerte
+        boutonAlerte.setText("Heure du traitement");
+            
+    }
+    
     //focus listeners
     @Override
     public void focusGained(FocusEvent e) {
