@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,16 +35,15 @@ import main.modele.Pilulier;
  *
  * @author p2008965
  */
-public class Interface extends JFrame implements ActionListener, FocusListener {
-
-    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), case1 = new JLabel(), case2 = new JLabel(), case3 = new JLabel(), case4 = new JLabel(), case5 = new JLabel(), case6 = new JLabel(), case7 = new JLabel(), case8 = new JLabel(), caseRemplissage = new JLabel();
-    private JTextArea infosMenu = new JTextArea();
-    private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerNom = new JButton(), validerPrenom = new JButton(), validerAdresse = new JButton(), validerFonction = new JButton(), validerMail = new JButton(), validerTel = new JButton();
-    private LedMarche ledMarche = new LedMarche();
-    private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
-    private JCheckBox checkRetard = new JCheckBox();
-
+public class Interface extends JFrame implements ActionListener, FocusListener{
+    private JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel(), caseRemplissage=new JLabel(), caseMois=new JLabel(), caseJour=new JLabel(), caseHeure=new JLabel(), caseMinute=new JLabel(), retardAccepte=new JLabel();
+    private JTextArea infosMenu=new JTextArea();
+    private JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
+    private JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerFonction=new JButton(), validerMail=new JButton(), validerTel=new JButton();
+    private LedMarche ledMarche= new LedMarche();
+    private JComboBox boxMois=new JComboBox(), boxJour=new JComboBox(), boxHeure=new JComboBox(), boxMinute=new JComboBox();
+    private JCheckBox checkRetard=new JCheckBox();
+    
     private Pilulier pilulier;
 
     EnumEtat etat;
@@ -168,8 +168,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         infosMenu.setBackground(vertFond);
 
         //label numéro case
-        setLabel(caseRemplissage, 60, Color.white, true, "Case 1");
-
+        setLabel(caseRemplissage, 30, Color.white, true, "Case 1");
+        
+        //labels box remplissage
+        setLabel(caseMois, 20, Color.white, true, "Mois");
+        setLabel(caseJour, 20, Color.white, true, "Jour");
+        setLabel(caseHeure, 20, Color.white, true, "Heure");
+        setLabel(caseMinute, 20, Color.white, true, "Minute");
+        
         //fields information
         setTextFieldInfo(nomEcriture, "Nom");
         setTextFieldInfo(prenomEcriture, "Prenom");
@@ -413,21 +419,35 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(caseRemplissage, cont);
         cont.gridwidth = 1;
     }
-
-    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridx = 3;
-        cont.gridy = 3;
+    
+    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=3;
+        cont.gridy=3;
+        cont.gridheight=2;
         pano.add(checkRetard, cont);
+        cont.gridheight=1;
+        cont.gridy=2;
+        pano.add(retardAccepte, cont);
     }
-
-    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridx = 1;
-        cont.gridy = 2;
+    
+    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=1;
+        cont.gridy=2;
+        pano.add(caseMois, cont);
+        cont.gridx=2;
+        pano.add(caseJour, cont);
+        cont.gridx=1;
+        cont.gridy=3;
         pano.add(boxMois, cont);
         cont.gridx = 2;
         pano.add(boxJour, cont);
-        cont.gridx = 1;
-        cont.gridy = 3;
+        cont.gridy=4;
+        cont.gridx=1;
+        pano.add(caseHeure, cont);
+        cont.gridx=2;
+        pano.add(caseMinute, cont);
+        cont.gridx=1;
+        cont.gridy=5;
         pano.add(boxHeure, cont);
         cont.gridx = 2;
         pano.add(boxMinute, cont);
@@ -629,10 +649,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boxMois.setVisible(b);
         boxJour.setVisible(b);
         boxHeure.setVisible(b);
-        boxMinute.setVisible(b);
+        caseMinute.setVisible(b);
+        caseMois.setVisible(b);
+        caseJour.setVisible(b);
+        caseHeure.setVisible(b);
+        caseMinute.setVisible(b);
     }
-
-    public void checkRetardVisible(boolean b) {
+    
+    public void checkRetardVisible(boolean b){
+        retardAccepte.setVisible(b);
         checkRetard.setVisible(b);
     }
 
@@ -719,7 +744,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //setters des éléments
-    public void setBoutonIcon(JButton bt, ImageIcon img) {
+    
+    public void setCheckBox(JCheckBox bx){
+        Border bordure = BorderFactory.createLineBorder(Color.white);
+        bx.setBackground(vertFond);
+    }
+    
+    public void setComboBox(JComboBox bx){
+        Border bordure = BorderFactory.createLineBorder(Color.white);
+        bx.setBackground(vertFond);
+        bx.setBorder(bordure);
+        bx.setForeground(Color.white);
+        bx.setFont(new Font("Arial", Font.BOLD, 20));
+    }
+    
+    public void setBoutonIcon(JButton bt, ImageIcon img){
         Border bordure = BorderFactory.createLineBorder(Color.white);
         bt.setBackground(vertFond);
         bt.setBorder(bordure);
