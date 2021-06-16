@@ -56,11 +56,8 @@ public class main {
         System.out.println(res);
         System.out.println("Calendrier : ");
         
-        motor.setAngle(1);
-        motor.start();
-        
         for(int i=0;i<calendrier.size();i++){
-            System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
+            System.out.println("Case "+(i+1)+" : " + pilulier.getCaseCalendrier(calendrier.get(i))); 
         }
         
         int i = 0;
