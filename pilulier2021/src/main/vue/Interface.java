@@ -433,13 +433,37 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==validerNom)
             System.out.println("valider nom pressed");
         else if(e.getSource()==flecheGauche){
-            if(etat==EnumEtat.CALENDRIERECRITURE){
-                System.out.println("salut bg on tourne a gauche");
+            switch(etat){
+                case CALENDRIERECRITURE:
+                    System.out.println("salut bg on tourne à gauche");
+                    break;
+                case INFOLECTURE:
+                    System.out.println("lecture info à gauche");
+                    break;
+                case INFOECRITURE:
+                    System.out.println("ecriture info à gauche");
+                    break;
+                case HISTORIQUE:
+                    System.out.println("historique à gauche");
+                    break;
             }
         }
         else if(e.getSource()==flecheDroite){
             if(etat==EnumEtat.CALENDRIERECRITURE){
-                System.out.println("salut bg on tourne a droite");
+                switch(etat){
+                case CALENDRIERECRITURE:
+                    System.out.println("salut bg on tourne à droite");
+                    break;
+                case INFOLECTURE:
+                    System.out.println("lecture info à droite");
+                    break;
+                case INFOECRITURE:
+                    System.out.println("ecriture info à droite");
+                    break;
+                case HISTORIQUE:
+                    System.out.println("historique à droite");
+                    break;
+            }
             }
         }
     }
