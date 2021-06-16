@@ -21,7 +21,7 @@ public class Case {
         this.date=d;
         this.index = index;
         this.etatRemplissage = false;
-        this.retardAccepte = false;
+        this.retardAccepte = true;
     }
 
     public Date getDate() {

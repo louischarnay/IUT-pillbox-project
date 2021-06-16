@@ -39,6 +39,10 @@ public class Pilulier {
         return patient;
     }
     
+    public Case getCase(int index){
+        return calendrier.get(index);
+    }
+    
     public ArrayList<Case> getCalendrier() {
         return calendrier;
     }
@@ -46,6 +50,12 @@ public class Pilulier {
     public ArrayList<Referent> getReferents() {
         return referents;
     }
+
+    public HautParleur getBuzzer() {
+        return buzzer;
+    }
+    
+    
 
     public void setBuzzer(HautParleur buzzer) {
         this.buzzer = buzzer;
