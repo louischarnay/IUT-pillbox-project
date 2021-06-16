@@ -165,6 +165,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         infosMenu.setForeground(Color.white);
         infosMenu.setText("Prochain traitement dans 20 minutes"+newLine+newLine+"3 cases restantes");
         infosMenu.setBackground(vertFond);
+        infosMenu.setEditable(false);
         
         //label numéro case
         setLabel(caseRemplissage, 30, Color.white, true, "Case 1");
@@ -428,7 +429,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             }
         }
         else if(e.getSource()==flecheDroite){
-            if(etat==EnumEtat.CALENDRIERECRITURE){
                 switch(etat){
                 case CALENDRIERECRITURE:
                     System.out.println("salut bg on tourne à droite");
@@ -442,7 +442,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
                 case HISTORIQUE:
                     System.out.println("historique à droite");
                     break;
-            }
             }
         }
     }
