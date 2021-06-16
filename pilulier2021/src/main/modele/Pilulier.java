@@ -109,4 +109,15 @@ public class Pilulier {
         return c.getDate();
         
     }
+    
+    public int itsTime(){
+        Date d=new Date();
+        System.out.println(d);
+        for (int i = 0; i < calendrier.size(); i++) {
+            if(calendrier.get(i).getDate().getMonth()==d.getMonth()&&calendrier.get(i).getDate().getDate()==d.getDate()&&calendrier.get(i).getDate().getHours()==d.getHours()&&calendrier.get(i).getDate().getMinutes()==d.getMinutes()&&calendrier.get(i).getDate().getSeconds()==d.getSeconds()){
+                return i+1;
+            }
+        }
+        return 0;
+    }
 }
