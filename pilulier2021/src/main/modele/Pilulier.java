@@ -23,10 +23,11 @@ public class Pilulier {
     public Pilulier() {
         calendrier=new ArrayList<>();
         for (int i = 0; i < 8; i++) {
-            calendrier.add(new Case(i));
+            calendrier.add(new Case(i+1,new Date(2020,i,10+i,30+2*i,0)));
         }
     }
     public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+        
         patient=p;
         referents=r;
         calendrier=c;
@@ -69,6 +70,7 @@ public class Pilulier {
         referents.add(r);
     }
     
+    
     public void addCase(Case c){
         c.setEtatRemplissage(true);
         calendrier.add(c);
@@ -89,7 +91,7 @@ public class Pilulier {
         String res="";
         res+="réferents : \n";
         for(int i = 0;i < referents.size();i++){
-            res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"ans  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
+            res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
         }
         res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
         for(int i = 0; i<patient.maladie.size();i++){
@@ -101,5 +103,8 @@ public class Pilulier {
         
         return res;
     }
-    
+    public Date getCaseCalendrier(Case c){
+        
+        return c.getDate();
+    }
 }

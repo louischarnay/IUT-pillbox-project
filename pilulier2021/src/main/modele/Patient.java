@@ -18,6 +18,8 @@ public class Patient extends Personne {
 
     public Patient(String n, String p, String ag, String ad) {
         super(n, p, ag, ad);
+        allergie=new ArrayList<>();
+        maladie=new ArrayList<>();
     }
 
     public ArrayList<String> getAllergie() {
