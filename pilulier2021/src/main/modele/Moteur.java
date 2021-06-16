@@ -105,11 +105,11 @@ public class Moteur implements Execute{
         System.out.println("Exiting StepperMotorGpio");
     }
     
-    private void setAngle(int angle){
+    public void setAngle(int angle){
         angleRotation = angle;
     }
     
-    private int getAngleRotation(){
+    public int getAngleRotation(){
         return angleRotation;
     }
 }
