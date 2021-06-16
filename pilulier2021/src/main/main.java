@@ -37,15 +37,6 @@ public class main {
 //        DigitaBCMGpio digitaBCMGpio = new DigitaBCMGpio(RaspiBcmPin.GPIO_26);
 //        digitaBCMGpio.start();
 
-//        Moteur motor = new Moteur(-1, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
-//        motor.start();
-
-//        int i = 0;
-//        while(i == 0){
-//            fenetre.setHeureAffiche();
-//            Thread.sleep(1000);
-//        }
-
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
         Patient Michel=new Patient("Michel","Polnareff","Patitent","Rue Peter Fink");
@@ -69,6 +60,7 @@ public class main {
         for(int i=0;i<calendrier.size();i++){
             System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
         }
+        
         int i = 0;
         while(i == 0){
             fenetre.setHeureAffiche();
