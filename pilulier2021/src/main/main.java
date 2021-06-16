@@ -36,8 +36,9 @@ public class main {
         referents.add(Michel);
         referents.add(Natacha);
         referents.add(Salima);
-        calendrier.add(new Case(1,new Date(2021,05,16,15,03,0)));
-        for(int i=1;i<10;i++){
+        calendrier.add(new Case(1,new Date(2021,05,16,16,11,00)));
+        calendrier.add(new Case(2,new Date(2021,05,16,16,11,30)));
+        for(int i=2;i<10;i++){
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
 
@@ -76,7 +77,7 @@ public class main {
             time=pilulier.itsTime();
             if(time!=0){
                 System.out.println("ITS TIME");
-                //fenetre.itsTime();
+                fenetre.itsTime(time);
             }
             Thread.sleep(1000);
         }

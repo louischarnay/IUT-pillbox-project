@@ -40,18 +40,20 @@ import main.modele.Referent;
  *
  * @author p2008965
  */
-public class Interface extends JFrame implements ActionListener, FocusListener{
-    private JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel(), caseRemplissage=new JLabel(), caseMois=new JLabel(), caseJour=new JLabel(), caseHeure=new JLabel(), caseMinute=new JLabel(), retardAccepte=new JLabel();
-    private JTextArea infosMenu=new JTextArea();
-    private JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
-    private JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerInfos=new JButton();
-    private LedMarche ledMarche= new LedMarche();
-    private JComboBox boxMois=new JComboBox(), boxJour=new JComboBox(), boxHeure=new JComboBox(), boxMinute=new JComboBox();
-    private JCheckBox checkRetard=new JCheckBox();
-    
+public class Interface extends JFrame implements ActionListener, FocusListener {
+
+    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), case1 = new JLabel(), case2 = new JLabel(), case3 = new JLabel(), case4 = new JLabel(), case5 = new JLabel(), case6 = new JLabel(), case7 = new JLabel(), case8 = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel();
+    private JTextArea infosMenu = new JTextArea();
+    private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton();
+    private LedMarche ledMarche = new LedMarche();
+    private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
+    private JCheckBox checkRetard = new JCheckBox();
+
     private Pilulier pilulier;
-    private  boolean boutonPressed=false;
-    
+    private boolean boutonPressed = false;
+    private int timerAlarme = 0;
+
     EnumEtat etat;
 
     JPanel pano = new JPanel();
@@ -168,16 +170,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         infosMenu.setText("Prochain traitement dans 20 minutes" + newLine + newLine + "3 cases restantes");
         infosMenu.setBackground(vertFond);
         infosMenu.setEditable(false);
-        
+
         //label numéro case
         setLabel(caseRemplissage, 30, Color.white, true, "Case 1");
-        
+
         //labels box remplissage
         setLabel(caseMois, 20, Color.white, true, "Mois");
         setLabel(caseJour, 20, Color.white, true, "Jour");
         setLabel(caseHeure, 20, Color.white, true, "Heure");
         setLabel(caseMinute, 20, Color.white, true, "Minute");
-        
+
         //fields information
         setTextFieldInfo(nomEcriture, "Nom");
         setTextFieldInfo(prenomEcriture, "Prenom");
@@ -193,7 +195,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setBoutonMenu(panicButton, panicImage);
 
         //bouton alerte
-        setBoutonTexte(boutonAlerte, "", 60, Color.red);
+        setBoutonTexte(boutonAlerte, "", 70, Color.red);
 
         //boutons menu SU
         setBoutonTexte(boutonMenuSU0, "Informations", 50, Color.white);
@@ -209,7 +211,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
 
         //boutons valider information
         setBoutonTexte(validerInfos, "Valider", 30, Color.white);
-        
+
         //cases calendrier
         setLabel(case1, 30, Color.white, true, "<html>Case 1<br/>15 / 06<br/>22 : 15</html>");
         setLabel(case2, 30, Color.white, true, "<html>Case 2<br/>15 / 06<br/>22 : 15</html>");
@@ -219,16 +221,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         setLabel(case6, 30, Color.white, true, "<html>Case 6<br/>15 / 06<br/>22 : 15</html>");
         setLabel(case7, 30, Color.white, true, "<html>Case 7<br/>15 / 06<br/>22 : 15</html>");
         setLabel(case8, 30, Color.white, true, "<html>Case 8<br/>15 / 06<br/>22 : 15</html>");
-        
+
         //comboBox remplissage
         setComboBox(boxMois);
         setComboBox(boxJour);
         setComboBox(boxHeure);
         setComboBox(boxMinute);
-        
+
         //label retard accepté
         setLabel(retardAccepte, 20, Color.white, true, "Retard accepté");
-        
+
         pano.setBackground(vertFond);
         //placement heure
         heureAffiche(cont, pano);
@@ -274,8 +276,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
         boutonAlerteVisible(false);
-        
-        etat=EnumEtat.MENU;
+
+        etat = EnumEtat.MENU;
     }
 
     //mise à jour de l'heure
@@ -293,6 +295,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panicButton) {
             infosMenuVisible(false);
+            boutonsMenuVisible(false);
             boutonAlerteAffiche(cont, pano, "Heure du traitement");
             boutonAlerteVisible(true);
             System.out.println("panic button pressed");
@@ -328,6 +331,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             boutonMenuSUVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             System.out.println("bouton alerte pressed");
+            boutonPressed = true;
         } else if (e.getSource() == boutonRetour) {
             switch (etat) {
                 case MENUSU:
@@ -420,9 +424,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
                 
             
             System.out.println("infos changées");
-        }
-        else if(e.getSource()==flecheGauche){
-            switch(etat){
+        } else if (e.getSource() == flecheGauche) {
+            switch (etat) {
                 case CALENDRIERECRITURE:
                     System.out.println("salut bg on tourne à gauche");
                     break;
@@ -436,10 +439,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
                     System.out.println("historique à gauche");
                     break;
             }
-        }
-        else if(e.getSource()==flecheDroite){
-            if(etat==EnumEtat.CALENDRIERECRITURE){
-                switch(etat){
+        } else if (e.getSource() == flecheDroite) {
+            switch (etat) {
                 case CALENDRIERECRITURE:
                     System.out.println("salut bg on tourne à droite");
                     break;
@@ -475,35 +476,35 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         pano.add(caseRemplissage, cont);
         cont.gridwidth = 1;
     }
-    
-    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano){
-        cont.gridx=3;
-        cont.gridy=3;
-        cont.gridheight=2;
+
+    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano) {
+        cont.gridx = 3;
+        cont.gridy = 3;
+        cont.gridheight = 2;
         pano.add(checkRetard, cont);
-        cont.gridheight=1;
-        cont.gridy=2;
+        cont.gridheight = 1;
+        cont.gridy = 2;
         pano.add(retardAccepte, cont);
     }
-    
-    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano){
-        cont.gridx=1;
-        cont.gridy=2;
+
+    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano) {
+        cont.gridx = 1;
+        cont.gridy = 2;
         pano.add(caseMois, cont);
-        cont.gridx=2;
+        cont.gridx = 2;
         pano.add(caseJour, cont);
-        cont.gridx=1;
-        cont.gridy=3;
+        cont.gridx = 1;
+        cont.gridy = 3;
         pano.add(boxMois, cont);
-        cont.gridx=2;
+        cont.gridx = 2;
         pano.add(boxJour, cont);
-        cont.gridy=4;
-        cont.gridx=1;
+        cont.gridy = 4;
+        cont.gridx = 1;
         pano.add(caseHeure, cont);
-        cont.gridx=2;
+        cont.gridx = 2;
         pano.add(caseMinute, cont);
-        cont.gridx=1;
-        cont.gridy=5;
+        cont.gridx = 1;
+        cont.gridy = 5;
         pano.add(boxHeure, cont);
         cont.gridx = 2;
         pano.add(boxMinute, cont);
@@ -569,23 +570,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.gridwidth = 1;
         cont.weighty = 1;
     }
-    
-    public void boutonValiderInfosAffiche(GridBagConstraints cont, JPanel pano){
-        cont.gridwidth=2;
-        cont.gridheight=1;
-        cont.gridx=1;
-        cont.gridy=7;
+
+    public void boutonValiderInfosAffiche(GridBagConstraints cont, JPanel pano) {
+        cont.gridwidth = 2;
+        cont.gridheight = 1;
+        cont.gridx = 1;
+        cont.gridy = 7;
         pano.add(validerInfos, cont);
-        cont.gridwidth=1;
+        cont.gridwidth = 1;
     }
-    
-    
-    public void flechesAffiche(GridBagConstraints cont, JPanel pano){
-        cont.gridwidth=1;
-        cont.weightx=1/100;
-        cont.gridheight=7;
-        cont.gridx=0;
-        cont.gridy=1;
+
+    public void flechesAffiche(GridBagConstraints cont, JPanel pano) {
+        cont.gridwidth = 1;
+        cont.weightx = 1 / 100;
+        cont.gridheight = 7;
+        cont.gridx = 0;
+        cont.gridy = 1;
         pano.add(flecheGauche, cont);
         cont.gridx = 7;
         pano.add(flecheDroite, cont);
@@ -617,7 +617,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         boutonAlerte.setText(msg);
         cont.fill = GridBagConstraints.BOTH;
         cont.anchor = GridBagConstraints.CENTER;
-        cont.insets = new Insets(68, 5, 68, 5);
+        cont.insets = new Insets(90, 5, 180, 5);
         cont.gridx = 0;
         cont.gridheight = 2;
         cont.gridwidth = 4;
@@ -703,8 +703,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         caseHeure.setVisible(b);
         caseMinute.setVisible(b);
     }
-    
-    public void checkRetardVisible(boolean b){
+
+    public void checkRetardVisible(boolean b) {
         retardAccepte.setVisible(b);
         checkRetard.setVisible(b);
     }
@@ -781,27 +781,26 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         mailEcriture.setEditable(c);
         adresseEcriture.setEditable(c);
     }
-    
-    public void boutonsValiderInfosVisible(boolean b){
+
+    public void boutonsValiderInfosVisible(boolean b) {
         validerInfos.setVisible(b);
     }
 
     //setters des éléments
-    
-    public void setCheckBox(JCheckBox bx){
+    public void setCheckBox(JCheckBox bx) {
         Border bordure = BorderFactory.createLineBorder(Color.white);
         bx.setBackground(vertFond);
     }
-    
-    public void setComboBox(JComboBox bx){
+
+    public void setComboBox(JComboBox bx) {
         Border bordure = BorderFactory.createLineBorder(Color.white);
         bx.setBackground(vertFond);
         bx.setBorder(bordure);
         bx.setForeground(Color.white);
         bx.setFont(new Font("Arial", Font.BOLD, 20));
     }
-    
-    public void setBoutonIcon(JButton bt, ImageIcon img){
+
+    public void setBoutonIcon(JButton bt, ImageIcon img) {
         Border bordure = BorderFactory.createLineBorder(Color.white);
         bt.setBackground(vertFond);
         bt.setBorder(bordure);
@@ -852,10 +851,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
     }
-    
+
     //heure de prendre la pilule
-    public void itsTime(){
+    public boolean itsTime(int index) throws InterruptedException {
         //efface tous les composants
+        System.out.println("zebi");
         numCaseVisible(false);
         checkRetardVisible(false);
         boxCalendrierVisible(false);
@@ -867,11 +867,66 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
         boutonAlerteVisible(false);
+        infosMenuVisible(false);
+        boutonsMenuVisible(false);
+        //biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiip
         //affiche bouton alerte
-        boutonAlerte.setText("Heure du traitement");
-            
+        boutonAlerteAffiche(cont, pano, "Heure du traitement");
+        boutonAlerteVisible(true);
+        timerAlarme = 0;
+        boolean tamp=false;
+        while (!boutonPressed) {
+            timerAlarme++;
+            setHeureAffiche();
+            Thread.sleep(1000);
+            if (timerAlarme > 10) {
+                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                    System.out.println("envoi mail");
+                    boutonAlerteVisible(false);
+                    infosMenuVisible(true);
+                    boutonsMenuVisible(true);
+                    tamp=true;
+                    return false;
+                }
+                else if(!tamp){
+                    System.out.println("en retard michel");
+                    tamp=true;
+                }
+            }
+        }
+        //moteur qui ouvre
+        boutonPressed = false;
+        boutonAlerte.setText("Refermer le pilulier");
+        timerAlarme=0;
+        tamp=false;
+        while (!boutonPressed) {
+            timerAlarme++;
+            setHeureAffiche();
+            Thread.sleep(1000);
+            if (timerAlarme > 10) {
+                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                    System.out.println("envoi mail");
+                    boutonAlerteVisible(false);
+                    infosMenuVisible(true);
+                    boutonsMenuVisible(true);
+                    tamp=true;
+                    return false;
+                }
+                else if(!tamp){
+                    System.out.println("en retard michel");
+                    tamp=true;
+                }
+            }
+        }
+        //moteur qui ferme
+        pilulier.getCase(index).setEtatRemplissage(false);
+        boutonPressed = false;
+        boutonAlerteVisible(false);
+        infosMenuVisible(true);
+        boutonsMenuVisible(true);
+        return true;
     }
-    
+
     //focus listeners
     @Override
     public void focusGained(FocusEvent e) {
