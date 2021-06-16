@@ -30,11 +30,11 @@ public class main {
 //        StepperMotorGpio motor = new StepperMotorGpio(RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
 //        motor.start();
         
-////        int i = 0;
-////        while(i == 0){
-////            fenetre.setHeureAffiche();
-////            Thread.sleep(1000);
-////        }
+        int i = 0;
+        while(i == 0){
+            fenetre.setHeureAffiche();
+            Thread.sleep(1000);
+        }
 
         // test
     }

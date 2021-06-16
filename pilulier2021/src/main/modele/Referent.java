@@ -35,5 +35,13 @@ public class Referent extends Personne {
     public void setTel(String tel) {
         this.tel = tel;
     }
+    public String getInfo(){
+        
+        String newLine=System.getProperty("line.separator");
+        String res="";
+        res+="Nom : "+nom+newLine+"Prenom : "+prenom+newLine+"Mail : "+mail+newLine+"Tel : "+tel+newLine;
+        
+        return res;
+    }
     
 }

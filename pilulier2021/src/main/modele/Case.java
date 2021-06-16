@@ -53,6 +53,5 @@ public class Case {
     
     public void setDate(Date date) {
         this.date = date;
-        
     }
 }
