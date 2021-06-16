@@ -30,25 +30,32 @@ public class main {
     public static void main(String[] args) throws InterruptedException {;
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
-        Patient Michel=new Patient("Michel","Polnareff","Patitent","Rue Peter Fink");
-        Michel.addAllergie("polen");
-        Michel.addAllergie("cacahuetes");
-        Michel.addMaladie("mal au ventre");
-        Michel.addMaladie("Rhum");
+        Referent Michel=new Referent("Michel","Polnareff","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
         Referent Natacha=new Referent("Natacha","Tte","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
         Referent Salima=new Referent("Salima","Rdigra","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
+        referents.add(Michel);
         referents.add(Natacha);
         referents.add(Salima);
+
         
-        for(int i=0;i<10;i++){
+      
+
+        for(int i=0;i<8;i++){
+
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
+
         
         Moteur motor = null; //moteur non raccordé à la raspberry
 //        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
         HautParleur buzzer = null; //hp non raccordé à la raspberry
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26);
-        Pilulier pilulier=new Pilulier(Michel,referents,calendrier,buzzer, motor);
+        
+
+        
+        //HautParleur buzzer=new HautParleur(2);
+        Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, motor);
+
         String res=pilulier.getInfoAll();
         System.out.println(res);
         System.out.println("Calendrier : ");
@@ -57,7 +64,13 @@ public class main {
         fenetre.setVisible(true);
         
         for(int i=0;i<calendrier.size();i++){
+
             System.out.println("Case "+(i+1)+" : " + pilulier.getCaseCalendrier(calendrier.get(i))); 
+
+            res="<html>Case "+i+"<br/>"+(calendrier.get(i).getDate().getDate())+" / "+(calendrier.get(i).getDate().getMonth()+1)+"<br/>"+(calendrier.get(i).getDate().getHours()+1)+" : "+(calendrier.get(i).getDate().getMinutes()+1)+"</html>";
+            System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
+            System.out.println(res);
+
         }
         
         int i = 0;

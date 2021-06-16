@@ -57,7 +57,7 @@ public class Personne {
     @Override
     public String toString() {
         
-        return nom+" "+prenom+" fonction : "+fonction+" adresse : "+adresse;
+        return nom+" "+prenom+" "+fonction+" "+adresse;
     }
     
 }
