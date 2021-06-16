@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package main.modele;
 
 import java.util.ArrayList;
 
@@ -31,6 +31,6 @@ public class Historique {
      * @param action actionHistorique à ajouter
      */
     public void addActionHistorique(ActionHistorique action){
-        //a coder
+        listeHistorique.add(action);
     }
 }
