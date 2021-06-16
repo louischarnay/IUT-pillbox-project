@@ -405,24 +405,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonMenuSUVisible(false);
             flechesVisible(true);
             infosEcritureVisible(true, false);
-        }
-        else if(e.getSource()==validerInfos){
-            
+        } else if (e.getSource() == validerInfos) {
+
             pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
             pilulier.getReferents().get(0).setNom(nomEcriture.getText());
             pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
             pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
             pilulier.getReferents().get(0).setTel(telEcriture.getText());
             pilulier.getReferents().get(0).setMail(mailEcriture.getText());
-                
+
             System.out.println(pilulier.getReferents());
-              
-                
-           
-                
-           
-                
-            
+
             System.out.println("infos changées");
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
@@ -454,13 +447,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("historique à droite");
                     break;
             }
-            }
         }
     }
-  
 
-    //charger les patients
-    public void chargerReferent(){
+//charger les patients
+    public void chargerReferent() {
         nomEcriture.setText(pilulier.getReferents().get(0).getNom());
         prenomEcriture.setText(pilulier.getReferents().get(0).getPrenom());
         fonctionEcriture.setText(pilulier.getReferents().get(0).getFonction());
@@ -468,6 +459,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.setText(pilulier.getReferents().get(0).getMail());
         telEcriture.setText(pilulier.getReferents().get(0).getTel());
     }
+
     //placement des éléments
     public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 1;
@@ -874,47 +866,45 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteAffiche(cont, pano, "Heure du traitement");
         boutonAlerteVisible(true);
         timerAlarme = 0;
-        boolean tamp=false;
+        boolean tamp = false;
         while (!boutonPressed) {
             timerAlarme++;
             setHeureAffiche();
             Thread.sleep(1000);
             if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
                     System.out.println("envoi mail");
                     boutonAlerteVisible(false);
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
-                    tamp=true;
+                    tamp = true;
                     return false;
-                }
-                else if(!tamp){
+                } else if (!tamp) {
                     System.out.println("en retard michel");
-                    tamp=true;
+                    tamp = true;
                 }
             }
         }
         //moteur qui ouvre
         boutonPressed = false;
         boutonAlerte.setText("Refermer le pilulier");
-        timerAlarme=0;
-        tamp=false;
+        timerAlarme = 0;
+        tamp = false;
         while (!boutonPressed) {
             timerAlarme++;
             setHeureAffiche();
             Thread.sleep(1000);
             if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte()&&!tamp) {
+                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
                     System.out.println("envoi mail");
                     boutonAlerteVisible(false);
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
-                    tamp=true;
+                    tamp = true;
                     return false;
-                }
-                else if(!tamp){
+                } else if (!tamp) {
                     System.out.println("en retard michel");
-                    tamp=true;
+                    tamp = true;
                 }
             }
         }
