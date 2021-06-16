@@ -5,6 +5,7 @@
  */
 package main.vue;
 
+import com.pi4j.io.gpio.RaspiBcmPin;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -29,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import main.modele.Pilulier;
+import main.modele.Moteur;
 
 /**
  *
@@ -415,7 +417,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==flecheGauche){
             switch(etat){
                 case CALENDRIERECRITURE:
-                    System.out.println("salut bg on tourne à gauche");
+                    if (pilulier.getMotor() == null){
+                        System.out.println("salut bg on tourne à droite");
+                    }
+                    else {
+                        pilulier.getMotor().setAngle(1);
+                        pilulier.getMotor().start();
+                        System.out.println("salut bg on tourne à droite");
+                    }
                     break;
                 case INFOLECTURE:
                     System.out.println("lecture info à gauche");
@@ -431,7 +440,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==flecheDroite){
                 switch(etat){
                 case CALENDRIERECRITURE:
-                    System.out.println("salut bg on tourne à droite");
+                    if (pilulier.getMotor() == null){
+                        System.out.println("salut bg on tourne à droite");
+                    }
+                    else {
+                        pilulier.getMotor().setAngle(-1);
+                        pilulier.getMotor().start();
+                        System.out.println("salut bg on tourne à droite");
+                    }
                     break;
                 case INFOLECTURE:
                     System.out.println("lecture info à droite");

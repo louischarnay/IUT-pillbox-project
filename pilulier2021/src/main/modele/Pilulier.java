@@ -5,6 +5,7 @@
  */
 package main.modele;
 
+import com.pi4j.io.gpio.RaspiBcmPin;
 import main.modele.Case;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Pilulier {
         }
         referents=new ArrayList<>();
     }
+    
     public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
         
         patient=p;
@@ -45,6 +47,10 @@ public class Pilulier {
 
     public ArrayList<Referent> getReferents() {
         return referents;
+    }
+    
+    public Moteur getMotor(){
+        return moteur;
     }
 
     public void setBuzzer(HautParleur buzzer) {
