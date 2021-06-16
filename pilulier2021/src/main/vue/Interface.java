@@ -6,7 +6,6 @@
 package main.vue;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
@@ -23,25 +22,28 @@ import java.awt.event.FocusListener;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import main.modele.Pilulier;
 
 /**
  *
  * @author p2008965
  */
 public class Interface extends JFrame implements ActionListener, FocusListener{
-    protected JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel();
-    protected JTextArea infosMenu=new JTextArea();
-    protected JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
-    protected JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerFonction=new JButton(), validerMail=new JButton(), validerTel=new JButton();
-    protected LedMarche ledMarche= new LedMarche();
+    private JLabel heureAffiche=new JLabel(), infoAdresse=new JLabel(), infoTel=new JLabel(), infoMail=new JLabel(), infoFonction=new JLabel(), infoPrenom=new JLabel(), infoNom=new JLabel(), case1=new JLabel(), case2=new JLabel(), case3=new JLabel(), case4=new JLabel(), case5=new JLabel(), case6=new JLabel(), case7=new JLabel(), case8=new JLabel(), caseRemplissage=new JLabel();
+    private JTextArea infosMenu=new JTextArea();
+    private JTextField nomEcriture=new JTextField(), prenomEcriture=new JTextField(), fonctionEcriture=new JTextField(), adresseEcriture=new JTextField(), mailEcriture=new JTextField(), telEcriture=new JTextField();
+    private JButton calendrier=new JButton(), informations=new JButton(), menuSU=new JButton(), panicButton=new JButton(), boutonAlerte=new JButton(), boutonMenuSU0=new JButton(), boutonMenuSU1=new JButton(), boutonMenuSU2=new JButton(), boutonRetour=new JButton(), flecheGauche=new JButton(), flecheDroite=new JButton(), validerNom=new JButton(),validerPrenom=new JButton(), validerAdresse=new JButton(), validerFonction=new JButton(), validerMail=new JButton(), validerTel=new JButton();
+    private LedMarche ledMarche= new LedMarche();
+    private JComboBox boxMois=new JComboBox(), boxJour=new JComboBox(), boxHeure=new JComboBox(), boxMinute=new JComboBox();
+    private JCheckBox checkRetard=new JCheckBox();
+    
+    private Pilulier pilulier;
     
     EnumEtat etat;
     
@@ -89,7 +91,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         return cont;
     }
     
-    public Interface() throws InterruptedException{
+    public Interface(Pilulier p) throws InterruptedException{
+        pilulier=p;
         this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
@@ -129,6 +132,26 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         
         //création des composants
         
+        //checBox remplissage
+        
+        
+        //remplissage des ComboBox (calendrier remplissage)
+        boxMois.addItem("Mois");
+        for (int i = 1; i < 13; i++) {
+            boxMois.addItem(i);
+        }
+        boxJour.addItem("Jour");
+        for (int i = 1; i < 32; i++) {
+            boxJour.addItem(i);
+        }
+        boxHeure.addItem("Heure");
+        for (int i = 1; i < 24; i++) {
+            boxHeure.addItem(i);
+        }
+        boxMinute.addItem("Minute");
+        for (int i = 0; i < 60; i+=10) {
+            boxMinute.addItem(i);
+        }
         
         //heure
         setHeureAffiche();
@@ -147,6 +170,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         infosMenu.setForeground(Color.white);
         infosMenu.setText("Prochain traitement dans 20 minutes"+newLine+newLine+"3 cases restantes");
         infosMenu.setBackground(vertFond);
+        
+        //label numéro case
+        setLabel(caseRemplissage, 60, Color.white, true, "Case 1");
         
         //fields information
         setTextFieldInfo(nomEcriture, "Nom");
@@ -213,16 +239,25 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         //placement infos ecriture
         infosEcritureAffiche(cont, pano);
         //placement boutons valider infos
-        boutonsValiderInfos(cont, pano);
+        boutonsValiderInfosAffiche(cont, pano);
         //placement labels infos
         infosLabelsAffiche(cont, pano);
         //placement cases menu calendrier
         casesCalendrierAffiche(cont, pano);
+        //placement numéro case remplissage
+        numCaseAffiche(cont, pano);
+        //placement comboBox remplissage
+        boxCalendrierAffiche(cont, pano);
+        //placement checkBox retard remplissage
+        checkRetardAffiche(cont, pano);
         
         this.setContentPane(pano);
         this.pack();
         
         //rend les éléments invisibles au lancement
+        numCaseVisible(false);
+        checkRetardVisible(false);
+        boxCalendrierVisible(false);
         casesCalendrierVisible(false);
         infosLabelsVisible(false);
         boutonsValiderInfosVisible(false);
@@ -313,7 +348,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
-                    System.out.println("gg");
+                    boxCalendrierVisible(false);
+                    flechesVisible(false);
+                    numCaseVisible(false);
+                    checkRetardVisible(false);
                     break;
                 case HISTORIQUE:
                     infosEcritureVisible(false, false);
@@ -346,8 +384,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             boutonsValiderInfosVisible(true);
             infosLabelsVisible(true);
         }
-        else if(e.getSource()==boutonMenuSU1)
-            System.out.println("bouton menu SU1 pressed");
+        else if(e.getSource()==boutonMenuSU1){
+            etat=EnumEtat.CALENDRIERECRITURE;
+            tmp=false;
+            boutonMenuSUVisible(false);
+            boxCalendrierVisible(true);
+            flechesVisible(true);
+            numCaseVisible(true);
+            checkRetardVisible(true);
+            
+        }
         else if(e.getSource()==boutonMenuSU2){
             tmp=false;
             System.out.println("bouton menu SU2 pressed");
@@ -356,8 +402,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             flechesVisible(true);
             infosEcritureVisible(true, false);
         }            
-        else if(e.getSource()==validerPrenom)
-            System.out.println("valider prenom pressed");
+        else if(e.getSource()==validerPrenom){
+            pilulier.getPatient().setNom(nomEcriture.getText());
+            System.out.println(pilulier.getPatient().getNom());
+        }
         else if(e.getSource()==validerFonction)
             System.out.println("valider fonction pressed");
         else if(e.getSource()==validerAdresse)
@@ -371,6 +419,33 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     }
     
     //placement des éléments
+    
+    public void numCaseAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=1; 
+        cont.gridy=1;
+        cont.gridwidth=3;
+        pano.add(caseRemplissage, cont);
+        cont.gridwidth=1;
+    }
+    
+    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=3;
+        cont.gridy=3;
+        pano.add(checkRetard, cont);
+    }
+    
+    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano){
+        cont.gridx=1;
+        cont.gridy=2;
+        pano.add(boxMois, cont);
+        cont.gridx=2;
+        pano.add(boxJour, cont);
+        cont.gridx=1;
+        cont.gridy=3;
+        pano.add(boxHeure, cont);
+        cont.gridx=2;
+        pano.add(boxMinute, cont);
+    } 
     
     public void casesCalendrierAffiche(GridBagConstraints cont, JPanel pano){
         cont.insets=new Insets(10, 10, 10, 10);
@@ -432,7 +507,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         cont.weighty=1;
     }
     
-    public void boutonsValiderInfos(GridBagConstraints cont, JPanel pano){
+    public void boutonsValiderInfosAffiche(GridBagConstraints cont, JPanel pano){
         cont.weightx=1/10;
         cont.gridheight=1;
         cont.gridx=6;
@@ -560,6 +635,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
     }
     
     //rendre visible/invisible les éléments
+    
+    public void numCaseVisible(boolean b){
+        caseRemplissage.setVisible(b);
+    }
+    
+    public void boxCalendrierVisible(boolean b){
+        boxMois.setVisible(b);
+        boxJour.setVisible(b);
+        boxHeure.setVisible(b);
+        boxMinute.setVisible(b);
+    }
+    
+    public void checkRetardVisible(boolean b){
+        checkRetard.setVisible(b);
+    }
     
     public void casesCalendrierVisible(boolean b){
         case1.setVisible(b);

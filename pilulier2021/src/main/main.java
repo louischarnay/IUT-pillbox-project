@@ -7,6 +7,8 @@ package main;
 
 import com.pi4j.io.gpio.RaspiBcmPin;
 import com.pi4j.device.pibrella.PibrellaBuzzer;
+import main.modele.Pilulier;
+import main.modele.Referent;
 import main.vue.Interface;
 import ss2_rpi_2021.DigitaBCMGpio;
 import ss2_rpi_2021.StepperMotorGpio;
@@ -20,7 +22,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
-        Interface fenetre=new Interface();
+        Pilulier p=new Pilulier();
+        Referent ref1=new Referent("nom", "prenom", "fonction", "adresse", "mail", "tel");
+        p.addReferent(ref1);
+        Interface fenetre=new Interface(p);
         fenetre.setVisible(true);
         // TODO code application logic here
         

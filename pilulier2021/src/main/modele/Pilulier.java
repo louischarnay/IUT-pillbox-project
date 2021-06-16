@@ -25,6 +25,7 @@ public class Pilulier {
         for (int i = 0; i < 8; i++) {
             calendrier.add(new Case(i));
         }
+        referents=new ArrayList<>();
     }
     public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
         patient=p;
