@@ -106,5 +106,6 @@ public class Pilulier {
     public Date getCaseCalendrier(Case c){
         
         return c.getDate();
+        
     }
 }
