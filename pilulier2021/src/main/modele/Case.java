@@ -17,7 +17,8 @@ public class Case {
     protected boolean etatRemplissage;
     protected boolean retardAccepte;
     
-    public Case(int index){
+    public Case(int index, Date d){
+        this.date=d;
         this.index = index;
         this.etatRemplissage = false;
         this.retardAccepte = false;
