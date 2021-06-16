@@ -12,13 +12,13 @@ package main.modele;
 public class Personne {
     protected String nom;
     protected String prenom;
-    protected String age;
+    protected String fonction;
     protected String adresse;
     
     public Personne(String n,String p,String ag,String ad){
         nom=n;
         prenom=p;
-        age=ag;
+        fonction=ag;
         adresse=ad;
     }
 
@@ -26,8 +26,8 @@ public class Personne {
         return adresse;
     }
 
-    public String getAge() {
-        return age;
+    public String getFonction() {
+        return fonction;
     }
 
     public String getNom() {
@@ -38,8 +38,8 @@ public class Personne {
         return prenom;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setAge(String fonction) {
+        this.fonction = fonction;
     }
 
     public void setAdresse(String adresse) {
@@ -57,7 +57,7 @@ public class Personne {
     @Override
     public String toString() {
         
-        return nom+" "+prenom+" age : "+age+" adresse : "+adresse;
+        return nom+" "+prenom+" fonction : "+fonction+" adresse : "+adresse;
     }
     
 }
