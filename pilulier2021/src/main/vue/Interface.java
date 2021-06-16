@@ -132,7 +132,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         
         //création des composants
         
-        //checBox remplissage
+        //checkBox remplissage
         
         
         //remplissage des ComboBox (calendrier remplissage)
@@ -303,6 +303,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         else if(e.getSource()==calendrier){
             System.out.println("bouton calendrier pressed");
             etat=EnumEtat.CALENDRIERLECTURE;
+            //fonction qui set toutes les cases
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
