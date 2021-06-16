@@ -49,8 +49,10 @@ public class main {
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
         
-        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
-        HautParleur buzzer=new HautParleur(0, RaspiBcmPin.GPIO_26);
+        Moteur motor = null;
+//        motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
+        HautParleur buzzer = null;
+//        buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26);
         Pilulier pilulier=new Pilulier(Michel,referents,calendrier,buzzer, motor);
         String res=pilulier.getInfoAll();
         System.out.println(res);
