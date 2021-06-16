@@ -432,6 +432,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
             System.out.println("valider mail pressed");
         else if(e.getSource()==validerNom)
             System.out.println("valider nom pressed");
+        else if(e.getSource()==flecheGauche){
+            if(etat==EnumEtat.CALENDRIERECRITURE){
+                System.out.println("salut bg on tourne a gauche");
+            }
+        }
+        else if(e.getSource()==flecheDroite){
+            if(etat==EnumEtat.CALENDRIERECRITURE){
+                System.out.println("salut bg on tourne a droite");
+            }
+        }
     }
     
     //placement des éléments
@@ -674,6 +684,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener{
         boxMois.setVisible(b);
         boxJour.setVisible(b);
         boxHeure.setVisible(b);
+        boxMinute.setVisible(b);
         caseMinute.setVisible(b);
         caseMois.setVisible(b);
         caseJour.setVisible(b);
