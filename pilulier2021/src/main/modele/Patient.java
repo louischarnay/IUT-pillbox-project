@@ -35,4 +35,17 @@ public class Patient extends Personne {
     public void addMaladie(String maladie) {
         this.maladie.add(maladie);
     }
+    public String getInfo(){
+        String newLine=System.getProperty("line.separator");
+        String res="";
+        res+="Nom : "+nom+newLine+"Prenom : "+prenom+"Allergies : ";
+        for (int i = 0; i < allergie.size(); i++) {
+            res+="- "+allergie.get(i)+newLine;
+        }
+        res+="Maladies : ";
+        for (int i = 0; i < maladie.size(); i++) {
+            res+="- "+maladie.get(i)+newLine;
+        }
+        return res;
+    }
 }

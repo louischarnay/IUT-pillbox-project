@@ -85,7 +85,7 @@ public class Pilulier {
         }
         
     }
-    public String getInfo(){
+    public String getInfoAll(){
         String res="";
         res+="réferents : \n";
         for(int i = 0;i < referents.size();i++){
