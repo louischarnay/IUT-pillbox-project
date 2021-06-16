@@ -28,7 +28,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
-        Interface fenetre=new Interface();
+        Pilulier p=new Pilulier();
+        Referent ref1=new Referent("nom", "prenom", "fonction", "adresse", "mail", "tel");
+        p.addReferent(ref1);
+        Interface fenetre=new Interface(p);
         fenetre.setVisible(true);
         // TODO code application logic here
         
@@ -51,7 +54,7 @@ public class main {
         Referent Salima=new Referent("Salima","Rdigra","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
         referents.add(Natacha);
         referents.add(Salima);
-        for(int i=0;i<10;i++){
+        for(int i=0;i<8;i++){
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
         Moteur m=new Moteur(2);
@@ -61,8 +64,11 @@ public class main {
         System.out.println(res);
         System.out.println("Calendrier : ");
         for(int i=0;i<calendrier.size();i++){
+            res="<html>Case "+i+"<br/>"+(calendrier.get(i).getDate().getDate())+" / "+(calendrier.get(i).getDate().getMonth()+1)+"<br/>"+(calendrier.get(i).getDate().getHours()+1)+" : "+(calendrier.get(i).getDate().getMinutes()+1)+"</html>";
             System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
+            System.out.println(res);
         }
+        
         int i = 0;
         while(i == 0){
             fenetre.setHeureAffiche();
