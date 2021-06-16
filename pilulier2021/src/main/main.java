@@ -6,6 +6,7 @@
 package main;
 
 import com.pi4j.io.gpio.RaspiBcmPin;
+import main.modele.Moteur;
 import com.pi4j.device.pibrella.PibrellaBuzzer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,6 @@ import main.modele.Pilulier;
 import main.modele.Referent;
 import main.vue.Interface;
 import ss2_rpi_2021.DigitaBCMGpio;
-import ss2_rpi_2021.StepperMotorGpio;
 
 /**
  *
@@ -27,47 +27,49 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InterruptedException {
-        Pilulier p=new Pilulier();
-        Referent ref1=new Referent("nom", "prenom", "fonction", "adresse", "mail", "tel");
-        p.addReferent(ref1);
-        Interface fenetre=new Interface(p);
-        fenetre.setVisible(true);
-        // TODO code application logic here
-        
-//        DigitaBCMGpio digitaBCMGpio = new DigitaBCMGpio(RaspiBcmPin.GPIO_26);
-//        digitaBCMGpio.start();
-
-//        StepperMotorGpio motor = new StepperMotorGpio(RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
-//        motor.start();
-        
-
-        
+    public static void main(String[] args) throws InterruptedException {;
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
-        Patient Michel=new Patient("Michel","Polnareff","Patitent","Rue Peter Fink");
-        Michel.addAllergie("polen");
-        Michel.addAllergie("cacahuetes");
-        Michel.addMaladie("mal au ventre");
-        Michel.addMaladie("Rhum");
+        Referent Michel=new Referent("Michel","Polnareff","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
         Referent Natacha=new Referent("Natacha","Tte","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
         Referent Salima=new Referent("Salima","Rdigra","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
+        referents.add(Michel);
         referents.add(Natacha);
         referents.add(Salima);
         calendrier.add(new Case(1,new Date(2021,05,16,16,11,00)));
-        calendrier.add(new Case(2,new Date(2021,05,16,16,11,30)));
+        calendrier.add(new Case(2,new Date(2021,05,16,17,14,30)));
         for(int i=2;i<10;i++){
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
-        Moteur m=new Moteur(2);
-        HautParleur buzzer=new HautParleur(2);
-        Pilulier pilulier=new Pilulier(Michel,referents,calendrier,buzzer, m);
+
+        
+        Moteur motor = null; //moteur non raccordé à la raspberry
+//        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
+        HautParleur buzzer = null; //hp non raccordé à la raspberry
+//        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26);
+        
+
+        
+        //HautParleur buzzer=new HautParleur(2);
+        Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, motor);
+
         String res=pilulier.getInfoAll();
         System.out.println(res);
         System.out.println("Calendrier : ");
+        
+        Interface fenetre=new Interface(pilulier);
+        fenetre.setVisible(true);
+        
         for(int i=0;i<calendrier.size();i++){
+
+            System.out.println("Case "+(i+1)+" : " + pilulier.getCaseCalendrier(calendrier.get(i))); 
+
+            res="<html>Case "+i+"<br/>"+(calendrier.get(i).getDate().getDate())+" / "+(calendrier.get(i).getDate().getMonth()+1)+"<br/>"+(calendrier.get(i).getDate().getHours()+1)+" : "+(calendrier.get(i).getDate().getMinutes()+1)+"</html>";
             System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
+            System.out.println(res);
+
         }
+        
         int i = 0;
         int time = 0;
         while(i == 0){
@@ -79,8 +81,5 @@ public class main {
             }
             Thread.sleep(1000);
         }
-
-        // test
     }
- 
 }
