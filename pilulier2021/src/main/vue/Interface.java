@@ -380,6 +380,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonMenuSU0) {
             etat = EnumEtat.INFOECRITURE;
             tmp = false;
+            chargerReferent();
             ledMarcheVisible(false);
             boutonMenuSUVisible(false);
             flechesVisible(true);
@@ -848,19 +849,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void chargerCasesLecture(){
         String newLine = System.getProperty("line.separator");
         String tmp;
-        tmp="  Case 1"+newLine+"  "+pilulier.getCase(1).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 1"+newLine+"  "+pilulier.getCase(1).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getMinutes();
         case1.setText(tmp);
-        tmp="  Case 2"+newLine+"  "+pilulier.getCase(2).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 2"+newLine+"  "+pilulier.getCase(2).getDate().getDate()+" / "+pilulier.getCase(2).getDate().getMonth()+newLine+"  "+pilulier.getCase(2).getDate().getHours()+" / "+pilulier.getCase(2).getDate().getMinutes();
         case2.setText(tmp);
-        tmp="  Case 3"+newLine+"  "+pilulier.getCase(3).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 3"+newLine+"  "+pilulier.getCase(3).getDate().getDate()+" / "+pilulier.getCase(3).getDate().getMonth()+newLine+"  "+pilulier.getCase(3).getDate().getHours()+" / "+pilulier.getCase(3).getDate().getMinutes();
         case3.setText(tmp);
-        tmp="  Case 4"+newLine+"  "+pilulier.getCase(4).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 4"+newLine+"  "+pilulier.getCase(4).getDate().getDate()+" / "+pilulier.getCase(4).getDate().getMonth()+newLine+"  "+pilulier.getCase(4).getDate().getHours()+" / "+pilulier.getCase(4).getDate().getMinutes();
         case4.setText(tmp);
-        tmp="  Case 5"+newLine+"  "+pilulier.getCase(5).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 5"+newLine+"  "+pilulier.getCase(5).getDate().getDate()+" / "+pilulier.getCase(5).getDate().getMonth()+newLine+"  "+pilulier.getCase(5).getDate().getHours()+" / "+pilulier.getCase(5).getDate().getMinutes();
         case5.setText(tmp);
-        tmp="  Case 6"+newLine+"  "+pilulier.getCase(6).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 6"+newLine+"  "+pilulier.getCase(6).getDate().getDate()+" / "+pilulier.getCase(6).getDate().getMonth()+newLine+"  "+pilulier.getCase(6).getDate().getHours()+" / "+pilulier.getCase(6).getDate().getMinutes();
         case6.setText(tmp);
-        tmp="  Case 7"+newLine+"  "+pilulier.getCase(7).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getSeconds();
+        tmp="  Case 7"+newLine+"  "+pilulier.getCase(7).getDate().getDate()+" / "+pilulier.getCase(7).getDate().getMonth()+newLine+"  "+pilulier.getCase(7).getDate().getHours()+" / "+pilulier.getCase(7).getDate().getMinutes();
         case7.setText(tmp);
     }
     
