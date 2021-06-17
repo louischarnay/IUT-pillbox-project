@@ -1172,8 +1172,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
         pilulier.addHistorique("Pilule prise à l'heure", new Date());
-        pilulier.getMotor().setAngle(-(index - 1));
-        pilulier.getMotor().start();
+        if (pilulier.getMotor() != null){
+            pilulier.getMotor().setAngle(-(index - 1));
+            pilulier.getMotor().start();    
+        }
         boutonPressed = false;
         boutonAlerte.setText("Refermer le pilulier");
         timerAlarme = 0;
@@ -1196,8 +1198,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 }
             }
         }
-        pilulier.getMotor().setAngle(index - 1);
-        pilulier.getMotor().start();
+        if (pilulier.getMotor() != null){
+            pilulier.getMotor().setAngle(index - 1);
+            pilulier.getMotor().start();  
+        }
         pilulier.getCase(index).setEtatRemplissage(false);
         boutonPressed = false;
         updateCasesRestantes();
