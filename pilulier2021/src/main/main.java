@@ -30,9 +30,9 @@ public class main {
     public static void main(String[] args) throws InterruptedException {;
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
-        Referent Michel=new Referent("Michel","Polnareff","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
-        Referent Natacha=new Referent("Natacha","Tte","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
-        Referent Salima=new Referent("Salima","Rdigra","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
+        Referent Michel=new Referent("Polnareff","Michel","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
+        Referent Natacha=new Referent("Tte","Natacha","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
+        Referent Salima=new Referent("Rdigra","Salima","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
         referents.add(Michel);
         referents.add(Natacha);
         referents.add(Salima);

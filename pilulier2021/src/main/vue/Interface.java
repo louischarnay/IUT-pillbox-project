@@ -48,9 +48,9 @@ import main.modele.Referent;
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
     private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel();
-    private JTextArea infosMenu = new JTextArea(), case1=new JTextArea(), case2=new JTextArea(), case3=new JTextArea(), case4=new JTextArea(), case5=new JTextArea(), case6=new JTextArea(), case7=new JTextArea();
+    private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase=new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox();
@@ -58,6 +58,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Pilulier pilulier;
     private boolean boutonPressed = false;
     private int timerAlarme = 0;
+    int indexInfoLecture = 0, indexInfoEcriture = 0;
 
     EnumEtat etat;
 
@@ -126,7 +127,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         adresseEcriture.addFocusListener(this);
         telEcriture.addFocusListener(this);
         mailEcriture.addFocusListener(this);
-        fonctionEcriture.addFocusListener(this);
         validerInfos.addActionListener(this);
         validerCase.addActionListener(this);
     }
@@ -190,6 +190,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setTextFieldInfo(mailEcriture, "Mail");
         setTextFieldInfo(telEcriture, "Tel");
 
+        //désactivation de Fonction
+        fonctionEcriture.setEditable(false);
+
         //boutons menu
         setBoutonMenu(menuSU, menuSUImage);
         setBoutonMenu(calendrier, calendrierImage);
@@ -216,13 +219,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(validerCase, "Valider", 30, Color.white);
 
         //cases calendrier
-        setTextArea(case1, true, "   Case 1"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case2, true, "   Case 2"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case3, true, "   Case 3"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case4, true, "   Case 4"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case5, true, "   Case 5"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case6, true, "   Case 6"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case7, true, "   Case 7"+newLine+"   15 / 06"+newLine+"   22 : 15");
+        setTextArea(case1, true, "");
+        setTextArea(case2, true, "");
+        setTextArea(case3, true, "");
+        setTextArea(case4, true, "");
+        setTextArea(case5, true, "");
+        setTextArea(case6, true, "");
+        setTextArea(case7, true, "");
 
         //comboBox remplissage
         setComboBox(boxMois);
@@ -281,17 +284,24 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonRetourVisible(false);
         boutonAlerteVisible(false);
 
+        //désactive la flèche gauche
+        flecheGauche.setEnabled(false);
+
         etat = EnumEtat.MENU;
     }
 
     //mise à jour de l'heure
     public void setHeureAffiche() {
         Date heure = new Date();
-        if (heure.getMinutes() < 10) {
-            heureAffiche.setText((heure.getHours() + ": 0" + heure.getMinutes()));
-        } else {
-            heureAffiche.setText((heure.getHours() + ":" + heure.getMinutes()));
+        if (heure.getHours() < 10 && heure.getMinutes() < 10) {
+            heureAffiche.setText(("0" + heure.getHours() + " : 0" + heure.getMinutes()));
+        } else if (heure.getHours() < 10 && heure.getMinutes() > 9) {
+            heureAffiche.setText(("0" + heure.getHours() + " : " + heure.getMinutes()));
+        } else if(heure.getHours() > 9 && heure.getMinutes() < 10){
+            heureAffiche.setText((heure.getHours() + " : 0" + heure.getMinutes()));
         }
+        else
+            heureAffiche.setText((heure.getHours() + " : " + heure.getMinutes()));
     }
 
     //action listener
@@ -304,7 +314,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
-            chargerReferent();
+            chargerReferent(indexInfoLecture);
             flechesVisible(true);
             boutonRetourVisible(true);
             infosEcritureVisible(true, false);
@@ -340,16 +350,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("gg");
                     break;
                 case INFOLECTURE:
+                    indexInfoLecture = 0;
                     flechesVisible(false);
                     infosEcritureVisible(false, false);
                     boutonsValiderInfosVisible(false);
                     infosLabelsVisible(false);
+                    flecheGauche.setEnabled(false);
+                    flecheDroite.setEnabled(true);
                     break;
                 case INFOECRITURE:
+                    indexInfoEcriture = 0;
                     flechesVisible(false);
                     infosEcritureVisible(false, true);
                     boutonsValiderInfosVisible(false);
                     infosLabelsVisible(false);
+                    flecheGauche.setEnabled(false);
+                    flecheDroite.setEnabled(true);
                     break;
                 case CALENDRIERLECTURE:
                     casesCalendrierVisible(false);
@@ -380,7 +396,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonMenuSU0) {
             etat = EnumEtat.INFOECRITURE;
             tmp = false;
-            chargerReferent();
+            chargerReferent(indexInfoEcriture);
             ledMarcheVisible(false);
             boutonMenuSUVisible(false);
             flechesVisible(true);
@@ -405,7 +421,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             infosEcritureVisible(true, false);
         } else if (e.getSource() == validerInfos) {
-            infosEcriture();
+            infosEcriture(indexInfoEcriture);
         } else if (e.getSource() == validerCase) {
             try {
                 caseEcriture(1);
@@ -418,10 +434,20 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("salut bg on tourne à gauche");
                     break;
                 case INFOLECTURE:
-                    System.out.println("lecture info à gauche");
+                    indexInfoLecture--;
+                    chargerReferent(indexInfoLecture);
+                    flecheDroite.setEnabled(true);
+                    if (indexInfoLecture == 0) {
+                        flecheGauche.setEnabled(false);
+                    }
                     break;
                 case INFOECRITURE:
-                    System.out.println("ecriture info à gauche");
+                    indexInfoEcriture--;
+                    chargerReferent(indexInfoEcriture);
+                    flecheDroite.setEnabled(true);
+                    if (indexInfoEcriture == 0) {
+                        flecheGauche.setEnabled(false);
+                    }
                     break;
                 case HISTORIQUE:
                     System.out.println("historique à gauche");
@@ -433,10 +459,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("salut bg on tourne à droite");
                     break;
                 case INFOLECTURE:
-                    System.out.println("lecture info à droite");
+                    indexInfoLecture++;
+                    chargerReferent(indexInfoLecture);
+                    flecheGauche.setEnabled(true);
+                    if (indexInfoLecture == 2) {
+                        flecheDroite.setEnabled(false);
+                    }
                     break;
                 case INFOECRITURE:
-                    System.out.println("ecriture info à droite");
+                    indexInfoEcriture++;
+                    chargerReferent(indexInfoEcriture);
+                    flecheGauche.setEnabled(true);
+                    boutonRetour.requestFocus();
+                    if (indexInfoEcriture == 2) {
+                        flecheDroite.setEnabled(false);
+                    }
                     break;
                 case HISTORIQUE:
                     System.out.println("historique à droite");
@@ -444,15 +481,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
     }
-    
+
     //placement des éléments
-    
     public void boutonValiderCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 3;
         cont.gridy = 5;
         pano.add(validerCase, cont);
     }
-    
+
     public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 1;
         cont.gridy = 1;
@@ -758,7 +794,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         adresseEcriture.setVisible(b);
         nomEcriture.setEditable(c);
         prenomEcriture.setEditable(c);
-        fonctionEcriture.setEditable(c);
         telEcriture.setEditable(c);
         mailEcriture.setEditable(c);
         adresseEcriture.setEditable(c);
@@ -824,7 +859,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         lbl.setFont(new Font("Arial", Font.BOLD, sze));
         lbl.setForeground(Color.white);
     }
-    
+
     public void setTextArea(JTextArea area, boolean b, String txt) {
         Border bordure = BorderFactory.createLineBorder(Color.white);
         area.setBorder(bordure);
@@ -844,49 +879,49 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
     }
-    
+
     //charger les cases lecture
-    public void chargerCasesLecture(){
+    public void chargerCasesLecture() {
         String newLine = System.getProperty("line.separator");
         String tmp;
-        tmp="  Case 1"+newLine+"  "+pilulier.getCase(1).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getMinutes();
+        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + pilulier.getCase(1).getDate().getMonth() + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " : " + pilulier.getCase(1).getDate().getMinutes();
         case1.setText(tmp);
-        tmp="  Case 2"+newLine+"  "+pilulier.getCase(2).getDate().getDate()+" / "+pilulier.getCase(2).getDate().getMonth()+newLine+"  "+pilulier.getCase(2).getDate().getHours()+" / "+pilulier.getCase(2).getDate().getMinutes();
+        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + pilulier.getCase(2).getDate().getMonth() + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " : " + pilulier.getCase(2).getDate().getMinutes();
         case2.setText(tmp);
-        tmp="  Case 3"+newLine+"  "+pilulier.getCase(3).getDate().getDate()+" / "+pilulier.getCase(3).getDate().getMonth()+newLine+"  "+pilulier.getCase(3).getDate().getHours()+" / "+pilulier.getCase(3).getDate().getMinutes();
+        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + pilulier.getCase(3).getDate().getMonth() + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " : " + pilulier.getCase(3).getDate().getMinutes();
         case3.setText(tmp);
-        tmp="  Case 4"+newLine+"  "+pilulier.getCase(4).getDate().getDate()+" / "+pilulier.getCase(4).getDate().getMonth()+newLine+"  "+pilulier.getCase(4).getDate().getHours()+" / "+pilulier.getCase(4).getDate().getMinutes();
+        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + pilulier.getCase(4).getDate().getMonth() + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " : " + pilulier.getCase(4).getDate().getMinutes();
         case4.setText(tmp);
-        tmp="  Case 5"+newLine+"  "+pilulier.getCase(5).getDate().getDate()+" / "+pilulier.getCase(5).getDate().getMonth()+newLine+"  "+pilulier.getCase(5).getDate().getHours()+" / "+pilulier.getCase(5).getDate().getMinutes();
+        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + pilulier.getCase(5).getDate().getMonth() + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " : " + pilulier.getCase(5).getDate().getMinutes();
         case5.setText(tmp);
-        tmp="  Case 6"+newLine+"  "+pilulier.getCase(6).getDate().getDate()+" / "+pilulier.getCase(6).getDate().getMonth()+newLine+"  "+pilulier.getCase(6).getDate().getHours()+" / "+pilulier.getCase(6).getDate().getMinutes();
+        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + pilulier.getCase(6).getDate().getMonth() + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " : " + pilulier.getCase(6).getDate().getMinutes();
         case6.setText(tmp);
-        tmp="  Case 7"+newLine+"  "+pilulier.getCase(7).getDate().getDate()+" / "+pilulier.getCase(7).getDate().getMonth()+newLine+"  "+pilulier.getCase(7).getDate().getHours()+" / "+pilulier.getCase(7).getDate().getMinutes();
+        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(7).getDate().getDate() + " / " + pilulier.getCase(7).getDate().getMonth() + newLine + "  " + pilulier.getCase(7).getDate().getHours() + " : " + pilulier.getCase(7).getDate().getMinutes();
         case7.setText(tmp);
     }
-    
+
     //charger les référents
-    public void chargerReferent() {
-        nomEcriture.setText(pilulier.getReferents().get(0).getNom());
-        prenomEcriture.setText(pilulier.getReferents().get(0).getPrenom());
-        fonctionEcriture.setText(pilulier.getReferents().get(0).getFonction());
-        adresseEcriture.setText(pilulier.getReferents().get(0).getAdresse());
-        mailEcriture.setText(pilulier.getReferents().get(0).getMail());
-        telEcriture.setText(pilulier.getReferents().get(0).getTel());
+    public void chargerReferent(int index) {
+        nomEcriture.setText(pilulier.getReferents().get(index).getNom());
+        prenomEcriture.setText(pilulier.getReferents().get(index).getPrenom());
+        fonctionEcriture.setText(pilulier.getReferents().get(index).getFonction());
+        adresseEcriture.setText(pilulier.getReferents().get(index).getAdresse());
+        mailEcriture.setText(pilulier.getReferents().get(index).getMail());
+        telEcriture.setText(pilulier.getReferents().get(index).getTel());
     }
-    
+
     //écriture des infos
-    public void infosEcriture(){
-            pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
-            pilulier.getReferents().get(0).setNom(nomEcriture.getText());
-            pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
-            pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
-            pilulier.getReferents().get(0).setTel(telEcriture.getText());
-            pilulier.getReferents().get(0).setMail(mailEcriture.getText());
+    public void infosEcriture(int index) {
+        pilulier.getReferents().get(index).setPrenom(prenomEcriture.getText());
+        pilulier.getReferents().get(index).setNom(nomEcriture.getText());
+        pilulier.getReferents().get(index).setAge(fonctionEcriture.getText());
+        pilulier.getReferents().get(index).setAdresse(adresseEcriture.getText());
+        pilulier.getReferents().get(index).setTel(telEcriture.getText());
+        pilulier.getReferents().get(index).setMail(mailEcriture.getText());
     }
-    
+
     //charger une case remplissage
-    public void chargerCaseRemplissage(int index){
+    public void chargerCaseRemplissage(int index) {
         checkRetard.setSelected(pilulier.getCase(index).getRetardAccepte());
         boxMinute.setSelectedItem(pilulier.getCase(index).getDate().getMinutes());
         boxHeure.setSelectedItem(pilulier.getCase(index).getDate().getHours());
@@ -894,19 +929,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boxMois.setSelectedItem(pilulier.getCase(index).getDate().getMonth());
         pilulier.getCase(index).setEtatRemplissage(true);
     }
-    
+
     //écriture d'une case
-    public void caseEcriture(int index) throws ParseException{
+    public void caseEcriture(int index) throws ParseException {
         //String dateString=boxHeure.getSelectedItem()+"/"+boxMinute.getSelectedItem()+"/"+boxJour.getSelectedItem()+"/"+boxMois.getSelectedItem()+"/2021";
-        Date date=new Date();
+        Date date = new Date();
         //date=new SimpleDateFormat("HH/mm/dd/MM/yyyy").parse(dateString);
-        date.setMonth((int)boxMois.getSelectedItem());
-        date.setDate((int)boxJour.getSelectedItem());
-        date.setHours((int)boxHeure.getSelectedItem());
-        date.setMinutes((int)boxMinute.getSelectedItem());
+        date.setMonth((int) boxMois.getSelectedItem());
+        date.setDate((int) boxJour.getSelectedItem());
+        date.setHours((int) boxHeure.getSelectedItem());
+        date.setMinutes((int) boxMinute.getSelectedItem());
         pilulier.getCase(index).setDate(date);
         System.out.println(pilulier.getCase(index).getDate());
-        
+
     }
 
     //heure de prendre la pilule
@@ -994,8 +1029,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 mailEcriture.setText("");
             } else if (e.getSource() == prenomEcriture) {
                 prenomEcriture.setText("");
-            } else if (e.getSource() == fonctionEcriture) {
-                fonctionEcriture.setText("");
             } else if (e.getSource() == adresseEcriture) {
                 adresseEcriture.setText("");
             }
