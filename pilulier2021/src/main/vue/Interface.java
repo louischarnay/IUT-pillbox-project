@@ -58,7 +58,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Pilulier pilulier;
     private boolean boutonPressed = false;
     private int timerAlarme = 0;
-    int indexInfoLecture = 0, indexInfoEcriture = 0;
+    int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique;
 
     EnumEtat etat;
 
@@ -377,6 +377,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     checkRetardVisible(false);
                     break;
                 case HISTORIQUE:
+                    indexHistorique=0;
                     infosEcritureVisible(false, false);
                     flechesVisible(false);
                     break;
@@ -420,6 +421,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonMenuSUVisible(false);
             flechesVisible(true);
             infosEcritureVisible(true, false);
+            chargerHistorique(indexHistorique);
         } else if (e.getSource() == validerInfos) {
             infosEcriture(indexInfoEcriture);
         } else if (e.getSource() == validerCase) {
@@ -450,7 +452,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                     break;
                 case HISTORIQUE:
-                    System.out.println("historique à gauche");
+                    indexHistorique--;
+                    chargerHistorique(indexHistorique);
+                    flecheDroite.setEnabled(true);
+                    if (indexHistorique == 0) {
+                        flecheGauche.setEnabled(false);
+                    }
                     break;
             }
         } else if (e.getSource() == flecheDroite) {
@@ -476,10 +483,33 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                     break;
                 case HISTORIQUE:
-                    System.out.println("historique à droite");
+                    indexHistorique++;
+                    chargerHistorique(indexHistorique);
+                    flecheGauche.setEnabled(true);
+                    boutonRetour.requestFocus();
+                    if (indexHistorique >= pilulier.getSizeHistorique()/6) {
+                        flecheDroite.setEnabled(false);
+                    }
                     break;
             }
         }
+    }
+
+    public void chargerHistorique(int page) {
+        fonctionEcriture.setText("");
+        prenomEcriture.setText("");
+        nomEcriture.setText("");
+        adresseEcriture.setText("");
+        telEcriture.setText("");
+        mailEcriture.setText("");
+       if(pilulier.getSizeHistorique()>0+(page*6))fonctionEcriture.setText(pilulier.getHistorique(0 + (page * 6)));
+        if(pilulier.getSizeHistorique()>1+(page*6))prenomEcriture.setText(pilulier.getHistorique(1 + (page * 6)));
+        if(pilulier.getSizeHistorique()>2+(page*6))nomEcriture.setText(pilulier.getHistorique(2+(page*6)));
+        if(pilulier.getSizeHistorique()>3+(page*6))adresseEcriture.setText(pilulier.getHistorique(3+(page*6)));
+        if(pilulier.getSizeHistorique()>4+(page*6))telEcriture.setText(pilulier.getHistorique(4+(page*6)));
+        if(pilulier.getSizeHistorique()>5+(page*6))mailEcriture.setText(pilulier.getHistorique(5+(page*6)));
+       
+
     }
 
     //placement des éléments
@@ -884,19 +914,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void chargerCasesLecture() {
         String newLine = System.getProperty("line.separator");
         String tmp;
-        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + pilulier.getCase(1).getDate().getMonth() + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " : " + pilulier.getCase(1).getDate().getMinutes();
+        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + pilulier.getCase(1).getDate().getMonth() + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " / " + pilulier.getCase(1).getDate().getMinutes();
         case1.setText(tmp);
-        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + pilulier.getCase(2).getDate().getMonth() + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " : " + pilulier.getCase(2).getDate().getMinutes();
+        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + pilulier.getCase(2).getDate().getMonth() + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " / " + pilulier.getCase(2).getDate().getMinutes();
         case2.setText(tmp);
-        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + pilulier.getCase(3).getDate().getMonth() + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " : " + pilulier.getCase(3).getDate().getMinutes();
+        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + pilulier.getCase(3).getDate().getMonth() + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " / " + pilulier.getCase(3).getDate().getMinutes();
         case3.setText(tmp);
-        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + pilulier.getCase(4).getDate().getMonth() + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " : " + pilulier.getCase(4).getDate().getMinutes();
+        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + pilulier.getCase(4).getDate().getMonth() + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " / " + pilulier.getCase(4).getDate().getMinutes();
         case4.setText(tmp);
-        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + pilulier.getCase(5).getDate().getMonth() + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " : " + pilulier.getCase(5).getDate().getMinutes();
+        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + pilulier.getCase(5).getDate().getMonth() + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " / " + pilulier.getCase(5).getDate().getMinutes();
         case5.setText(tmp);
-        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + pilulier.getCase(6).getDate().getMonth() + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " : " + pilulier.getCase(6).getDate().getMinutes();
+        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + pilulier.getCase(6).getDate().getMonth() + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " / " + pilulier.getCase(6).getDate().getMinutes();
         case6.setText(tmp);
-        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(7).getDate().getDate() + " / " + pilulier.getCase(7).getDate().getMonth() + newLine + "  " + pilulier.getCase(7).getDate().getHours() + " : " + pilulier.getCase(7).getDate().getMinutes();
+        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(7).getDate().getDate() + " / " + pilulier.getCase(7).getDate().getMonth() + newLine + "  " + pilulier.getCase(7).getDate().getHours() + " / " + pilulier.getCase(7).getDate().getMinutes();
         case7.setText(tmp);
     }
 
@@ -932,9 +962,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //écriture d'une case
     public void caseEcriture(int index) throws ParseException {
-        //String dateString=boxHeure.getSelectedItem()+"/"+boxMinute.getSelectedItem()+"/"+boxJour.getSelectedItem()+"/"+boxMois.getSelectedItem()+"/2021";
         Date date = new Date();
-        //date=new SimpleDateFormat("HH/mm/dd/MM/yyyy").parse(dateString);
         date.setMonth((int) boxMois.getSelectedItem());
         date.setDate((int) boxJour.getSelectedItem());
         date.setHours((int) boxHeure.getSelectedItem());

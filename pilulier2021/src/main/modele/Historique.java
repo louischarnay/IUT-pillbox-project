@@ -12,10 +12,11 @@ import java.util.ArrayList;
  * @author p2008965
  */
 public class Historique {
+
     protected ArrayList<ActionHistorique> listeHistorique;
 
     public Historique() {
-        listeHistorique=new ArrayList<>();
+        listeHistorique = new ArrayList<>();
     }
 
     public ArrayList<ActionHistorique> getListeHistorique() {
@@ -25,12 +26,18 @@ public class Historique {
     public void setListeHistorique(ArrayList<ActionHistorique> listeHistorique) {
         this.listeHistorique = listeHistorique;
     }
-    
+
     /**
      * ajoute une action à l’historique, return false si problème, true sinon
+     *
      * @param action actionHistorique à ajouter
      */
-    public void addActionHistorique(ActionHistorique action){
+    public void addActionHistorique(ActionHistorique action) {
         listeHistorique.add(action);
+    }
+
+    public String toString(int i) {
+        return listeHistorique.get(i).getDate().getDate() + "/" + listeHistorique.get(i).getDate().getMonth() + " à " + listeHistorique.get(i).getDate().getHours() + "h" + listeHistorique.get(i).getDate().getMinutes() + "  : " + listeHistorique.get(i).getTexte();
+
     }
 }

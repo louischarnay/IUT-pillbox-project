@@ -18,11 +18,13 @@ public class Pilulier {
     protected Moteur moteur;
     protected HautParleur buzzer;
     protected Patient patient;
+    protected Historique historique;
     protected ArrayList<Referent> referents;
     protected ArrayList<Case>calendrier;
 
     public Pilulier() {
         calendrier=new ArrayList<>();
+        historique=new Historique();
         for (int i = 0; i < 8; i++) {
             calendrier.add(new Case(i+1,new Date(2020,i,10+i,30+2*i,0)));
         }
@@ -33,6 +35,7 @@ public class Pilulier {
     
 
     public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+        historique=new Historique();
         referents=r;
         calendrier=c;
         buzzer=b;
@@ -141,5 +144,17 @@ public class Pilulier {
             }
         }
         return 0;
+    }
+    public String getHistorique(int i){
+        return historique.toString(i);
+    }
+    
+    public int getSizeHistorique(){
+        return historique.getListeHistorique().size();
+                }
+    
+    public void addHistorique(String txt, Date ajrd){
+        ActionHistorique ah= new ActionHistorique(txt,ajrd);
+        historique.addActionHistorique(ah);
     }
 }
