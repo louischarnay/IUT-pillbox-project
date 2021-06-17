@@ -44,8 +44,8 @@ public class main {
             calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
         }
         
-        Moteur motor = null; //moteur non raccordé à la raspberry
-//        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
+//        Moteur motor = null; //moteur non raccordé à la raspberry
+        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25);
         HautParleur buzzer = null; //hp non raccordé à la raspberry
 //        HautParleur buzzer = new HautParleur(2, RaspiBcmPin.GPIO_26);
 //        buzzer.start();

@@ -52,7 +52,7 @@ public class HautParleur implements Execute{
             while (true){
                 // turn off gpio pin 
                 pin.low();
-                Thread.sleep(3);
+                Thread.sleep(intensite);
                 pin.high();
 
 //                // toggle the current state of gpio pin  (should turn on)
