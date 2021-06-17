@@ -38,16 +38,13 @@ public class main {
         referents.add(referent1);
         referents.add(referent2);
         referents.add(referent3);
-        calendrier.add(new Case(1,new Date(2021, 06, 17, 11, 14)));
-        calendrier.add(new Case(2,new Date(2021, 02, 19, 14, 0)));
-        calendrier.add(new Case(3,new Date(2021, 02, 19, 14, 0)));
-        calendrier.add(new Case(4,new Date(2021, 02, 19, 14, 0)));
-        calendrier.add(new Case(5,new Date(2021, 02, 19, 14, 0)));
-        calendrier.add(new Case(6,new Date(2021, 02, 19, 14, 0)));
-        calendrier.add(new Case(7,new Date(2021, 02, 19, 14, 0)));
-        for(int i=2;i<10;i++){
-            calendrier.add(new Case(i+1,new Date(2020-1900,i,10+i,2*i,12+i,0)));
-        }
+        calendrier.add(new Case(1,new Date(2021, 00, 01, 01, 00)));
+        calendrier.add(new Case(2,new Date(2021, 01, 02, 02, 00)));
+        calendrier.add(new Case(3,new Date(2021, 02, 03, 03, 00)));
+        calendrier.add(new Case(4,new Date(2021, 03, 04, 04, 00)));
+        calendrier.add(new Case(5,new Date(2021, 04, 05, 05, 00)));
+        calendrier.add(new Case(6,new Date(2021, 05, 06, 06, 00)));
+        calendrier.add(new Case(7,new Date(2021, 06, 07, 07, 00)));
 
         
         Moteur motor = null; //si moteur non raccordé à la raspberry
@@ -90,10 +87,8 @@ public class main {
         while(i == 0){
             fenetre.setHeureAffiche();
             time=pilulier.itsTime();
-            System.out.println(time);
             if(time!=0){
                 System.out.println("ITS TIME");
-                System.out.println(time);
                 fenetre.itsTime(time);
             }
             Thread.sleep(1000);
