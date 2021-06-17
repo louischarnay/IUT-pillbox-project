@@ -44,4 +44,8 @@ public class Referent extends Personne {
         return res;
     }
     
+    @Override
+    public String toString(){
+        return this.getPrenom()+" "+this.getNom()+" "+this.getFonction()+" "+this.getAdresse()+" "+mail+" "+tel+" ";
+    }
 }

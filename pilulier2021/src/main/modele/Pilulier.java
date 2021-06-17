@@ -28,10 +28,11 @@ public class Pilulier {
         }
         referents=new ArrayList<>();
     }
+
     
-    public Pilulier(Patient p, ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
-        
-        patient=p;
+    
+
+    public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
         referents=r;
         calendrier=c;
         buzzer=b;
@@ -39,6 +40,10 @@ public class Pilulier {
     }
     public Patient getPatient() {
         return patient;
+    }
+    
+    public Case getCase(int index){
+        return calendrier.get(index);
     }
     
     public ArrayList<Case> getCalendrier() {
@@ -51,6 +56,10 @@ public class Pilulier {
     
     public Moteur getMotor(){
         return moteur;
+    }
+
+    public HautParleur getBuzzer() {
+        return buzzer;
     }
 
     public void setBuzzer(HautParleur buzzer) {
@@ -77,7 +86,20 @@ public class Pilulier {
         referents.add(r);
     }
     
+    public int getCalendrierSize(){
+        return calendrier.size();
+    }
     
+    public String getDateString(Date d, int ind){
+         String res="";
+        
+            res="<html>Case "+ind+"<br/>"+(d.getDate())+" / "+(d.getMonth()+1)+"<br/>"+(d.getHours()+1)+" : "+(d.getMinutes()+1)+"</html>";
+        
+        return res;
+    }
+    public Date getdate(int i){
+        return calendrier.get(i).getDate();
+    }
     public void addCase(Case c){
         c.setEtatRemplissage(true);
         calendrier.add(c);
@@ -100,13 +122,7 @@ public class Pilulier {
         for(int i = 0;i < referents.size();i++){
             res+=referents.get(i).getNom()+"  "+referents.get(i).getPrenom()+"  "+referents.get(i).getFonction()+"  "+referents.get(i).getMail()+"  "+referents.get(i).getTel()+"\n";
         }
-        res+="Patient : "+ patient.getNom()+"  "+patient.getPrenom()+"\n";
-        for(int i = 0; i<patient.maladie.size();i++){
-            res+="- "+ patient.maladie.get(i)+"\n";
-        }
-        for(int i = 0; i<patient.allergie.size();i++){
-            res+="- "+ patient.allergie.get(i)+"\n";
-        }
+     
         
         return res;
     }
@@ -114,5 +130,16 @@ public class Pilulier {
         
         return c.getDate();
         
+    }
+    
+    public int itsTime(){
+        Date d=new Date();
+        //System.out.println(d);
+        for (int i = 0; i < calendrier.size(); i++) {
+            if(calendrier.get(i).getDate().getMonth()==d.getMonth()&&calendrier.get(i).getDate().getDate()==d.getDate()&&calendrier.get(i).getDate().getHours()==d.getHours()&&calendrier.get(i).getDate().getMinutes()==d.getMinutes()&&calendrier.get(i).getDate().getSeconds()==d.getSeconds()){
+                return i+1;
+            }
+        }
+        return 0;
     }
 }
