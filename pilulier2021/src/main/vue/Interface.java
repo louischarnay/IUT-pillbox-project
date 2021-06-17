@@ -53,17 +53,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
-    private JCheckBox checkRetard = new JCheckBox();
+    private JCheckBox checkRetard = new JCheckBox(), checkRemplissage=new JCheckBox();
 
     private Pilulier pilulier;
     private boolean boutonPressed = false;
     private int timerAlarme = 0;
-    int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique=0, indexCase=0;
+    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique=0, indexCase=0, nbCasesRestantes=0, etapePanicButton=0;
+    private String tempsRestant="00 jours, 00 heures 00 minutes";
 
-    EnumEtat etat;
+    private EnumEtat etat;
 
-    JPanel pano = new JPanel();
-    GridBagConstraints cont = new GridBagConstraints();
+    private JPanel pano = new JPanel();
+    private GridBagConstraints cont = new GridBagConstraints();
+    private String newLine = System.getProperty("line.separator");
 
     //boolean qui dit si il faure retourner au menu principal ou menu SU
     boolean tmp = true;
@@ -141,7 +143,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         GridBagConstraints cont = new GridBagConstraints();
         Date heure = new Date();
         Border bordure = BorderFactory.createLineBorder(Color.white);
-        String newLine = System.getProperty("line.separator");
 
         //création des composants
         //checkBox remplissage
@@ -182,12 +183,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         //informations menu
         infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
         infosMenu.setForeground(Color.white);
-        infosMenu.setText("Prochain traitement dans 20 minutes" + newLine + newLine + "3 cases restantes");
+        infosMenu.setText("Prochaine case : " +tempsRestant+ newLine + newLine + nbCasesRestantes+" cases restantes");
         infosMenu.setBackground(vertFond);
         infosMenu.setEditable(false);
 
         //label numéro case
-        setLabel(caseRemplissage, 30, Color.white, true, "Case 1");
+        setLabel(caseRemplissage, 30, Color.white, true, "");
 
         //labels box remplissage
         setLabel(caseMois, 20, Color.white, true, "Mois");
@@ -280,6 +281,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         checkRetardAffiche(cont, pano);
         //placement bouton valider cases
         boutonValiderCaseAffiche(cont, pano);
+        //placement boutonAlerte
+        boutonAlerteAffiche(cont, pano, "");
 
         this.setContentPane(pano);
         this.pack();
@@ -295,7 +298,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         flechesVisible(false);
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
-        boutonAlerteVisible(false);
+        boutonAlerteVisible(false, "");
 
         //désactive la flèche gauche
         flecheGauche.setEnabled(false);
@@ -315,13 +318,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         else
             heureAffiche.setText((heure.getHours() + " : " + heure.getMinutes()));
+        if(infosMenu.isVisible()){
+            updateTempsRestant();
+            infosMenu.setText("Prochaine case : " +tempsRestant+ newLine + newLine + nbCasesRestantes+" cases restantes");
+        }
     }
 
     //action listener
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panicButton) {
-            System.out.println("panic button pressed");
+            etat=EnumEtat.PANICBUTTON;
+            ledMarcheVisible(false);
+            infosMenuVisible(false);
+            boutonsMenuVisible(false);
+            boutonAlerteVisible(true, "Situation d'urgence");
+            boutonRetourVisible(true);
         } else if (e.getSource() == informations) {
             etat = EnumEtat.INFOLECTURE;
             ledMarcheVisible(false);
@@ -346,12 +358,36 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             tmp = true;
             etat = EnumEtat.MENUSU;
             ledMarcheVisible(false);
-            boutonAlerteVisible(false);
+            boutonAlerteVisible(false, "");
             boutonsMenuVisible(false);
             infosMenuVisible(false);
             boutonRetourVisible(true);
             boutonMenuSUVisible(true);
         } else if (e.getSource() == boutonAlerte) {
+            switch(etat){
+                case PANICBUTTON:
+                    etapePanicButton++;
+                    //envoi notification panicbutton pressed
+                    switch(etapePanicButton){
+                        case 1:
+                            System.out.println("envoi notification");
+                            pilulier.addHistorique("Appui sur le panic button", new Date());
+                        boutonRetourVisible(false);
+                        boutonAlerteAffiche(cont, pano, "");
+                        boutonAlerteVisible(true, " Scanner  votre  badge ");
+                        //scan NFC
+                        
+                        break;
+                        case 2:
+                            //envoi notification aux autres référents
+                            pilulier.addHistorique("Référent arrivé", new Date());
+                            System.out.println("envoi notification");
+                            boutonAlerteVisible(false, "");
+                            infosMenuVisible(true);
+                            boutonsMenuVisible(true);
+                            etapePanicButton=0;
+                    }
+            }
             boutonPressed = true;
         } else if (e.getSource() == boutonRetour) {
             switch (etat) {
@@ -384,16 +420,25 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
+                    indexCase=0;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
                     numCaseVisible(false);
                     checkRetardVisible(false);
+                    flecheGauche.setEnabled(false);
+                    flecheDroite.setEnabled(true);
                     break;
                 case HISTORIQUE:
                     indexHistorique=0;
                     infosEcritureVisible(false, false);
                     flechesVisible(false);
+                    flecheGauche.setEnabled(false);
+                    flecheDroite.setEnabled(true);
                     break;
+                case PANICBUTTON:
+                    boutonAlerteAffiche(cont, pano, "");
+                    boutonAlerteVisible(false, "");
+                    
 
             }
             if (tmp == true) {
@@ -437,24 +482,36 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             chargerHistorique(indexHistorique);
         } else if (e.getSource() == validerInfos) {
             infosEcriture(indexInfoEcriture);
+            if(indexInfoEcriture==0)
+                pilulier.addHistorique("Patient modifié", new Date());
+            else
+                pilulier.addHistorique("Référent "+(indexInfoEcriture)+" modifié", new Date());
             
         } else if (e.getSource() == validerCase) {
-            try {
                 caseEcriture(indexCase);
-                pilulier.addHistorique("Horaire de la case "+indexCase+" modifié", new Date());
-            } catch (ParseException ex) {
-                System.out.println("failed my friend");
-            }
+                updateCasesRestantes();
+                //if(ledMarche.getCouleurLed()!=Color.orange)
+                    if(nbCasesRestantes==0){
+                        ledMarche.setCouleurLed(Color.red);
+                    }else
+                        ledMarche.setCouleurLed(Color.green);
+                
+                pilulier.addHistorique("Horaire de la case "+(indexCase+1)+" modifié", new Date());
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:
                     if (pilulier.getMotor() == null){
-                        System.out.println("salut bg on tourne à gauche");
                     }
                     else {
                         pilulier.getMotor().setAngle(1);
                         pilulier.getMotor().start();
-                        System.out.println("salut bg on tourne à gauche");
+                    }
+                    indexCase--;
+                    System.out.println(indexCase);
+                    chargerCaseRemplissage(indexCase);
+                    flecheDroite.setEnabled(true);
+                    if (indexCase == 0) {
+                        flecheGauche.setEnabled(false);
                     }
                     break;
                 case INFOLECTURE:
@@ -486,14 +543,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             switch (etat) {
                 case CALENDRIERECRITURE:
                     if (pilulier.getMotor() == null){
-                        System.out.println("salut bg on tourne à gauche");
                     }
                     else {
-                        pilulier.getMotor().setAngle(1);
+                        pilulier.getMotor().setAngle(indexCase);
                         pilulier.getMotor().start();
-                        System.out.println("salut bg on tourne à gauche");
                     }
-                    System.out.println("salut bg on tourne à droite");
+                    indexCase++;
+                    chargerCaseRemplissage(indexCase);
+                    boutonRetour.requestFocus();
+                    flecheGauche.setEnabled(true);
+                    if (indexCase == 6) {
+                        flecheDroite.setEnabled(false);
+                    }
                     break;
                 case INFOLECTURE:
                     indexInfoLecture++;
@@ -525,23 +586,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
     }
 
-    public void chargerHistorique(int page) {
-        fonctionEcriture.setText("");
-        prenomEcriture.setText("");
-        nomEcriture.setText("");
-        adresseEcriture.setText("");
-        telEcriture.setText("");
-        mailEcriture.setText("");
-       if(pilulier.getSizeHistorique()>0+(page*6))fonctionEcriture.setText(pilulier.getHistorique(0 + (page * 6)));
-        if(pilulier.getSizeHistorique()>1+(page*6))prenomEcriture.setText(pilulier.getHistorique(1 + (page * 6)));
-        if(pilulier.getSizeHistorique()>2+(page*6))nomEcriture.setText(pilulier.getHistorique(2+(page*6)));
-        if(pilulier.getSizeHistorique()>3+(page*6))adresseEcriture.setText(pilulier.getHistorique(3+(page*6)));
-        if(pilulier.getSizeHistorique()>4+(page*6))telEcriture.setText(pilulier.getHistorique(4+(page*6)));
-        if(pilulier.getSizeHistorique()>5+(page*6))mailEcriture.setText(pilulier.getHistorique(5+(page*6)));
-       
-
-    }
-
     //placement des éléments
     public void boutonValiderCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 3;
@@ -559,12 +603,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void checkRetardAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 3;
-        cont.gridy = 3;
-        cont.gridheight = 2;
-        pano.add(checkRetard, cont);
-        cont.gridheight = 1;
         cont.gridy = 2;
         pano.add(retardAccepte, cont);
+        cont.gridy = 3;
+        pano.add(checkRetard, cont);
+        cont.gridy=4;
+        pano.add(checkRemplissage, cont);
     }
 
     public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano) {
@@ -786,6 +830,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void checkRetardVisible(boolean b) {
         retardAccepte.setVisible(b);
         checkRetard.setVisible(b);
+        checkRemplissage.setVisible(b);
     }
 
     public void casesCalendrierVisible(boolean b) {
@@ -814,7 +859,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         panicButton.setVisible(b);
     }
 
-    public void boutonAlerteVisible(boolean b) {
+    public void boutonAlerteVisible(boolean b, String txt) {
+        boutonAlerte.setText(txt);
+        if(txt=="Situation d'urgence"){
+        cont.fill = GridBagConstraints.BOTH;
+        cont.anchor = GridBagConstraints.CENTER;
+        cont.insets = new Insets(70, 5, 130, 5);
+        cont.gridx = 0;
+        cont.gridheight = 2;
+        cont.gridwidth = 20;
+        cont.gridy = 1;
+        pano.add(boutonAlerte, cont);
+        cont.gridheight = 1;
+        cont.gridwidth = 1;
+        cont.insets = new Insets(5, 5, 5, 5);
+        }
         boutonAlerte.setVisible(b);
     }
 
@@ -939,24 +998,39 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
     }
+    
+    //charger l'historique
+    public void chargerHistorique(int page) {
+        fonctionEcriture.setText("");
+        prenomEcriture.setText("");
+        nomEcriture.setText("");
+        adresseEcriture.setText("");
+        telEcriture.setText("");
+        mailEcriture.setText("");
+       if(pilulier.getSizeHistorique()>0+(page*6))fonctionEcriture.setText(pilulier.getHistorique(0 + (page * 6)));
+        if(pilulier.getSizeHistorique()>1+(page*6))prenomEcriture.setText(pilulier.getHistorique(1 + (page * 6)));
+        if(pilulier.getSizeHistorique()>2+(page*6))nomEcriture.setText(pilulier.getHistorique(2+(page*6)));
+        if(pilulier.getSizeHistorique()>3+(page*6))adresseEcriture.setText(pilulier.getHistorique(3+(page*6)));
+        if(pilulier.getSizeHistorique()>4+(page*6))telEcriture.setText(pilulier.getHistorique(4+(page*6)));
+        if(pilulier.getSizeHistorique()>5+(page*6))mailEcriture.setText(pilulier.getHistorique(5+(page*6)));
+    }
 
     //charger les cases lecture
     public void chargerCasesLecture() {
-        String newLine = System.getProperty("line.separator");
         String tmp;
-        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + pilulier.getCase(1).getDate().getMonth() + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " : " + pilulier.getCase(1).getDate().getMinutes();
+        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(0).getDate().getDate() + " / " + (pilulier.getCase(0).getDate().getMonth()+1) + newLine + "  " + pilulier.getCase(0).getDate().getHours() + " : " + pilulier.getCase(0).getDate().getMinutes();
         case1.setText(tmp);
-        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + pilulier.getCase(2).getDate().getMonth() + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " : " + pilulier.getCase(2).getDate().getMinutes();
+        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + (pilulier.getCase(1).getDate().getMonth()) + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " : " + pilulier.getCase(1).getDate().getMinutes();
         case2.setText(tmp);
-        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + pilulier.getCase(3).getDate().getMonth() + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " : " + pilulier.getCase(3).getDate().getMinutes();
+        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + (pilulier.getCase(2).getDate().getMonth()) + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " : " + pilulier.getCase(2).getDate().getMinutes();
         case3.setText(tmp);
-        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + pilulier.getCase(4).getDate().getMonth() + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " : " + pilulier.getCase(4).getDate().getMinutes();
+        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + (pilulier.getCase(3).getDate().getMonth()) + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " : " + pilulier.getCase(3).getDate().getMinutes();
         case4.setText(tmp);
-        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + pilulier.getCase(5).getDate().getMonth() + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " : " + pilulier.getCase(5).getDate().getMinutes();
+        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + (pilulier.getCase(4).getDate().getMonth()) + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " : " + pilulier.getCase(4).getDate().getMinutes();
         case5.setText(tmp);
-        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + pilulier.getCase(6).getDate().getMonth() + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " : " + pilulier.getCase(6).getDate().getMinutes();
+        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + (pilulier.getCase(5).getDate().getMonth()) + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " : " + pilulier.getCase(5).getDate().getMinutes();
         case6.setText(tmp);
-        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(7).getDate().getDate() + " / " + pilulier.getCase(7).getDate().getMonth() + newLine + "  " + pilulier.getCase(7).getDate().getHours() + " : " + pilulier.getCase(7).getDate().getMinutes();
+        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + (pilulier.getCase(6).getDate().getMonth()) + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " : " + pilulier.getCase(6).getDate().getMinutes();
         case7.setText(tmp);
     }
 
@@ -982,16 +1056,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //charger une case remplissage
     public void chargerCaseRemplissage(int index) {
+        caseRemplissage.setText("Case "+(index+1));
         checkRetard.setSelected(pilulier.getCase(index).getRetardAccepte());
         boxMinute.setSelectedItem(pilulier.getCase(index).getDate().getMinutes());
         boxHeure.setSelectedItem(pilulier.getCase(index).getDate().getHours());
         boxJour.setSelectedItem(pilulier.getCase(index).getDate().getDate());
-        boxMois.setSelectedItem(pilulier.getCase(index).getDate().getMonth());
-        pilulier.getCase(index).setEtatRemplissage(true);
+        boxMois.setSelectedIndex(pilulier.getCase(index).getDate().getMonth());
+        checkRemplissage.setSelected(pilulier.getCase(index).getEtatRemplissage());
     }
 
     //écriture d'une case
-    public void caseEcriture(int index) throws ParseException {
+    public void caseEcriture(int index) {
         Date date = new Date();
         date.setMonth((int) boxMois.getSelectedIndex());
         date.setDate((int) boxJour.getSelectedItem());
@@ -999,14 +1074,62 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         date.setMinutes((int) boxMinute.getSelectedItem());
         date.setSeconds(0);
         pilulier.getCase(index).setDate(date);
-        System.out.println(pilulier.getCase(index).getDate());
+        pilulier.getCase(index).setEtatRemplissage(true);
+        pilulier.getCase(index).setRetardAccepte(checkRetard.isSelected());
+        pilulier.getCase(index).setEtatRemplissage(checkRemplissage.isSelected());
 
+    }
+    
+    //mise à jour du nombre de cases restantes
+    public void updateCasesRestantes(){
+        int tmp=0;
+        for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
+            if(pilulier.getCase(i).getEtatRemplissage())
+                tmp++;
+        }
+        nbCasesRestantes=tmp;
+    }
+   //mise à jour du temps restant avant le prochain traitement
+    public void updateTempsRestant(){
+        int tmp=0;
+        Date date=new Date();
+        Date pro=new Date(2030, 01, 01, 01, 01);
+        for (int i = 0; i < pilulier.getCalendrierSize()-1; i++) {
+            if(pro.compareTo(pilulier.getCase(i).getDate())>0&&pilulier.getCase(i).getDate().getTime()>date.getTime()&&pilulier.getCase(i).getEtatRemplissage()){
+                tmp=i;
+                pro=pilulier.getCase(i).getDate();
+            }
+        }
+        long diff=pro.getTime()-date.getTime();
+        long max=2630974545L*12;
+        if(diff<0|pilulier.getCase(tmp).getDate().getTime()<date.getTime()|diff>=max)
+            tempsRestant="non définie";
+        else
+            tempsRestant=(diff / (1000 * 60 * 60 * 24))+" jours, "+(diff / (1000 * 60 * 60))%24+" heures et "+(diff / (1000 * 60))%60+" minutes";
+        String tmp1="0 jours, 0 heures et 0 minutes";
+    }
+    
+    //panic button pressed
+    public void urgence() {
+        ledMarcheVisible(false);
+        infosMenuVisible(false);
+        boutonsMenuVisible(false);
+        boutonAlerteVisible(true, "Situation d'urgence");
+        boutonRetourVisible(true);
+        System.out.println("ta mere");
+        int tmp=0;
+        while(!boutonPressed){
+        tmp++;
+        }
+    }
+    
+    public void panicButtonPressed(){
+    
     }
 
     //heure de prendre la pilule
     public boolean itsTime(int index) throws InterruptedException {
         //efface tous les composants
-        System.out.println("zebi");
         numCaseVisible(false);
         checkRetardVisible(false);
         boxCalendrierVisible(false);
@@ -1017,13 +1140,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         flechesVisible(false);
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
-        boutonAlerteVisible(false);
+        boutonAlerteVisible(false, "");
         infosMenuVisible(false);
         boutonsMenuVisible(false);
         //biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiip
         //affiche bouton alerte
         boutonAlerteAffiche(cont, pano, "Heure du traitement");
-        boutonAlerteVisible(true);
+        boutonAlerteVisible(true, "Heure du traitement");
         timerAlarme = 0;
         boolean tamp = false;
         while (!boutonPressed) {
@@ -1032,8 +1155,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             Thread.sleep(1000);
             if (timerAlarme > 10) {
                 if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
-                    System.out.println("envoi mail");
-                    boutonAlerteVisible(false);
+                    System.out.println("envoi notification");
+                    pilulier.addHistorique("Pilule non prise", new Date());
+                    //envoi notification
+                    ledMarche.setCouleurLed(Color.orange);
+                    pilulier.getCase(index).setEtatRemplissage(false);
+                    boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
                     tamp = true;
@@ -1058,7 +1185,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             if (timerAlarme > 10) {
                 if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
                     System.out.println("envoi mail");
-                    boutonAlerteVisible(false);
+                    boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
                     tamp = true;
@@ -1073,7 +1200,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pilulier.getMotor().start();
         pilulier.getCase(index).setEtatRemplissage(false);
         boutonPressed = false;
-        boutonAlerteVisible(false);
+        updateCasesRestantes();
+        boutonAlerteVisible(false, "");
         infosMenuVisible(true);
         boutonsMenuVisible(true);
         return true;

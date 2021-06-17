@@ -127,12 +127,8 @@ public class Pilulier {
     
     public int itsTime(){
         Date d=new Date();
-        System.out.println(d);
-        System.out.println(calendrier.get(0).getDate() );
         for (int i = 0; i < calendrier.size(); i++) {
-            //System.out.println(calendrier.get(i).getDate() );
-            if(calendrier.get(i).getDate().getMonth()==d.getMonth()&&calendrier.get(i).getDate().getDate()==d.getDate()&&calendrier.get(i).getDate().getHours()==d.getHours()&&calendrier.get(i).getDate().getMinutes()==d.getMinutes()&&calendrier.get(i).getDate().getSeconds()==d.getSeconds()){
-                System.out.println("clheure");
+            if(calendrier.get(i).getDate().getMonth()==d.getMonth()&&calendrier.get(i).getDate().getDate()==d.getDate()&&calendrier.get(i).getDate().getHours()==d.getHours()&&calendrier.get(i).getDate().getMinutes()==d.getMinutes()&&calendrier.get(i).getDate().getSeconds()==d.getSeconds()&&calendrier.get(i).getEtatRemplissage()){
                 return i+1;
             }
         }
