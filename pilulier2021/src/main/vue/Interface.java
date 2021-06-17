@@ -88,12 +88,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     Image newimg4 = image4.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
     ImageIcon menuSUImage = new ImageIcon(newimg4);
 
-    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImageDroite.png"));
+    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImageGauche.png"));
     Image image5 = imageBase5.getImage();
     Image newimg5 = image5.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
     ImageIcon flecheGaucheImage = new ImageIcon(newimg5);
     
-    ImageIcon imageBase6 = new ImageIcon(getClass().getResource("images/flecheImageGauche.png"));
+    ImageIcon imageBase6 = new ImageIcon(getClass().getResource("images/flecheImageDroite.png"));
     Image image6 = imageBase6.getImage();
     Image newimg6 = image6.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
     ImageIcon flecheDroiteImage = new ImageIcon(newimg6);
@@ -499,7 +499,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     indexInfoLecture++;
                     chargerReferent(indexInfoLecture);
                     flecheGauche.setEnabled(true);
-                    if (indexInfoLecture == 2) {
+                    if (indexInfoLecture == 3) {
                         flecheDroite.setEnabled(false);
                     }
                     break;
@@ -508,7 +508,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     chargerReferent(indexInfoEcriture);
                     flecheGauche.setEnabled(true);
                     boutonRetour.requestFocus();
-                    if (indexInfoEcriture == 2) {
+                    if (indexInfoEcriture == 3) {
                         flecheDroite.setEnabled(false);
                     }
                     break;
