@@ -443,7 +443,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    System.out.println("salut bg on tourne à gauche");
+                    if (pilulier.getMotor() == null){
+                        System.out.println("salut bg on tourne à gauche");
+                    }
+                    else {
+                        pilulier.getMotor().setAngle(1);
+                        pilulier.getMotor().start();
+                        System.out.println("salut bg on tourne à gauche");
+                    }
                     break;
                 case INFOLECTURE:
                     indexInfoLecture--;
@@ -473,6 +480,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
                 case CALENDRIERECRITURE:
+                    if (pilulier.getMotor() == null){
+                        System.out.println("salut bg on tourne à gauche");
+                    }
+                    else {
+                        pilulier.getMotor().setAngle(1);
+                        pilulier.getMotor().start();
+                        System.out.println("salut bg on tourne à gauche");
+                    }
                     System.out.println("salut bg on tourne à droite");
                     break;
                 case INFOLECTURE:
