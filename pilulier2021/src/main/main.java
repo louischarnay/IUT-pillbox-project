@@ -64,23 +64,8 @@ public class main {
         pilulier.addHistorique("pablo est tro bo ",new Date());
         pilulier.addHistorique("louis aussi ",new Date());
         
-        
-
-//        String res=pilulier.getInfoAll();
-//        System.out.println(res);
-        
         Interface fenetre=new Interface(pilulier);
         fenetre.setVisible(true);
-        
-//        for(int i=0;i<calendrier.size();i++){
-//
-//            System.out.println("Case "+(i+1)+" : " + pilulier.getCaseCalendrier(calendrier.get(i))); 
-//
-//            res="<html>Case "+i+"<br/>"+(calendrier.get(i).getDate().getDate())+" / "+(calendrier.get(i).getDate().getMonth()+1)+"<br/>"+(calendrier.get(i).getDate().getHours()+1)+" : "+(calendrier.get(i).getDate().getMinutes()+1)+"</html>";
-//            System.out.println("Case "+(i+1)+" : "+pilulier.getCaseCalendrier(calendrier.get(i))); 
-//            System.out.println(res);
-//
-//        }
         
         int i = 0;
         int time = 0;
@@ -88,7 +73,6 @@ public class main {
             fenetre.setHeureAffiche();
             time=pilulier.itsTime();
             if(time!=0){
-                System.out.println("ITS TIME");
                 fenetre.itsTime(time);
             }
             Thread.sleep(1000);
