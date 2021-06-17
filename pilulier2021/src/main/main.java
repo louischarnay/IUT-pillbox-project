@@ -30,13 +30,15 @@ public class main {
     public static void main(String[] args) throws InterruptedException {;
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
-        Referent Michel=new Referent("Polnareff","Michel","Patient","Rue Peter Fink","michelPolnareff@gmail.com","07 88 08 01 40");
-        Referent Natacha=new Referent("Tte","Natacha","Referent","Rue Peter Fink","NatachaTte@gmail.com","06 07 30 61 80");
-        Referent Salima=new Referent("Rdigra","Salima","Referent","Rue Peter Fink","SalimaRdigra@gmail.com","06 88 64 32 10");
-        referents.add(Michel);
-        referents.add(Natacha);
-        referents.add(Salima);
-        calendrier.add(new Case(1,new Date(2021, 02, 19, 14, 0)));
+        Referent patient=new Referent("...","...","Patient","...","...","...");
+        Referent referent1=new Referent("...","...","Référent 1","...","...","...");
+        Referent referent2=new Referent("...","...","Référent 2","...","...","...");
+        Referent referent3=new Referent("...","...","Référent 3","...","...","...");
+        referents.add(patient);
+        referents.add(referent1);
+        referents.add(referent2);
+        referents.add(referent3);
+        calendrier.add(new Case(1,new Date(2021, 06, 17, 11, 14)));
         calendrier.add(new Case(2,new Date(2021, 02, 19, 14, 0)));
         calendrier.add(new Case(3,new Date(2021, 02, 19, 14, 0)));
         calendrier.add(new Case(4,new Date(2021, 02, 19, 14, 0)));
@@ -88,6 +90,7 @@ public class main {
         while(i == 0){
             fenetre.setHeureAffiche();
             time=pilulier.itsTime();
+            System.out.println(time);
             if(time!=0){
                 System.out.println("ITS TIME");
                 fenetre.itsTime(time);
