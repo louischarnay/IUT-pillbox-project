@@ -88,11 +88,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     Image newimg4 = image4.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
     ImageIcon menuSUImage = new ImageIcon(newimg4);
 
-    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImage.png"));
+    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImageDroite.png"));
     Image image5 = imageBase5.getImage();
     Image newimg5 = image5.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
     ImageIcon flecheGaucheImage = new ImageIcon(newimg5);
-    ImageIcon flecheDroiteImage = flecheGaucheImage;
+    
+    ImageIcon imageBase6 = new ImageIcon(getClass().getResource("images/flecheImageGauche.png"));
+    Image image6 = imageBase6.getImage();
+    Image newimg6 = image6.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
+    ImageIcon flecheDroiteImage = new ImageIcon(newimg6);
+    
 
     Color transparent = new Color(0, 0, 0, 0);
     Color vertFond = new Color(0, 128, 128, 255);
@@ -220,7 +225,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         //flèches menus
         setFleche(flecheGauche, flecheGaucheImage);
-        setFleche(flecheDroite, flecheGaucheImage);
+        setFleche(flecheDroite, flecheDroiteImage);
 
         //boutons valider information
         setBoutonTexte(validerInfos, "Valider", 30, Color.white);
