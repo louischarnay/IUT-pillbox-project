@@ -396,7 +396,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonMenuSUVisible(false);
                     break;
                 case BADGE:
-                    System.out.println("gg");
+                    //faire le badge
                     break;
                 case INFOLECTURE:
                     indexInfoLecture = 0;
@@ -507,7 +507,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getMotor().start();
                     }
                     indexCase--;
-                    System.out.println(indexCase);
                     chargerCaseRemplissage(indexCase);
                     flecheDroite.setEnabled(true);
                     if (indexCase == 0) {
@@ -1116,7 +1115,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsMenuVisible(false);
         boutonAlerteVisible(true, "Situation d'urgence");
         boutonRetourVisible(true);
-        System.out.println("ta mere");
         int tmp=0;
         while(!boutonPressed){
         tmp++;
@@ -1143,7 +1141,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteVisible(false, "");
         infosMenuVisible(false);
         boutonsMenuVisible(false);
-        //biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiip
+        System.out.println("sonnerie");
         //affiche bouton alerte
         boutonAlerteAffiche(cont, pano, "Heure du traitement");
         boutonAlerteVisible(true, "Heure du traitement");
@@ -1186,14 +1184,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             Thread.sleep(1000);
             if (timerAlarme > 10) {
                 if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
-                    System.out.println("envoi mail");
+                    System.out.println("envoi notification");
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
                     tamp = true;
                     return false;
                 } else if (!tamp) {
-                    System.out.println("en retard michel");
+                    System.out.println("en retard");
                     tamp = true;
                 }
             }
