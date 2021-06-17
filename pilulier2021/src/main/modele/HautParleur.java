@@ -50,26 +50,25 @@ public class HautParleur implements Execute{
 
         try {
             while (true){
-                Thread.sleep(1/100000);
-
                 // turn off gpio pin 
                 pin.low();
-                Thread.sleep(1/100000);
+                Thread.sleep(intensite);
+                pin.high();
 
-                // toggle the current state of gpio pin  (should turn on)
-                pin.toggle();
-                Thread.sleep(1/100000);
-
-                // toggle the current state of gpio pin (should turn off)
-                pin.toggle();
-                Thread.sleep(1/100000);
+//                // toggle the current state of gpio pin  (should turn on)
+//                pin.toggle();
+//                Thread.sleep(intensite);
+//
+//                // toggle the current state of gpio pin (should turn off)
+//                pin.toggle();
+//                Thread.sleep(intensite);
 
                 // turn on gpio pin  for 1 second and then off
-                pin.pulseSync(1);
-
-                // stop all GPIO activity/threads by shutting down the GPIO controller
-                // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
-                gpio.shutdown();
+//                pin.pulseSync(1);
+//
+//                // stop all GPIO activity/threads by shutting down the GPIO controller
+//                // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+//                gpio.shutdown();
             }
             
         

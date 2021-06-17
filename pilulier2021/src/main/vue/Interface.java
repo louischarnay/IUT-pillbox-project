@@ -87,7 +87,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     Image newimg4 = image4.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
     ImageIcon menuSUImage = new ImageIcon(newimg4);
 
-    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("flecheImage.png"));
+    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImage.png"));
     Image image5 = imageBase5.getImage();
     Image newimg5 = image5.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
     ImageIcon flecheGaucheImage = new ImageIcon(newimg5);

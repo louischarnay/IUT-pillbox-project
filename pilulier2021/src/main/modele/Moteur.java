@@ -25,6 +25,7 @@ import ss2_rpi_2021.StepperMotorGpio;
  */
 public class Moteur implements Execute{
     protected int angleRotation = 0;
+    protected int indexCase = 0;
     final private GpioStepperMotorComponent motor;
     final private GpioController gpio;
     
@@ -81,6 +82,16 @@ public class Moteur implements Execute{
 
        try {
             motor.step(6114/8 * angleRotation);
+            indexCase = indexCase + angleRotation;
+            
+            if (indexCase < 0){
+                indexCase = 8 + indexCase;
+            }
+            
+            if (indexCase > 7){
+                indexCase = indexCase - 8;
+            }
+            
             Thread.sleep(1000);
         
         } catch (InterruptedException ex) {
