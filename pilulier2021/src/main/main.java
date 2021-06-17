@@ -93,6 +93,7 @@ public class main {
             System.out.println(time);
             if(time!=0){
                 System.out.println("ITS TIME");
+                System.out.println(time);
                 fenetre.itsTime(time);
             }
             Thread.sleep(1000);
