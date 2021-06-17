@@ -48,9 +48,9 @@ import main.modele.Referent;
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
     private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel();
-    private JTextArea infosMenu = new JTextArea(), case1=new JTextArea(), case2=new JTextArea(), case3=new JTextArea(), case4=new JTextArea(), case5=new JTextArea(), case6=new JTextArea(), case7=new JTextArea();
+    private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase=new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox();
@@ -216,13 +216,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(validerCase, "Valider", 30, Color.white);
 
         //cases calendrier
-        setTextArea(case1, true, "   Case 1"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case2, true, "   Case 2"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case3, true, "   Case 3"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case4, true, "   Case 4"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case5, true, "   Case 5"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case6, true, "   Case 6"+newLine+"   15 / 06"+newLine+"   22 : 15");
-        setTextArea(case7, true, "   Case 7"+newLine+"   15 / 06"+newLine+"   22 : 15");
+        setTextArea(case1, true, "   Case 1" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case2, true, "   Case 2" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case3, true, "   Case 3" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case4, true, "   Case 4" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case5, true, "   Case 5" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case6, true, "   Case 6" + newLine + "   15 / 06" + newLine + "   22 : 15");
+        setTextArea(case7, true, "   Case 7" + newLine + "   15 / 06" + newLine + "   22 : 15");
 
         //comboBox remplissage
         setComboBox(boxMois);
@@ -404,6 +404,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonMenuSUVisible(false);
             flechesVisible(true);
             infosEcritureVisible(true, false);
+            chargerHistorique(1);
         } else if (e.getSource() == validerInfos) {
             infosEcriture();
         } else if (e.getSource() == validerCase) {
@@ -444,15 +445,31 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
     }
-    
+
+    public void chargerHistorique(int page) {
+        fonctionEcriture.setText("");
+        prenomEcriture.setText("");
+        nomEcriture.setText("");
+        adresseEcriture.setText("");
+        telEcriture.setText("");
+        mailEcriture.setText("");
+       if(pilulier.getSizeHistorique()>0+(page*6))fonctionEcriture.setText(pilulier.getHistorique(0 + (page * 6)));
+        if(pilulier.getSizeHistorique()>1+(page*6))prenomEcriture.setText(pilulier.getHistorique(1 + (page * 6)));
+        if(pilulier.getSizeHistorique()>2+(page*6))nomEcriture.setText(pilulier.getHistorique(2+(page*6)));
+        if(pilulier.getSizeHistorique()>3+(page*6))adresseEcriture.setText(pilulier.getHistorique(3+(page*6)));
+        if(pilulier.getSizeHistorique()>4+(page*6))telEcriture.setText(pilulier.getHistorique(4+(page*6)));
+        if(pilulier.getSizeHistorique()>5+(page*6))mailEcriture.setText(pilulier.getHistorique(5+(page*6)));
+       
+
+    }
+
     //placement des éléments
-    
     public void boutonValiderCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 3;
         cont.gridy = 5;
         pano.add(validerCase, cont);
     }
-    
+
     public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 1;
         cont.gridy = 1;
@@ -824,7 +841,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         lbl.setFont(new Font("Arial", Font.BOLD, sze));
         lbl.setForeground(Color.white);
     }
-    
+
     public void setTextArea(JTextArea area, boolean b, String txt) {
         Border bordure = BorderFactory.createLineBorder(Color.white);
         area.setBorder(bordure);
@@ -844,27 +861,27 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
     }
-    
+
     //charger les cases lecture
-    public void chargerCasesLecture(){
+    public void chargerCasesLecture() {
         String newLine = System.getProperty("line.separator");
         String tmp;
-        tmp="  Case 1"+newLine+"  "+pilulier.getCase(1).getDate().getDate()+" / "+pilulier.getCase(1).getDate().getMonth()+newLine+"  "+pilulier.getCase(1).getDate().getHours()+" / "+pilulier.getCase(1).getDate().getMinutes();
+        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + pilulier.getCase(1).getDate().getMonth() + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " / " + pilulier.getCase(1).getDate().getMinutes();
         case1.setText(tmp);
-        tmp="  Case 2"+newLine+"  "+pilulier.getCase(2).getDate().getDate()+" / "+pilulier.getCase(2).getDate().getMonth()+newLine+"  "+pilulier.getCase(2).getDate().getHours()+" / "+pilulier.getCase(2).getDate().getMinutes();
+        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + pilulier.getCase(2).getDate().getMonth() + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " / " + pilulier.getCase(2).getDate().getMinutes();
         case2.setText(tmp);
-        tmp="  Case 3"+newLine+"  "+pilulier.getCase(3).getDate().getDate()+" / "+pilulier.getCase(3).getDate().getMonth()+newLine+"  "+pilulier.getCase(3).getDate().getHours()+" / "+pilulier.getCase(3).getDate().getMinutes();
+        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + pilulier.getCase(3).getDate().getMonth() + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " / " + pilulier.getCase(3).getDate().getMinutes();
         case3.setText(tmp);
-        tmp="  Case 4"+newLine+"  "+pilulier.getCase(4).getDate().getDate()+" / "+pilulier.getCase(4).getDate().getMonth()+newLine+"  "+pilulier.getCase(4).getDate().getHours()+" / "+pilulier.getCase(4).getDate().getMinutes();
+        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + pilulier.getCase(4).getDate().getMonth() + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " / " + pilulier.getCase(4).getDate().getMinutes();
         case4.setText(tmp);
-        tmp="  Case 5"+newLine+"  "+pilulier.getCase(5).getDate().getDate()+" / "+pilulier.getCase(5).getDate().getMonth()+newLine+"  "+pilulier.getCase(5).getDate().getHours()+" / "+pilulier.getCase(5).getDate().getMinutes();
+        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + pilulier.getCase(5).getDate().getMonth() + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " / " + pilulier.getCase(5).getDate().getMinutes();
         case5.setText(tmp);
-        tmp="  Case 6"+newLine+"  "+pilulier.getCase(6).getDate().getDate()+" / "+pilulier.getCase(6).getDate().getMonth()+newLine+"  "+pilulier.getCase(6).getDate().getHours()+" / "+pilulier.getCase(6).getDate().getMinutes();
+        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + pilulier.getCase(6).getDate().getMonth() + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " / " + pilulier.getCase(6).getDate().getMinutes();
         case6.setText(tmp);
-        tmp="  Case 7"+newLine+"  "+pilulier.getCase(7).getDate().getDate()+" / "+pilulier.getCase(7).getDate().getMonth()+newLine+"  "+pilulier.getCase(7).getDate().getHours()+" / "+pilulier.getCase(7).getDate().getMinutes();
+        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(7).getDate().getDate() + " / " + pilulier.getCase(7).getDate().getMonth() + newLine + "  " + pilulier.getCase(7).getDate().getHours() + " / " + pilulier.getCase(7).getDate().getMinutes();
         case7.setText(tmp);
     }
-    
+
     //charger les référents
     public void chargerReferent() {
         nomEcriture.setText(pilulier.getReferents().get(0).getNom());
@@ -874,19 +891,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.setText(pilulier.getReferents().get(0).getMail());
         telEcriture.setText(pilulier.getReferents().get(0).getTel());
     }
-    
+
     //écriture des infos
-    public void infosEcriture(){
-            pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
-            pilulier.getReferents().get(0).setNom(nomEcriture.getText());
-            pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
-            pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
-            pilulier.getReferents().get(0).setTel(telEcriture.getText());
-            pilulier.getReferents().get(0).setMail(mailEcriture.getText());
+    public void infosEcriture() {
+        pilulier.getReferents().get(0).setPrenom(prenomEcriture.getText());
+        pilulier.getReferents().get(0).setNom(nomEcriture.getText());
+        pilulier.getReferents().get(0).setAge(fonctionEcriture.getText());
+        pilulier.getReferents().get(0).setAdresse(adresseEcriture.getText());
+        pilulier.getReferents().get(0).setTel(telEcriture.getText());
+        pilulier.getReferents().get(0).setMail(mailEcriture.getText());
     }
-    
+
     //charger une case remplissage
-    public void chargerCaseRemplissage(int index){
+    public void chargerCaseRemplissage(int index) {
         checkRetard.setSelected(pilulier.getCase(index).getRetardAccepte());
         boxMinute.setSelectedItem(pilulier.getCase(index).getDate().getMinutes());
         boxHeure.setSelectedItem(pilulier.getCase(index).getDate().getHours());
@@ -894,19 +911,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boxMois.setSelectedItem(pilulier.getCase(index).getDate().getMonth());
         pilulier.getCase(index).setEtatRemplissage(true);
     }
-    
+
     //écriture d'une case
-    public void caseEcriture(int index) throws ParseException{
+    public void caseEcriture(int index) throws ParseException {
         //String dateString=boxHeure.getSelectedItem()+"/"+boxMinute.getSelectedItem()+"/"+boxJour.getSelectedItem()+"/"+boxMois.getSelectedItem()+"/2021";
-        Date date=new Date();
+        Date date = new Date();
         //date=new SimpleDateFormat("HH/mm/dd/MM/yyyy").parse(dateString);
-        date.setMonth((int)boxMois.getSelectedItem());
-        date.setDate((int)boxJour.getSelectedItem());
-        date.setHours((int)boxHeure.getSelectedItem());
-        date.setMinutes((int)boxMinute.getSelectedItem());
+        date.setMonth((int) boxMois.getSelectedItem());
+        date.setDate((int) boxJour.getSelectedItem());
+        date.setHours((int) boxHeure.getSelectedItem());
+        date.setMinutes((int) boxMinute.getSelectedItem());
         pilulier.getCase(index).setDate(date);
         System.out.println(pilulier.getCase(index).getDate());
-        
+
     }
 
     //heure de prendre la pilule
