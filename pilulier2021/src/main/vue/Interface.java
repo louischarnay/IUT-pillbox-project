@@ -179,7 +179,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setLabel(infoMail, 30, transparent, false, "Mail :");
 
         //informations menu
-        infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
+        infosMenu.setFont(new Font("Colibri", Font.BOLD, 30));
         infosMenu.setForeground(Color.white);
         infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
         infosMenu.setBackground(vertFond);
@@ -1008,7 +1008,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         bx.setBackground(vertFond);
         bx.setBorder(bordure);
         bx.setForeground(Color.white);
-        bx.setFont(new Font("Arial", Font.BOLD, 20));
+        bx.setFont(new Font("Colibri", Font.BOLD, 20));
     }
 
     public void setBoutonIcon(JButton bt, ImageIcon img) {
@@ -1040,7 +1040,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         bt.setBackground(vertFond);
         bt.setBorder(bordure);
         bt.setForeground(clr);
-        bt.setFont(new Font("Arial", Font.BOLD, sze));
+        bt.setFont(new Font("Colibri", Font.BOLD, sze));
     }
 
     public void setLabel(JLabel lbl, int sze, Color clr, boolean b, String txt) {
@@ -1050,7 +1050,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         lbl.setBorder(bordure);
         lbl.setText(txt);
-        lbl.setFont(new Font("Arial", Font.BOLD, sze));
+        lbl.setFont(new Font("Colibri", Font.BOLD, sze));
         lbl.setForeground(Color.white);
     }
 
@@ -1059,7 +1059,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         area.setBorder(bordure);
         area.setText(txt);
         area.setName("textArea");
-        area.setFont(new Font("Arial", Font.BOLD, 38));
+        area.setFont(new Font("Colibri", Font.BOLD, 38));
         area.setForeground(Color.white);
         area.setBackground(vertFond);
         area.setEditable(false);
@@ -1070,7 +1070,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setBackground(vertFond);
         txtf.setForeground(Color.white);
         txtf.setBorder(bordure);
-        txtf.setFont(new Font("Arial", Font.BOLD, 30));
+        txtf.setFont(new Font("Colibri", Font.BOLD, 30));
         txtf.setText(txt);
     }
 
