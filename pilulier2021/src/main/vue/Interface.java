@@ -391,6 +391,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonMenuSUVisible(true);
                 case "Heure du traitement":
                     timer.stop();
+                    pilulier.getCase(indexCaseOuvrir).setEtatRemplissage(false);
                     System.out.println("fin de la sonnerie");
                     pilulier.addHistorique("Pilule prise à l'heure", new Date());
                     if (pilulier.getMotor() != null) {
@@ -407,6 +408,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
+                    ledMarcheVisible(true);
 
             }
             boutonPressed = true;
