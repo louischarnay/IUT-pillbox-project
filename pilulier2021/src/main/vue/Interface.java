@@ -59,7 +59,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Pilulier pilulier;
     private boolean boutonPressed = false;
     private int timerAlarme = 0;
-    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, etapePanicButton = 0;
+    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, etapePanicButton = 0, indexCaseOuvrir=0;
     private String tempsRestant = "00 jours, 00 heures 00 minutes";
     private Timer timer = createTimer(2);
 
@@ -331,12 +331,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panicButton) {
             etat = EnumEtat.PANICBUTTON;
-//            ledMarcheVisible(false);
-//            infosMenuVisible(false);
-//            boutonsMenuVisible(false);
-//            boutonAlerteVisible(true, "Situation d'urgence");
-//            boutonRetourVisible(true);
-            setTimer(2, EnumTimer.TEST);
+            ledMarcheVisible(false);
+            infosMenuVisible(false);
+            boutonsMenuVisible(false);
+            boutonAlerteVisible(true, "Situation d'urgence");
+            boutonRetourVisible(true);
+//            setTimer(2, EnumTimer.TEST);
         } else if (e.getSource() == informations) {
             etat = EnumEtat.INFOLECTURE;
             ledMarcheVisible(false);
@@ -364,32 +364,50 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonAlerteVisible(false, "");
             boutonsMenuVisible(false);
             infosMenuVisible(false);
+            boutonAlerteVisible(true, "Scanner votre  badge");
             boutonRetourVisible(true);
-            boutonMenuSUVisible(true);
         } else if (e.getSource() == boutonAlerte) {
-            switch (etat) {
-                case PANICBUTTON:
-                    etapePanicButton++;
-                    //envoi notification panicbutton pressed
-                    switch (etapePanicButton) {
-                        case 1:
-                            System.out.println("envoi notification");
-                            pilulier.addHistorique("Appui sur le panic button", new Date());
-                            boutonRetourVisible(false);
-                            boutonAlerteAffiche(cont, pano, "");
-                            boutonAlerteVisible(true, " Scanner  votre  badge ");
-                            //scan NFC
-
-                            break;
-                        case 2:
-                            //envoi notification aux autres référents
-                            pilulier.addHistorique("Référent arrivé", new Date());
-                            System.out.println("envoi notification");
-                            boutonAlerteVisible(false, "");
-                            infosMenuVisible(true);
-                            boutonsMenuVisible(true);
-                            etapePanicButton = 0;
+            switch (boutonAlerte.getText()) {
+                case "Situation d'urgence":
+                    System.out.println("envoi notification");
+                    pilulier.addHistorique("Appui sur le panic button", new Date());
+                    boutonRetourVisible(false);
+                    boutonAlerteAffiche(cont, pano, "");
+                    boutonAlerteVisible(true, "Scanner votre badge");
+                    //scan NFC
+                    break;
+                case "Scanner votre badge":
+                    //envoi notification aux autres référents
+                    pilulier.addHistorique("Référent arrivé", new Date());
+                    System.out.println("envoi notification");
+                    boutonAlerteVisible(false, "");
+                    infosMenuVisible(true);
+                    boutonsMenuVisible(true);
+                    break;
+                case "Scanner votre  badge":
+                    pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
+                    boutonAlerteAffiche(cont, pano, "");
+                    boutonAlerteVisible(false, "");
+                    boutonMenuSUVisible(true);
+                case "Heure du traitement":
+                    timer.stop();
+                    System.out.println("fin de la sonnerie");
+                    pilulier.addHistorique("Pilule prise à l'heure", new Date());
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle((indexCaseOuvrir + 1));
+                        pilulier.getMotor().start();
                     }
+                    boutonAlerte.setText("Refermer le pilulier");
+                    break;
+                case "Refermer le pilulier":
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(-(indexCaseOuvrir - 1));
+                        pilulier.getMotor().start();
+                    }
+                    boutonAlerteVisible(false, "");
+                    infosMenuVisible(true);
+                    boutonsMenuVisible(true);
+
             }
             boutonPressed = true;
         } else if (e.getSource() == boutonRetour) {
@@ -423,6 +441,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(-(indexCase + 1));
+                        pilulier.getMotor().start();
+                    }
                     indexCase = 0;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
@@ -447,6 +469,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 ledMarcheVisible(true);
                 boutonRetourVisible(false);
                 boutonMenuSUVisible(false);
+                boutonAlerteVisible(false, "");
                 boutonsMenuVisible(true);
                 infosMenuVisible(true);
                 etat = EnumEtat.MENU;
@@ -862,7 +885,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void boutonAlerteVisible(boolean b, String txt) {
         boutonAlerte.setText(txt);
-        if (txt == "Situation d'urgence") {
+        if (txt == "Situation d'urgence" | txt == "Scanner votre  badge") {
             cont.fill = GridBagConstraints.BOTH;
             cont.anchor = GridBagConstraints.CENTER;
             cont.insets = new Insets(70, 5, 130, 5);
@@ -1132,9 +1155,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsMenuVisible(false);
         boutonAlerteVisible(true, "Situation d'urgence");
         boutonRetourVisible(true);
-        int tmp=0;
-        while(!boutonPressed){
-        tmp++;
+        int tmp = 0;
+        while (!boutonPressed) {
+            tmp++;
         }
     }
 
@@ -1156,69 +1179,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsMenuVisible(false);
         System.out.println("sonnerie");
         //affiche bouton alerte
-        boutonAlerteAffiche(cont, pano, "Heure du traitement");
+        indexCaseOuvrir=index;
         boutonAlerteVisible(true, "Heure du traitement");
-        timerAlarme = 0;
-        boolean tamp = false;
-        while (!boutonPressed) {
-            timerAlarme++;
-            setHeureAffiche();
-            Thread.sleep(1000);
-            if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
-                    System.out.println("envoi notification");
-                    pilulier.addHistorique("Pilule non prise", new Date());
-                    //envoi notification
-                    ledMarche.setCouleurLed(Color.orange);
-                    pilulier.getCase(index).setEtatRemplissage(false);
-                    boutonAlerteVisible(false, "");
-                    infosMenuVisible(true);
-                    boutonsMenuVisible(true);
-                    tamp = true;
-                    return false;
-                } else if (!tamp) {
-                    System.out.println("en retard michel");
-                    tamp = true;
-                }
-            }
-        }
-        pilulier.addHistorique("Pilule prise à l'heure", new Date());
-        if (pilulier.getMotor() != null){
-            pilulier.getMotor().setAngle(-(index - 1));
-            pilulier.getMotor().start();    
-        }
-        boutonPressed = false;
-        boutonAlerte.setText("Refermer le pilulier");
-        timerAlarme = 0;
-        tamp = false;
-        while (!boutonPressed) {
-            timerAlarme++;
-            setHeureAffiche();
-            Thread.sleep(1000);
-            if (timerAlarme > 10) {
-                if (pilulier.getCase(index).getRetardAccepte() && !tamp) {
-                    System.out.println("envoi notification");
-                    boutonAlerteVisible(false, "");
-                    infosMenuVisible(true);
-                    boutonsMenuVisible(true);
-                    tamp = true;
-                    return false;
-                } else if (!tamp) {
-                    System.out.println("en retard");
-                    tamp = true;
-                }
-            }
-        }
-        if (pilulier.getMotor() != null){
-            pilulier.getMotor().setAngle(index - 1);
-            pilulier.getMotor().start();  
-        }
-        pilulier.getCase(index).setEtatRemplissage(false);
-        boutonPressed = false;
-        updateCasesRestantes();
-        boutonAlerteVisible(false, "");
-        infosMenuVisible(true);
-        boutonsMenuVisible(true);
+        System.out.println("début de la sonnerie");
+        timer=createTimer(10000);
+        timer.start();
+        etatTimer=EnumTimer.ITSTIME;
         return true;
     }
 
@@ -1244,31 +1210,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void focusLost(FocusEvent e) {
         ;
     }
-    
-    //set le timer
-    public void setTimer(int duree, EnumTimer etat) {
-        timer.setDelay(duree * 1000);
-        etatTimer=etat;
-        timer.start();
-
-    }
 
     //créer un timer
     private Timer createTimer(int duree) {
         ActionListener action = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                switch(etatTimer){
-                    case TEST:
-                        System.out.println("le timer il marche frérot");
-                        timer.stop();
-                        break;
-                    case PANICBUTTON:
-                        
+                switch (etatTimer) {
+                    case ITSTIME:
+                        System.out.println("fin de la sonnerie");
+                        System.out.println("envoi notification retard");
+                        System.out.println("en retard michel");
                         break;
                 }
                 timer.stop();
             }
         };
-        return new Timer(duree * 1000, action);
+        return new Timer(duree, action);
     }
 }

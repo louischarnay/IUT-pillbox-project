@@ -53,17 +53,6 @@ public class main {
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26); //si hp raccordé à la raspberry
 
         Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, motor);
-        
-        pilulier.addHistorique("referent ajouté",new Date());
-        pilulier.addHistorique("patient ajouté ",new Date());
-        pilulier.addHistorique("referent ajouté ",new Date());
-        pilulier.addHistorique("case1 modifiée",new Date());
-        pilulier.addHistorique("case2 sonne",new Date());
-        pilulier.addHistorique("moteur tourne sur case 2 ",new Date());
-        pilulier.addHistorique("case2 arrete de sonner",new Date());
-        pilulier.addHistorique("pablo est tro bo ",new Date());
-        pilulier.addHistorique("louis aussi ",new Date());
-        
         Interface fenetre=new Interface(pilulier);
         fenetre.setVisible(true);
         

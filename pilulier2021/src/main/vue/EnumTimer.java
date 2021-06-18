@@ -10,5 +10,5 @@ package main.vue;
  * @author Pablo
  */
 public enum EnumTimer {
-    PANICBUTTON, TEST
+    ITSTIME
 }
