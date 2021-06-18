@@ -545,7 +545,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     if (pilulier.getMotor() == null){
                     }
                     else {
-                        pilulier.getMotor().setAngle(indexCase);
+                        pilulier.getMotor().setAngle(-1);
                         pilulier.getMotor().start();
                     }
                     indexCase++;
