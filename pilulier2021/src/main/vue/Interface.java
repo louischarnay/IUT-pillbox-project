@@ -407,11 +407,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     timer = createTimer(10000);
                     timer.start();
                     etatTimer = EnumTimer.CLOSE;
+                    System.out.println(etatTimer);
                     break;
                 case "Refermer le pilulier":
-                    if (pilulier.getBuzzer() != null){
-                        pilulier.getBuzzer().stop();
-                    }
+//                    if (pilulier.getBuzzer() != null){
+//                        pilulier.getBuzzer().stop();
+//                    }
+                    System.out.println("envoi notification");
                     timer.stop();
                     if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(-(indexCaseOuvrir));
@@ -1297,19 +1299,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
                         }
                         break;
-                    case CLOSE:
-                        if (pilulier.getBuzzer() != null){
-                            pilulier.getBuzzer().start();
-                        }
+                    case CLOSE: 
                         pilulier.addHistorique("pilulier non refermé", new Date());
-                        etatTimer = EnumTimer.CLOSE2;
                         System.out.println("t moch");
-                        break;
-                    case CLOSE2:
-                        timer.stop();
-                        if (pilulier.getBuzzer() != null){
-                            pilulier.getBuzzer().stop();
-                        }
+                        etatTimer = EnumTimer.CLOSE2;
+//                        if (pilulier.getBuzzer() != null){
+//                            pilulier.getBuzzer().start();
+//                        }
+//                        break;
+//                    case CLOSE2:
+                         timer.stop();
+//                        if (pilulier.getBuzzer() != null){
+//                            pilulier.getBuzzer().stop();
+//                        }
                         System.out.println("envoi notification");
                         break;
                 }
