@@ -359,7 +359,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonAlerteVisible(false, "");
             boutonsMenuVisible(false);
             infosMenuVisible(false);
-            boutonAlerteVisible(true, "Scanner votre  badge");
+            boutonAlerteVisible(true, "Scanner  badge");
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
@@ -374,11 +374,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                     boutonRetourVisible(false);
                     boutonAlerteAffiche(cont, pano, "");
-                    boutonAlerteVisible(true, "Scanner votre badge");
+                    boutonAlerteVisible(true, "Scanner badge");
                     //scan NFC
                     break;
 
-                case "Scanner votre badge": {
+                case "Scanner badge": {
                     try {
                         //envoi notification aux autres référents
                         pilulier.addHistorique("Référent arrivé", new Date());
@@ -392,7 +392,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 boutonsMenuVisible(true);
                 break;
 
-                case "Scanner votre  badge": {
+                case "Scanner  badge": {
                     try {
                         pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
                     } catch (IOException ex) {
@@ -403,7 +403,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 boutonAlerteVisible(false, "");
                 boutonMenuSUVisible(true);
                 break;
-                case "Heure du traitement":
+                case "Heure traitement":
                     timer.stop();
                     pilulier.getCase(indexCaseOuvrir).setEtatRemplissage(false);
                     System.out.println("fin de la sonnerie");
@@ -566,7 +566,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == validerCase) {
             caseEcriture(indexCase);
             updateCasesRestantes();
-            //if(ledMarche.getCouleurLed()!=Color.orange)
+            if(ledMarche.getCouleurLed()!=Color.orange)
             if (nbCasesRestantes == 0) {
                 ledMarche.setCouleurLed(Color.red);
             } else {
@@ -937,7 +937,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void boutonAlerteVisible(boolean b, String txt) {
         boutonAlerte.setText(txt);
-        if ("Situation d'urgence".equals(txt) | "Scanner votre  badge".equals(txt)) {
+        if ("Situation d'urgence".equals(txt) | "Scanner badge".equals(txt)) {
             cont.fill = GridBagConstraints.BOTH;
             cont.anchor = GridBagConstraints.CENTER;
             cont.insets = new Insets(70, 5, 130, 5);
@@ -1349,6 +1349,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public boolean itsTime(int index) {
         //efface tous les composants
         numCaseVisible(false);
+        ledMarcheVisible(false);
         checkRetardVisible(false);
         boxCalendrierVisible(false);
         casesCalendrierVisible(false);
@@ -1367,7 +1368,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             pilulier.getBuzzer().start();
         }
         indexCaseOuvrir = index;
-        boutonAlerteVisible(true, "Heure du traitement");
+        boutonAlerteVisible(true, "Heure traitement");
         if (pilulier.getBuzzer() != null) {
             pilulier.getBuzzer().start();
         }
@@ -1412,6 +1413,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             }
                             System.out.println("envoi notification retard");
                             System.out.println("fin de la sonnerie");
+                            ledMarche.setCouleurLed(Color.orange);
                             if (pilulier.getBuzzer() != null) {
                                 pilulier.getBuzzer().stop();
                             }
@@ -1432,12 +1434,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().start();
                     }
-//                        break;
-//                    case CLOSE2:
                     timer.stop();
-//                        if (pilulier.getBuzzer() != null){
-//                            pilulier.getBuzzer().stop();
-//                        }
                     System.out.println("envoi notification");
                     break;
 
