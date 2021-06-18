@@ -25,6 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -1328,7 +1330,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         }
                         break;
                     case CLOSE: 
-                        pilulier.addHistorique("pilulier non refermé", new Date());
+                    {
+                        try {
+                            pilulier.addHistorique("pilulier non refermé", new Date());
+                        } catch (IOException ex) {
+                            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                         System.out.println("t moch");
                         etatTimer = EnumTimer.CLOSE2;
 //                        if (pilulier.getBuzzer() != null){
@@ -1342,6 +1350,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 //                        }
                         System.out.println("envoi notification");
                         break;
+
                 }
                 timer.stop();
             }
