@@ -24,7 +24,7 @@ public class LedMarche extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        Dimension d = new Dimension(20, 20);
+        Dimension d = new Dimension(40, 40);
         return d;
     }
     
@@ -40,9 +40,9 @@ public class LedMarche extends JComponent {
     @Override
     protected void paintComponent(Graphics gra) {
         gra.setColor(Color.white);
-        gra.fillOval(0, 0, 20, 20);
+        gra.fillOval(0, 0, 40, 40);
         gra.setColor(couleurLed);
-        gra.fillOval(3, 3, 14, 14);
+        gra.fillOval(6, 6, 28, 28);
     }
 
 }
