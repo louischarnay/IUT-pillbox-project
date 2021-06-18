@@ -1338,7 +1338,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         }
                     }
                         System.out.println("t moch");
-                        etatTimer = EnumTimer.CLOSE2;
+//                        etatTimer = EnumTimer.CLOSE2;
 //                        if (pilulier.getBuzzer() != null){
 //                            pilulier.getBuzzer().start();
 //                        }
