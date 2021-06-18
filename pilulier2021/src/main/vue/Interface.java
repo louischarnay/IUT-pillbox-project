@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -359,46 +363,57 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             switch (boutonAlerte.getText()) {
                 case "Situation d'urgence":
                     System.out.println("envoi notification");
-                    pilulier.addHistorique("Appui sur le panic button", new Date());
+                {
+                    try {
+                        pilulier.addHistorique("Appui sur le panic button", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                     boutonRetourVisible(false);
                     boutonAlerteAffiche(cont, pano, "");
                     boutonAlerteVisible(true, "Scanner votre badge");
                     //scan NFC
                     break;
+
                 case "Scanner votre badge":
-                    //envoi notification aux autres référents
-                    pilulier.addHistorique("Référent arrivé", new Date());
+                {
+                    try {
+                        //envoi notification aux autres référents
+                        pilulier.addHistorique("Référent arrivé", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                     System.out.println("envoi notification");
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
                     break;
+
                 case "Scanner votre  badge":
-                    pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
+                {
+                    try {
+                        pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                     boutonAlerteAffiche(cont, pano, "");
                     boutonAlerteVisible(false, "");
                     boutonMenuSUVisible(true);
                     break;
                 case "Heure du traitement":
                     timer.stop();
-                    indexInfoLecture = 0;
-                    indexInfoEcriture = 0;
-                    indexCase = 0;
-                    indexHistorique = 0;
-                    flecheGauche.setEnabled(false);
-                    flecheDroite.setEnabled(true);
-                    System.out.println(indexCaseOuvrir);
-                    pilulier.getCase(indexCaseOuvrir - 1).setEtatRemplissage(false);
-                    if (pilulier.getBuzzer() != null){
-                        pilulier.getBuzzer().stop();
-                    }
-                    if (!retardPilule) {
+                    pilulier.getCase(indexCaseOuvrir).setEtatRemplissage(false);
+                    System.out.println("fin de la sonnerie");
+                {
+                    try {
                         pilulier.addHistorique("Pilule prise à l'heure", new Date());
-                    } else {
-                        ledMarche.setCouleurLed(Color.orange);
-                        pilulier.addHistorique("Pilule prise en retard", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    retardPilule = false;
+                }
                     if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle((indexCaseOuvrir));
                         pilulier.getMotor().start();
@@ -409,6 +424,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     etatTimer = EnumTimer.CLOSE;
                     System.out.println(etatTimer);
                     break;
+
                 case "Refermer le pilulier":
 //                    if (pilulier.getBuzzer() != null){
 //                        pilulier.getBuzzer().stop();
@@ -525,9 +541,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == validerInfos) {
             infosEcriture(indexInfoEcriture);
             if (indexInfoEcriture == 0) {
-                pilulier.addHistorique("Patient modifié", new Date());
+                try {
+                    pilulier.addHistorique("Patient modifié", new Date());
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
-                pilulier.addHistorique("Référent " + (indexInfoEcriture) + " modifié", new Date());
+                try {
+                    pilulier.addHistorique("Référent " + (indexInfoEcriture) + " modifié", new Date());
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         } else if (e.getSource() == validerCase) {
@@ -540,7 +564,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 ledMarche.setCouleurLed(Color.green);
             }
 
-            pilulier.addHistorique("Horaire de la case " + (indexCase + 1) + " modifié", new Date());
+            try {
+                pilulier.addHistorique("Horaire de la case " + (indexCase + 1) + " modifié", new Date());
+            } catch (IOException ex) {
+                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:

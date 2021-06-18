@@ -8,6 +8,12 @@ package main;
 import com.pi4j.io.gpio.RaspiBcmPin;
 import main.modele.Moteur;
 import com.pi4j.device.pibrella.PibrellaBuzzer;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import main.modele.Case;
@@ -27,7 +33,7 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InterruptedException {;
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException, UnsupportedEncodingException, IOException {;
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
         Referent patient=new Referent("...","...","Patient","...","...","...");
@@ -45,7 +51,7 @@ public class main {
         calendrier.add(new Case(5,new Date(2021, 00, 00, 00, 00)));
         calendrier.add(new Case(6,new Date(2021, 00, 00, 00, 00)));
         calendrier.add(new Case(7,new Date(2021, 00, 00, 00, 00)));
-
+          
         
         Moteur motor = null; //si moteur non raccordé à la raspberry
 //        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
@@ -66,5 +72,6 @@ public class main {
             }
             Thread.sleep(1000);
         }
+        pilulier.closeLog(true);
     }
 }

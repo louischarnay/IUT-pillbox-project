@@ -35,4 +35,7 @@ public class ActionHistorique {
     public void setTexte(String texte) {
         this.texte = texte;
     }
+    public String ToString(){
+        return date+" : "+texte;
+    }
 }
