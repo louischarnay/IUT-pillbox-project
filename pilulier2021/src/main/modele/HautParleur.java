@@ -23,6 +23,7 @@ import ss2_rpi_2021.Execute;
  */
 public class HautParleur implements Execute{
     protected int intensite;
+    protected boolean etat;
     final private GpioPinDigitalOutput pin;
     final private GpioController gpio;
     
@@ -48,12 +49,17 @@ public class HautParleur implements Execute{
 
         System.out.println("--> GPIO state should be: ON");
 
+        etat = true;
+        
         try {
-            while (true){
+            while (etat == true){
                 // turn off gpio pin 
+                
+                pin.high();
+                Thread.sleep(intensite);
                 pin.low();
                 Thread.sleep(intensite);
-                pin.high();
+                
 
 //                // toggle the current state of gpio pin  (should turn on)
 //                pin.toggle();
@@ -77,10 +83,14 @@ public class HautParleur implements Execute{
         }
     }
     
-    private void setIntensite(int i){
+    public void stop(){
+        etat = false;
+    }
+    
+    public void setIntensite(int i){
         intensite= i;
     }
-    private int getIntensite(){
+    public int getIntensite(){
         return intensite;
     }
 }
