@@ -533,8 +533,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             numCaseVisible(true);
             checkRetardVisible(true);
-            pilulier.getMotor().setAngle(-1);
-            pilulier.getMotor().start();
+            if (pilulier.getMotor() != null){
+                pilulier.getMotor().setAngle(-1);
+                pilulier.getMotor().start(); 
+            }
+
             indexCase = 1;
             chargerCaseRemplissage(0);
 
