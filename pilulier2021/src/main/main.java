@@ -38,7 +38,7 @@ public class main {
         referents.add(referent1);
         referents.add(referent2);
         referents.add(referent3);
-        calendrier.add(new Case(1,new Date(2021, 00, 01, 01, 00)));
+        calendrier.add(new Case(1,new Date()));
         calendrier.add(new Case(2,new Date(2021, 01, 02, 02, 00)));
         calendrier.add(new Case(3,new Date(2021, 02, 03, 03, 00)));
         calendrier.add(new Case(4,new Date(2021, 03, 04, 04, 00)));
