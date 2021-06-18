@@ -389,7 +389,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     flecheDroite.setEnabled(true);
                     System.out.println(indexCaseOuvrir);
                     pilulier.getCase(indexCaseOuvrir - 1).setEtatRemplissage(false);
-                    System.out.println("fin de la sonnerie");
+                    pilulier.getBuzzer().stop();
                     if (!retardPilule) {
                         pilulier.addHistorique("Pilule prise à l'heure", new Date());
                     } else {
@@ -407,7 +407,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     etatTimer = EnumTimer.CLOSE;
                     break;
                 case "Refermer le pilulier":
-                    System.out.println("fin de la sonnerie");
+                    pilulier.getBuzzer().stop();
                     timer.stop();
                     if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(-(indexCaseOuvrir));
@@ -578,9 +578,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    if (pilulier.getMotor() == null) {
-                    } else {
-                        pilulier.getMotor().setAngle(indexCase);
+                    if (pilulier.getMotor() == null){
+                    }
+                    else {
+                        pilulier.getMotor().setAngle(-1);
                         pilulier.getMotor().start();
                     }
                     indexCase++;
@@ -1239,12 +1240,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteVisible(false, "");
         infosMenuVisible(false);
         boutonsMenuVisible(false);
-        System.out.println("sonnerie");
         //affiche bouton alerte
         System.out.println(index);
         indexCaseOuvrir = index;
         boutonAlerteVisible(true, "Heure du traitement");
-        System.out.println("début de la sonnerie");
+        pilulier.getBuzzer().setIntensite(1);
+        pilulier.getBuzzer().start();
         timer = createTimer(10000);
         timer.start();
         etatTimer = EnumTimer.ITSTIME;
@@ -1281,7 +1282,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 switch (etatTimer) {
                     case ITSTIME:
                         if (pilulier.getCase(indexCaseOuvrir - 1).getRetardAccepte()) {
-                            System.out.println("fin de la sonnerie");
+                            pilulier.getBuzzer().stop();
                             System.out.println("envoi notification retard");
                             System.out.println("en retard michel");
                             retardPilule = true;
@@ -1290,14 +1291,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         }
                         break;
                     case CLOSE:
-                        System.out.println("début de la sonnerie");
+                        pilulier.getBuzzer().start();
                         pilulier.addHistorique("pilulier non refermé", new Date());
                         etatTimer = EnumTimer.CLOSE2;
                         System.out.println("t moch");
                         break;
                     case CLOSE2:
                         timer.stop();
-                        System.out.println("fin de la sonnerie");
+                        pilulier.getBuzzer().stop();
                         System.out.println("envoi notification");
                         break;
                 }
