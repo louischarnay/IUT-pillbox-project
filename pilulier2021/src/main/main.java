@@ -45,12 +45,12 @@ public class main {
         referents.add(referent2);
         referents.add(referent3);
         calendrier.add(new Case(1,new Date()));
-        calendrier.add(new Case(2,new Date(2021, 00, 00, 00, 00)));
-        calendrier.add(new Case(3,new Date(2021, 00, 00, 00, 00)));
-        calendrier.add(new Case(4,new Date(2021, 00, 00, 00, 00)));
-        calendrier.add(new Case(5,new Date(2021, 00, 00, 00, 00)));
-        calendrier.add(new Case(6,new Date(2021, 00, 00, 00, 00)));
-        calendrier.add(new Case(7,new Date(2021, 00, 00, 00, 00)));
+        calendrier.add(new Case(2,new Date()));
+        calendrier.add(new Case(3,new Date()));
+        calendrier.add(new Case(4,new Date()));
+        calendrier.add(new Case(5,new Date()));
+        calendrier.add(new Case(6,new Date()));
+        calendrier.add(new Case(7,new Date()));
           
         
         Moteur motor = null; //si moteur non raccordé à la raspberry

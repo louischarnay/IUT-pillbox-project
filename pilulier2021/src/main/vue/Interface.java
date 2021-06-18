@@ -418,7 +418,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         }
                     }
                     if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle((indexCaseOuvrir));
+                        pilulier.getMotor().setAngle(-(indexCaseOuvrir-1));
                         pilulier.getMotor().start();
                     }
                     boutonAlerte.setText("Refermer le pilulier");
@@ -436,7 +436,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                     timer.stop();
                     if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-(indexCaseOuvrir));
+                        pilulier.getMotor().setAngle(indexCaseOuvrir - 1);
                         pilulier.getMotor().start();
                     }
                     updateCasesRestantes();
@@ -479,7 +479,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
                 case CALENDRIERECRITURE:
                     if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-(indexCase + 1));
+                        pilulier.getMotor().setAngle(indexCase);
                         pilulier.getMotor().start();
                     }
                     indexCase = 0;
@@ -533,6 +533,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             numCaseVisible(true);
             checkRetardVisible(true);
+            pilulier.getMotor().setAngle(-1);
+            pilulier.getMotor().start();
+            indexCase = 1;
             chargerCaseRemplissage(0);
 
         } else if (e.getSource() == boutonMenuSU2) {
