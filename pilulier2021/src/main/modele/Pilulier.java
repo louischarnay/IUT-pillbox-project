@@ -6,6 +6,9 @@
 package main.modele;
 
 import com.pi4j.io.gpio.RaspiBcmPin;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import main.modele.Case;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +24,7 @@ public class Pilulier {
     protected Historique historique;
     protected ArrayList<Referent> referents;
     protected ArrayList<Case>calendrier;
+    protected FileWriter myWriter;
 
     public Pilulier() {
         calendrier=new ArrayList<>();
@@ -34,12 +38,16 @@ public class Pilulier {
     
     
 
-    public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m){
+    public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m) throws IOException{
         historique=new Historique();
         referents=r;
         calendrier=c;
         buzzer=b;
         moteur=m;
+        myWriter = new FileWriter("HistoriqueLogs",true);
+      
+      
+      
     }
     public Patient getPatient() {
         return patient;
@@ -142,8 +150,19 @@ public class Pilulier {
         return historique.getListeHistorique().size();
                 }
     
-    public void addHistorique(String txt, Date ajrd){
+    public void addHistorique(String txt, Date ajrd) throws IOException{
         ActionHistorique ah= new ActionHistorique(txt,ajrd);
         historique.addActionHistorique(ah);
+      
+      myWriter.write("- "+ah.ToString()+"\n");
+      
+      myWriter.flush();
+           
+    }
+    public void closeLog(boolean x) throws IOException{
+        
+        if(x){
+            myWriter.close();
+        }
     }
 }

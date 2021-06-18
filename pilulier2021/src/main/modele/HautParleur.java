@@ -23,6 +23,7 @@ import ss2_rpi_2021.Execute;
  */
 public class HautParleur implements Execute{
     protected int intensite;
+    protected boolean etatHP;
     final private GpioPinDigitalOutput pin;
     final private GpioController gpio;
     
@@ -48,39 +49,31 @@ public class HautParleur implements Execute{
 
         System.out.println("--> GPIO state should be: ON");
 
+        etatHP = true;
+        
         try {
-            while (true){
-                // turn off gpio pin 
+            while (etatHP == true){
+                
+                pin.high();
+                Thread.sleep(intensite);
                 pin.low();
                 Thread.sleep(intensite);
-                pin.high();
-
-//                // toggle the current state of gpio pin  (should turn on)
-//                pin.toggle();
-//                Thread.sleep(intensite);
-//
-//                // toggle the current state of gpio pin (should turn off)
-//                pin.toggle();
-//                Thread.sleep(intensite);
-
-                // turn on gpio pin  for 1 second and then off
-//                pin.pulseSync(1);
-//
-//                // stop all GPIO activity/threads by shutting down the GPIO controller
-//                // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
-//                gpio.shutdown();
             }
             
-        
         }catch (InterruptedException ex) {
+            System.out.println("test");
             Logger.getLogger(DigitaBCMGpio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    private void setIntensite(int i){
-        intensite= i;
+    public void stop(){
+        etatHP = false;
     }
-    private int getIntensite(){
+    
+    public void setIntensite(int i){
+        intensite = i;
+    }
+    public int getIntensite(){
         return intensite;
     }
 }
