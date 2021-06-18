@@ -1031,19 +1031,84 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     //charger les cases lecture
     public void chargerCasesLecture() {
         String tmp;
-        tmp = "  Case 1" + newLine + "  " + pilulier.getCase(0).getDate().getDate() + " / " + (pilulier.getCase(0).getDate().getMonth() + 1) + newLine + "  " + pilulier.getCase(0).getDate().getHours() + " : " + pilulier.getCase(0).getDate().getMinutes();
+        tmp="  Case 1" + newLine;
+        if(pilulier.getCase(0).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(0).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(0).getDate().getDate();
+        if(pilulier.getCase(0).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(0).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(0).getDate().getMonth() + 1);
+        if(pilulier.getCase(0).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(0).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(0).getDate().getHours();
+        if(pilulier.getCase(0).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(0).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(0).getDate().getMinutes();
         case1.setText(tmp);
-        tmp = "  Case 2" + newLine + "  " + pilulier.getCase(1).getDate().getDate() + " / " + (pilulier.getCase(1).getDate().getMonth()) + newLine + "  " + pilulier.getCase(1).getDate().getHours() + " : " + pilulier.getCase(1).getDate().getMinutes();
+        
+        tmp="  Case 2" + newLine;
+        if(pilulier.getCase(1).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(1).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(1).getDate().getDate();
+        if(pilulier.getCase(1).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(1).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(1).getDate().getMonth() + 1);
+        if(pilulier.getCase(1).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(1).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(1).getDate().getHours();
+        if(pilulier.getCase(1).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(1).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(1).getDate().getMinutes();
         case2.setText(tmp);
-        tmp = "  Case 3" + newLine + "  " + pilulier.getCase(2).getDate().getDate() + " / " + (pilulier.getCase(2).getDate().getMonth()) + newLine + "  " + pilulier.getCase(2).getDate().getHours() + " : " + pilulier.getCase(2).getDate().getMinutes();
+        
+        
+        tmp="  Case 3" + newLine;
+        if(pilulier.getCase(2).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(2).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(2).getDate().getDate();
+        if(pilulier.getCase(2).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(2).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(2).getDate().getMonth() + 1);
+        if(pilulier.getCase(2).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(2).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(2).getDate().getHours();
+        if(pilulier.getCase(2).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(2).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(2).getDate().getMinutes();
         case3.setText(tmp);
-        tmp = "  Case 4" + newLine + "  " + pilulier.getCase(3).getDate().getDate() + " / " + (pilulier.getCase(3).getDate().getMonth()) + newLine + "  " + pilulier.getCase(3).getDate().getHours() + " : " + pilulier.getCase(3).getDate().getMinutes();
+        
+        tmp="  Case 4" + newLine;
+        if(pilulier.getCase(3).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(3).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(3).getDate().getDate();
+        if(pilulier.getCase(3).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(3).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(3).getDate().getMonth() + 1);
+        if(pilulier.getCase(3).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(3).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(3).getDate().getHours();
+        if(pilulier.getCase(3).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(3).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(3).getDate().getMinutes();
         case4.setText(tmp);
-        tmp = "  Case 5" + newLine + "  " + pilulier.getCase(4).getDate().getDate() + " / " + (pilulier.getCase(4).getDate().getMonth()) + newLine + "  " + pilulier.getCase(4).getDate().getHours() + " : " + pilulier.getCase(4).getDate().getMinutes();
+        
+        tmp="  Case 5" + newLine;
+        if(pilulier.getCase(4).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(4).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(4).getDate().getDate();
+        if(pilulier.getCase(4).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(4).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(4).getDate().getMonth() + 1);
+        if(pilulier.getCase(4).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(4).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(4).getDate().getHours();
+        if(pilulier.getCase(4).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(4).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(4).getDate().getMinutes();
         case5.setText(tmp);
-        tmp = "  Case 6" + newLine + "  " + pilulier.getCase(5).getDate().getDate() + " / " + (pilulier.getCase(5).getDate().getMonth()) + newLine + "  " + pilulier.getCase(5).getDate().getHours() + " : " + pilulier.getCase(5).getDate().getMinutes();
+        
+        
+        tmp="  Case 6" + newLine;
+        if(pilulier.getCase(5).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(5).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(5).getDate().getDate();
+        if(pilulier.getCase(5).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(5).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(5).getDate().getMonth() + 1);
+        if(pilulier.getCase(5).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(5).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(5).getDate().getHours();
+        if(pilulier.getCase(5).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(5).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(5).getDate().getMinutes();
         case6.setText(tmp);
-        tmp = "  Case 7" + newLine + "  " + pilulier.getCase(6).getDate().getDate() + " / " + (pilulier.getCase(6).getDate().getMonth()) + newLine + "  " + pilulier.getCase(6).getDate().getHours() + " : " + pilulier.getCase(6).getDate().getMinutes();
+        
+        
+        tmp="  Case 7" + newLine;
+        if(pilulier.getCase(6).getDate().getDate()<=9)tmp+="  0" + pilulier.getCase(6).getDate().getDate();
+        else tmp+="  " + pilulier.getCase(6).getDate().getDate();
+        if(pilulier.getCase(6).getDate().getMonth() + 1<=9)tmp+=" / 0" + (pilulier.getCase(6).getDate().getMonth() + 1);
+        else tmp+=" / " + (pilulier.getCase(6).getDate().getMonth() + 1);
+        if(pilulier.getCase(6).getDate().getHours()<=9)tmp+=newLine + "  0" + pilulier.getCase(6).getDate().getHours();
+        else tmp+=newLine + "  " + pilulier.getCase(6).getDate().getHours();
+        if(pilulier.getCase(6).getDate().getMinutes()<=9)tmp+=" : 0" + pilulier.getCase(6).getDate().getMinutes();
+        else tmp+=" : " + pilulier.getCase(6).getDate().getMinutes();        
         case7.setText(tmp);
     }
 
