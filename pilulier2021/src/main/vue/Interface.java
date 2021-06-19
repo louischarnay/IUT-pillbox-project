@@ -55,9 +55,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Pilulier pilulier;
     private boolean boutonPressed = false, retardPilule = false;
     private int timerAlarme = 0;
-    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1;
+    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer=10000;
     private String tempsRestant = "00 jours, 00 heures 00 minutes";
-    private Timer timer = createTimer(2);
+    private Timer timer = createTimer(dureeTimer);
 
     private EnumEtat etat;
     private EnumTimer etatTimer;
@@ -435,7 +435,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getMotor().start();
                     }
                     boutonAlerte.setText("Refermer le pilulier");
-                    timer = createTimer(10000);
+                    timer = createTimer(dureeTimer);
                     timer.start();
 //                    updateCasesRestantes();
                     etatTimer = EnumTimer.CLOSE;
@@ -1384,7 +1384,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         if (pilulier.getBuzzer() != null) {
             pilulier.getBuzzer().start();
         }
-        timer = createTimer(10000);
+        timer = createTimer(dureeTimer);
         timer.start();
         etatTimer = EnumTimer.ITSTIME;
         return true;
