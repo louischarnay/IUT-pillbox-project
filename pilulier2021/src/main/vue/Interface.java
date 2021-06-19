@@ -424,8 +424,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-1);
+                    if (pilulier.getMotor()!=null) {
+                        pilulier.getMotor().setAngle(-(indexCaseOuvrir-1));
                         pilulier.getMotor().start();
                     }
                     boutonAlerte.setText("Refermer le pilulier");
@@ -441,8 +441,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getBuzzer().stop();
                     }
                     timer.stop();
-                    if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-1);
+                    if(pilulier.getMotor()!=null){
+                        pilulier.getMotor().setAngle(indexCaseOuvrir-1);
                         pilulier.getMotor().start();
                     }
 //                    updateCasesRestantes();
@@ -485,10 +485,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
                 case CALENDRIERECRITURE:
             if(pilulier.getMotor()!=null){
-                pilulier.getMotor().setAngle(indexCase);
+                pilulier.getMotor().setAngle(indexCase+1);
                 pilulier.getMotor().start();
             }
-                    indexCase = 0;
+                    indexCase = 1;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
                     numCaseVisible(false);
@@ -1373,10 +1373,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsMenuVisible(false);
         //affiche bouton alerte
         System.out.println("début sonnerie");
-        if (pilulier.getBuzzer() != null) {
-            pilulier.getBuzzer().start();
-        }
-        indexCaseOuvrir = index;
+        indexCaseOuvrir = index + 1;
         boutonAlerteVisible(true, "Heure traitement");
         if (pilulier.getBuzzer() != null) {
             pilulier.getBuzzer().start();
