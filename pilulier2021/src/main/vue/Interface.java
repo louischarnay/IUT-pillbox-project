@@ -479,7 +479,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
                 case CALENDRIERECRITURE:
             if(pilulier.getMotor()!=null){
-                pilulier.getMotor().setAngle(-1);
+                pilulier.getMotor().setAngle(indexCase);
                 pilulier.getMotor().start();
             }
                     indexCase = 0;
