@@ -20,6 +20,7 @@ public class LedMarche extends JComponent {
 
     public void setCouleurLed(Color couleurLed) {
         this.couleurLed = couleurLed;
+        repaint();
     }
 
     @Override
