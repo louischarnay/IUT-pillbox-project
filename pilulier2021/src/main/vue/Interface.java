@@ -55,7 +55,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Pilulier pilulier;
     private boolean boutonPressed = false, retardPilule = false;
     private int timerAlarme = 0;
-    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer=10000;
+    private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
     private String tempsRestant = "00 jours, 00 heures 00 minutes";
     private Timer timer = createTimer(dureeTimer);
 
@@ -430,8 +430,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    if (pilulier.getMotor()!=null) {
-                        pilulier.getMotor().setAngle(-(indexCaseOuvrir-1));
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(-(indexCaseOuvrir - 1));
                         pilulier.getMotor().start();
                     }
                     boutonAlerte.setText("Refermer le pilulier");
@@ -444,14 +444,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 case "Refermer le pilulier":
                     System.out.println("fin sonnerie");
                     updateCasesRestantes();
-                    if(nbCasesRestantes==0)
+                    if (nbCasesRestantes == 0) {
                         System.out.println("envoi notification \"pilulier vide\"");
+                    }
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
                     }
                     timer.stop();
-                    if(pilulier.getMotor()!=null){
-                        pilulier.getMotor().setAngle(indexCaseOuvrir-1);
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(indexCaseOuvrir - 1);
                         pilulier.getMotor().start();
                     }
                     boutonAlerteVisible(false, "");
@@ -492,10 +493,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
-            if(pilulier.getMotor()!=null){
-                pilulier.getMotor().setAngle(indexCase+1);
-                pilulier.getMotor().start();
-            }
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(indexCase + 1);
+                        pilulier.getMotor().start();
+                    }
                     indexCase = 1;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
@@ -526,7 +527,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 etat = EnumEtat.MENU;
             } else {
                 boutonMenuSUVisible(true);
-                etat=EnumEtat.MENUSU;
+                etat = EnumEtat.MENUSU;
             }
             tmp = true;
         } else if (e.getSource() == boutonMenuSU0) {
@@ -589,7 +590,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    if (pilulier.getMotor()!=null) {
+                    if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(1);
                         pilulier.getMotor().start();
                     }
@@ -1346,17 +1347,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         long diff = pro.getTime() - date.getTime();
         long max = 2630974545L * 12;
-        long jours=(diff / (1000 * 60 * 60 * 24)), heures=(diff / (1000 * 60 * 60)) % 24, minutes=(diff / (1000 * 60)) % 60;
+        long jours = (diff / (1000 * 60 * 60 * 24)), heures = (diff / (1000 * 60 * 60)) % 24, minutes = (diff / (1000 * 60)) % 60;
         if (diff < 0 | pilulier.getCase(tmp).getDate().getTime() < date.getTime() | diff >= max) {
             tempsRestant = "non définie";
-        }else if(jours==0&&heures==0&&minutes==0){
-            tempsRestant="moins d'une minute";
-        }else if(jours==0&&heures==0){
-            tempsRestant=minutes + " minutes";
-        }else if(jours==0){
-            tempsRestant=heures + " heures et " + minutes + " minutes";
+        } else if (jours == 0 && heures == 0 && minutes == 0) {
+            tempsRestant = "moins d'une minute";
+        } else if (jours == 0 && heures == 0) {
+            tempsRestant = minutes + " minutes";
+        } else if (jours == 0) {
+            tempsRestant = heures + " heures et " + minutes + " minutes";
         } else {
-            tempsRestant =  jours+ " jours, " + heures + " heures et " + minutes + " minutes";
+            tempsRestant = jours + " jours, " + heures + " heures et " + minutes + " minutes";
         }
     }
 
@@ -1415,40 +1416,43 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //créer un timer
     private Timer createTimer(int duree) {
-        ActionListener action = new ActionListener() {
+        ActionListener action;
+        action = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 switch (etatTimer) {
                     case ITSTIME:
-                        if (pilulier.getCase(indexCaseOuvrir - 1).getRetardAccepte()) {
-                            if (pilulier.getBuzzer() != null) {
-                                pilulier.getBuzzer().stop();
-                            }
                             System.out.println("envoi notification \"le patient n'a pas pris sa pilula à l'heure\"");
+                            try {
+                                pilulier.addHistorique("pilule non prise à l'heure", new Date());
+                            } catch (IOException ex) {
+                                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             System.out.println("fin de la sonnerie");
                             ledMarche.setCouleurLed(Color.orange);
                             if (pilulier.getBuzzer() != null) {
                                 pilulier.getBuzzer().stop();
                             }
                             retardPilule = true;
-                        } else {
-
+                            System.out.println(indexCaseOuvrir-1);
+                        if (pilulier.getCase(indexCaseOuvrir - 1).getRetardAccepte()) {
+                            pilulier.getCase(indexCaseOuvrir-1).setEtatRemplissage(false);
+                            boutonAlerteVisible(false, "");
+                            infosMenuVisible(true);
+                            boutonsMenuVisible(true);
+                            ledMarcheVisible(true);
                         }
                         break;
-                    case CLOSE: {
+                    case CLOSE:
                         try {
-                            pilulier.addHistorique("pilulier non refermé", new Date());
-                        } catch (IOException ex) {
-                            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        pilulier.addHistorique("pilulier non refermé à l'heure", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("début sonnerie");
-                    etatTimer = EnumTimer.CLOSE2;
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().start();
                     }
-                    timer.stop();
                     break;
-
                 }
                 timer.stop();
             }
