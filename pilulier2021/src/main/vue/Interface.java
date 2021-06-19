@@ -518,6 +518,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 etat = EnumEtat.MENU;
             } else {
                 boutonMenuSUVisible(true);
+                etat=EnumEtat.MENUSU;
             }
             tmp = true;
         } else if (e.getSource() == boutonMenuSU0) {
