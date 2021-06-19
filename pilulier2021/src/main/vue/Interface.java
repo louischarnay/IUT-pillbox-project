@@ -33,6 +33,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Popup;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
@@ -178,7 +179,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonRetourVisible(false);
         boutonAlerteVisible(false, "");
         boutonsParametreVisible(false);
-
         //désactive la flèche gauche
         flecheGauche.setEnabled(false);
 
@@ -234,7 +234,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
             boutonsParametreVisible(true);
         } else if (e.getSource() == boutonSnake) {
-            System.out.println("c'est pas encore codé");
+            System.out.println("c'est pas codé");
+            
         } else if (e.getSource() == boutonFondAlea) {
             double clr1, clr2, clr3;
             clr1 = Math.random() * 100 % 255;
@@ -601,6 +602,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //placement des éléments
+    
+    
     public void boutonsParametreAffiche() {
         cont.gridx = 0;
         cont.gridy = 1;
@@ -857,8 +860,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //rendre visible/invisible les éléments
+    
     public void boutonsParametreVisible(boolean b) {
-        boutonSnake.setVisible(b);
+        boutonSnake.setVisible(false);
         boutonFondAlea.setVisible(b);
         boutonFondNoir.setVisible(b);
         boutonFondBlanc.setVisible(b);
