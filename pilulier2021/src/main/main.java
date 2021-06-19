@@ -35,8 +35,7 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, UnsupportedEncodingException, IOException {;
-//        String mail = "sendemail -f mail.charnay@orange.fr -t louis.charnay@orange.fr -u subject -m \"message\" -s smtp.orange.fr:587 -o starttls=yes -xu mail.charnay@orange.fr -xp Maison_01000";
-//        Runtime.getRuntime().exec(mail);
+
         
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
