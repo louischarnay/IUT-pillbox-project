@@ -454,7 +454,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getMotor().setAngle(indexCaseOuvrir-1);
                         pilulier.getMotor().start();
                     }
-//                    updateCasesRestantes();
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
@@ -1347,12 +1346,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         long diff = pro.getTime() - date.getTime();
         long max = 2630974545L * 12;
+        long jours=(diff / (1000 * 60 * 60 * 24)), heures=(diff / (1000 * 60 * 60)) % 24, minutes=(diff / (1000 * 60)) % 60;
         if (diff < 0 | pilulier.getCase(tmp).getDate().getTime() < date.getTime() | diff >= max) {
             tempsRestant = "non définie";
+        }else if(jours==0&&heures==0&&minutes==0){
+            tempsRestant="moins d'une minute";
+        }else if(jours==0&&heures==0){
+            tempsRestant=minutes + " minutes";
+        }else if(jours==0){
+            tempsRestant=heures + " heures et " + minutes + " minutes";
         } else {
-            tempsRestant = (diff / (1000 * 60 * 60 * 24)) + " jours, " + (diff / (1000 * 60 * 60)) % 24 + " heures et " + (diff / (1000 * 60)) % 60 + " minutes";
+            tempsRestant =  jours+ " jours, " + heures + " heures et " + minutes + " minutes";
         }
-        String tmp1 = "0 jours, 0 heures et 0 minutes";
     }
 
     //heure de prendre la pilule
