@@ -19,6 +19,7 @@ import java.util.Date;
 import main.modele.Case;
 import main.modele.HautParleur;
 import main.modele.Moteur;
+import main.modele.Notification;
 import main.modele.Patient;
 import main.modele.Pilulier;
 import main.modele.Referent;
@@ -56,13 +57,16 @@ public class main {
         calendrier.add(new Case(7,new Date()));
           
         
-//        Moteur motor = null; //si moteur non raccordé à la raspberry
-        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
+        Moteur motor = null; //si moteur non raccordé à la raspberry
+//        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
         HautParleur buzzer = null; //si hp non raccordé à la raspberry
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26); //si hp raccordé à la raspberry
 
         Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, motor);
-        Interface fenetre=new Interface(pilulier);
+    
+        Notification notif = null;
+        
+        Interface fenetre=new Interface(pilulier, notif);
         fenetre.setVisible(true);
         
         int i = 0;

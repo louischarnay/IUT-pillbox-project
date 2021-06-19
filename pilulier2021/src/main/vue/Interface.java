@@ -36,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
+import main.modele.Notification;
 import main.modele.Pilulier;
 
 /**
@@ -53,6 +54,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private JCheckBox checkRetard = new JCheckBox(), checkRemplissage = new JCheckBox();
 
     private Pilulier pilulier;
+    private Notification notif;
     private boolean boutonPressed = false, retardPilule = false;
     private int timerAlarme = 0;
     private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
@@ -76,7 +78,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
     ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
     ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
-    ImageIcon ouiImage = setImage("images/oui.png", 50, 20);
 
     Color transparent = new Color(0, 0, 0, 0);
     Color vertFond = new Color(0, 128, 128, 255);
@@ -89,8 +90,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         return cont;
     }
 
-    public Interface(Pilulier p) throws InterruptedException {
+    public Interface(Pilulier p, Notification n) throws InterruptedException {
         pilulier = p;
+        notif = n;
         this.setUndecorated(true);
         //this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -366,7 +368,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
                 case "Situation d'urgence":
-                    System.out.println("envoi notification \"panic button pressed\"");
+                    if (notif != null){
+                        notif.send("SITUATION D'URGENCE Veuillez vous rendre au domicile du patient");
+                    }
                      {
                         try {
                             pilulier.addHistorique("Appui sur le panic button", new Date());
@@ -382,7 +386,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
                 case "Scanner badge": {
                     try {
-                        System.out.println("envoi notification \"référent arrivé\"");
+                   if (notif != null){
+                        notif.send("SITUATION D'URGENCE Référent arrivé sur place");
+                    }
                         pilulier.addHistorique("Référent arrivé", new Date());
                     } catch (IOException ex) {
                         Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -434,7 +440,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("fin sonnerie");
                     updateCasesRestantes();
                     if (nbCasesRestantes == 0) {
-                        System.out.println("envoi notification \"pilulier vide\"");
+                        if (notif != null){
+                            notif.send("PILULIER VIDE Veuillez vous rendre au domicile du patient");
+                        }
                     }
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
@@ -1427,7 +1435,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             public void actionPerformed(ActionEvent event) {
                 switch (etatTimer) {
                     case ITSTIME:
-                        System.out.println("envoi notification \"le patient n'a pas pris sa pilula à l'heure\"");
+                        if (notif != null){
+                            notif.send("TRAITEMENT EN RETARD Veuillez vous rendre au domicile du patient");
+                        }
                         try {
                             pilulier.addHistorique("pilule non prise à l'heure", new Date());
                         } catch (IOException ex) {
