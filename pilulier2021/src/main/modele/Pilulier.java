@@ -35,6 +35,9 @@ public class Pilulier {
         referents=new ArrayList<>();
     }
 
+    
+    
+
     public Pilulier( ArrayList<Referent> r,ArrayList<Case> c,HautParleur b, Moteur m) throws IOException{
         historique=new Historique();
         referents=r;
