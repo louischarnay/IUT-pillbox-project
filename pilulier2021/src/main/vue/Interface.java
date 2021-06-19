@@ -159,7 +159,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         for (int i = 1; i < 32; i++) {
             boxJour.addItem(i);
         }
-        for (int i = 1; i < 24; i++) {
+        for (int i = 0; i < 24; i++) {
             boxHeure.addItem(i);
         }
         for (int i = 0; i < 60; i++) {
@@ -318,7 +318,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         if (infosMenu.isVisible()) {
             updateTempsRestant();
-            infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
+            String tmp="0 jours, 0 heures, 0 minutes";
+            if(tempsRestant.equals(tmp))
+                System.out.println("tbo");
+            if(nbCasesRestantes>1)
+                infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
+            else
+                infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " case restante");
         }
     }
 
@@ -364,7 +370,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
                 case "Situation d'urgence":
-                    System.out.println("envoi notification");
+                    System.out.println("envoi notification \"panic button pressed\"");
                      {
                         try {
                             pilulier.addHistorique("Appui sur le panic button", new Date());
@@ -380,13 +386,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
                 case "Scanner badge": {
                     try {
-                        //envoi notification aux autres référents
+                        System.out.println("envoi notification \"référent arrivé\"");
                         pilulier.addHistorique("Référent arrivé", new Date());
                     } catch (IOException ex) {
                         Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                System.out.println("envoi notification");
                 boutonAlerteVisible(false, "");
                 infosMenuVisible(true);
                 boutonsMenuVisible(true);
@@ -405,7 +410,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 break;
                 case "Heure traitement":
                     timer.stop();
-                    pilulier.getCase(indexCaseOuvrir).setEtatRemplissage(false);
+                    pilulier.getCase(indexCaseOuvrir-1).setEtatRemplissage(false);
                     System.out.println("fin de la sonnerie");
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
@@ -424,12 +429,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonAlerte.setText("Refermer le pilulier");
                     timer = createTimer(10000);
                     timer.start();
+//                    updateCasesRestantes();
                     etatTimer = EnumTimer.CLOSE;
-                    System.out.println(etatTimer);
                     break;
 
                 case "Refermer le pilulier":
-                    System.out.println("envoi notification");
                     System.out.println("fin sonnerie");
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
@@ -439,7 +443,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 pilulier.getMotor().setAngle(-1);
                 pilulier.getMotor().start();
             }
-                    updateCasesRestantes();
+//                    updateCasesRestantes();
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
                     boutonsMenuVisible(true);
@@ -565,7 +569,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         } else if (e.getSource() == validerCase) {
             caseEcriture(indexCase);
-            updateCasesRestantes();
+//            updateCasesRestantes();
             if(ledMarche.getCouleurLed()!=Color.orange)
             if (nbCasesRestantes == 0) {
                 ledMarche.setCouleurLed(Color.red);
@@ -937,7 +941,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void boutonAlerteVisible(boolean b, String txt) {
         boutonAlerte.setText(txt);
-        if ("Situation d'urgence".equals(txt) | "Scanner badge".equals(txt)) {
+        if ("Situation d'urgence".equals(txt) | "Scanner  badge".equals(txt)) {
             cont.fill = GridBagConstraints.BOTH;
             cont.anchor = GridBagConstraints.CENTER;
             cont.insets = new Insets(70, 5, 130, 5);
@@ -959,6 +963,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void infosMenuVisible(boolean b) {
         infosMenu.setVisible(b);
+        updateCasesRestantes();
     }
 
     public void ledMarcheVisible(boolean b) {
@@ -1315,6 +1320,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //mise à jour du nombre de cases restantes
     public void updateCasesRestantes() {
+        System.out.println("ta mere");
         int tmp = 0;
         for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
             if (pilulier.getCase(i).getEtatRemplissage()) {
@@ -1322,6 +1328,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
         nbCasesRestantes = tmp;
+        System.out.println(nbCasesRestantes);
     }
     //mise à jour du temps restant avant le prochain traitement
 
@@ -1411,7 +1418,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             if (pilulier.getBuzzer() != null) {
                                 pilulier.getBuzzer().stop();
                             }
-                            System.out.println("envoi notification retard");
+                            System.out.println("envoi notification \"le patient n'a pas pris sa pilula à l'heure\"");
                             System.out.println("fin de la sonnerie");
                             ledMarche.setCouleurLed(Color.orange);
                             if (pilulier.getBuzzer() != null) {
@@ -1435,7 +1442,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getBuzzer().start();
                     }
                     timer.stop();
-                    System.out.println("envoi notification");
                     break;
 
                 }
