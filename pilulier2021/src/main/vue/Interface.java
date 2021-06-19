@@ -44,7 +44,7 @@ import main.modele.Pilulier;
  */
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
-    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel();
+    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui=new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
     private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton();
@@ -69,35 +69,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     //boolean qui dit si il faure retourner au menu principal ou menu SU
     boolean tmp = true;
 
-    ImageIcon imageBase = new ImageIcon(getClass().getResource("images/panicImage.png"));
-    Image image = imageBase.getImage();
-    Image newimg = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon panicImage = new ImageIcon(newimg);
-
-    ImageIcon imageBase2 = new ImageIcon(getClass().getResource("images/calendrierImage.png"));
-    Image image2 = imageBase2.getImage();
-    Image newimg2 = image2.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon calendrierImage = new ImageIcon(newimg2);
-
-    ImageIcon imageBase3 = new ImageIcon(getClass().getResource("images/informationImage.png"));
-    Image image3 = imageBase3.getImage();
-    Image newimg3 = image3.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon informationsImage = new ImageIcon(newimg3);
-
-    ImageIcon imageBase4 = new ImageIcon(getClass().getResource("images/menuSUImage.png"));
-    Image image4 = imageBase4.getImage();
-    Image newimg4 = image4.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon menuSUImage = new ImageIcon(newimg4);
-
-    ImageIcon imageBase5 = new ImageIcon(getClass().getResource("images/flecheImageGauche.png"));
-    Image image5 = imageBase5.getImage();
-    Image newimg5 = image5.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon flecheGaucheImage = new ImageIcon(newimg5);
-
-    ImageIcon imageBase6 = new ImageIcon(getClass().getResource("images/flecheImageDroite.png"));
-    Image image6 = imageBase6.getImage();
-    Image newimg6 = image6.getScaledInstance(50, 300, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon flecheDroiteImage = new ImageIcon(newimg6);
+    //chargement des images
+    ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
+    ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
+    ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
+    ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
+    ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
+    ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
+    ImageIcon ouiImage =setImage("images/oui.png", 50, 20);
 
     Color transparent = new Color(0, 0, 0, 0);
     Color vertFond = new Color(0, 128, 128, 255);
@@ -112,7 +91,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public Interface(Pilulier p) throws InterruptedException {
         pilulier = p;
-        this.setTitle("fenetre");
+        this.setUndecorated(true);
+        //this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
         this.setSize(800, 480);
@@ -137,6 +117,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     public void initialisation() {
+        
         pano.setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
         Date heure = new Date();
@@ -177,6 +158,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setLabel(infoFonction, 30, transparent, false, "Fonction :");
         setLabel(infoTel, 30, transparent, false, "Tel :");
         setLabel(infoMail, 30, transparent, false, "Mail :");
+        
+        //check box remplissage
+        setCheckBox(checkRetard);
+        setCheckBox(checkRemplissage);
 
         //informations menu
         infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
@@ -193,6 +178,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setLabel(caseJour, 20, Color.white, true, "Jour");
         setLabel(caseHeure, 20, Color.white, true, "Heure");
         setLabel(caseMinute, 20, Color.white, true, "Minute");
+        
+        
+        //checkRetard.setIcon(ouiImage);
 
         //fields information
         setTextFieldInfo(nomEcriture, "Nom");
@@ -247,6 +235,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         //label retard accepté
         setLabel(retardAccepte, 20, Color.white, true, "Retard accepté");
+        setLabel(remplissageOui, 20, Color.white, true, "Case Remplie");
 
         pano.setBackground(vertFond);
         //placement heure
@@ -674,25 +663,32 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     //placement des éléments
     public void boutonValiderCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 3;
-        cont.gridy = 5;
+        cont.gridy = 4;
+        cont.gridwidth=2;
+        cont.gridheight=2;
         pano.add(validerCase, cont);
+        cont.gridwidth=1;
+        cont.gridwidth=1;
     }
 
     public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
         cont.gridx = 1;
         cont.gridy = 1;
-        cont.gridwidth = 3;
+        cont.gridwidth = 4;
         pano.add(caseRemplissage, cont);
         cont.gridwidth = 1;
     }
 
     public void checkRetardAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridx = 3;
+        cont.gridx=3;
         cont.gridy = 2;
         pano.add(retardAccepte, cont);
-        cont.gridy = 3;
+        cont.gridx=4;
         pano.add(checkRetard, cont);
-        cont.gridy = 4;
+        cont.gridx=3;
+        cont.gridy = 3;
+        pano.add(remplissageOui, cont);
+        cont.gridx=4;
         pano.add(checkRemplissage, cont);
     }
 
@@ -914,6 +910,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void checkRetardVisible(boolean b) {
         retardAccepte.setVisible(b);
+        remplissageOui.setVisible(b);
         checkRetard.setVisible(b);
         checkRemplissage.setVisible(b);
     }
@@ -1011,6 +1008,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     //setters des éléments
     public void setCheckBox(JCheckBox bx) {
         bx.setBackground(vertFond);
+        
     }
 
     public void setComboBox(JComboBox bx) {
@@ -1082,6 +1080,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setBorder(bordure);
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
+    }
+    //charger les images
+
+    public ImageIcon setImage(String chemin, int x, int y) {
+        ImageIcon imageBase = new ImageIcon(getClass().getResource(chemin));
+        Image image = imageBase.getImage();
+        Image newimg = image.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
+        return imageBase;
     }
 
     //charger l'historique
@@ -1421,21 +1427,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             public void actionPerformed(ActionEvent event) {
                 switch (etatTimer) {
                     case ITSTIME:
-                            System.out.println("envoi notification \"le patient n'a pas pris sa pilula à l'heure\"");
-                            try {
-                                pilulier.addHistorique("pilule non prise à l'heure", new Date());
-                            } catch (IOException ex) {
-                                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            System.out.println("fin de la sonnerie");
-                            ledMarche.setCouleurLed(Color.orange);
-                            if (pilulier.getBuzzer() != null) {
-                                pilulier.getBuzzer().stop();
-                            }
-                            retardPilule = true;
-                            System.out.println(indexCaseOuvrir-1);
-                        if (pilulier.getCase(indexCaseOuvrir - 1).getRetardAccepte()) {
-                            pilulier.getCase(indexCaseOuvrir-1).setEtatRemplissage(false);
+                        System.out.println("envoi notification \"le patient n'a pas pris sa pilula à l'heure\"");
+                        try {
+                            pilulier.addHistorique("pilule non prise à l'heure", new Date());
+                        } catch (IOException ex) {
+                            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println("fin de la sonnerie");
+                        ledMarche.setCouleurLed(Color.orange);
+                        if (pilulier.getBuzzer() != null) {
+                            pilulier.getBuzzer().stop();
+                        }
+                        retardPilule = true;
+                        if (!pilulier.getCase(indexCaseOuvrir - 2).getRetardAccepte()) {
+                            System.out.println(indexCaseOuvrir);
+                            pilulier.getCase(indexCaseOuvrir - 2).setEtatRemplissage(false);
                             boutonAlerteVisible(false, "");
                             infosMenuVisible(true);
                             boutonsMenuVisible(true);
