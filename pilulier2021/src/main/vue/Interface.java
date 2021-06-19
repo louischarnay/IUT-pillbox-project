@@ -72,18 +72,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private Color vertFond = new Color(0, 128, 128, 255);
 
     //boolean qui dit si il faure retourner au menu principal ou menu SU
-    boolean tmp = true;
-
-    //chargement des images
-    ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
-    ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
-    ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
-    ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
-    ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
-    ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
-
-    Color transparent = new Color(0, 0, 0, 0);
-    Color vertFond = new Color(0, 128, 128, 255);
+    private boolean tmp = true;
+    
+    
+    private ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
+    private ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
+    private ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
+    private ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
+    private ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
+    private ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
+    private ImageIcon parametreImage = setImage("images/parametreImage.png", 120, 120);
 
     public JPanel getPano() {
         return pano;
