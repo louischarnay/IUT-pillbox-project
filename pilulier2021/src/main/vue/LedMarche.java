@@ -17,15 +17,21 @@ import javax.swing.JComponent;
 public class LedMarche extends JComponent {
 
     private Color couleurLed = Color.red;
+    private Color couleurTour = Color.white;
 
     public void setCouleurLed(Color couleurLed) {
         this.couleurLed = couleurLed;
         repaint();
     }
+    
+    public void setCouleurTour(Color couleurLed) {
+        this.couleurTour = couleurLed;
+        repaint();
+    }
 
     @Override
     public Dimension getPreferredSize() {
-        Dimension d = new Dimension(40, 40);
+        Dimension d = new Dimension(120, 40);
         return d;
     }
     
@@ -40,10 +46,10 @@ public class LedMarche extends JComponent {
 
     @Override
     protected void paintComponent(Graphics gra) {
-        gra.setColor(Color.white);
-        gra.fillOval(0, 0, 40, 40);
+        gra.setColor(couleurTour);
+        gra.fillOval(90, 10, 40, 40);
         gra.setColor(couleurLed);
-        gra.fillOval(6, 6, 28, 28);
+        gra.fillOval(96, 16, 28, 28);
     }
 
 }

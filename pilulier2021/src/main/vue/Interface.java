@@ -44,20 +44,19 @@ import main.modele.Pilulier;
  */
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
-    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui=new JLabel();
+    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox(), checkRemplissage = new JCheckBox();
 
     private Pilulier pilulier;
-    private boolean boutonPressed = false, retardPilule = false;
-    private int timerAlarme = 0;
     private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
     private String tempsRestant = "00 jours, 00 heures 00 minutes";
     private Timer timer = createTimer(dureeTimer);
+    private boolean couleurTexte=false;
 
     private EnumEtat etat;
     private EnumTimer etatTimer;
@@ -65,21 +64,20 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private JPanel pano = new JPanel();
     private GridBagConstraints cont = new GridBagConstraints();
     private String newLine = System.getProperty("line.separator");
+    private Color blanc = Color.white;
+    private Color vertFond = new Color(0, 128, 128, 255);
 
     //boolean qui dit si il faure retourner au menu principal ou menu SU
-    boolean tmp = true;
-
-    //chargement des images
-    ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
-    ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
-    ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
-    ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
-    ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
-    ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
-    ImageIcon ouiImage =setImage("images/oui.png", 50, 20);
-
-    Color transparent = new Color(0, 0, 0, 0);
-    Color vertFond = new Color(0, 128, 128, 255);
+    private boolean tmp = true;
+    
+    
+    private ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
+    private ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
+    private ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
+    private ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
+    private ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
+    private ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
+    private ImageIcon parametreImage = setImage("images/parametreImage.png", 120, 120);
 
     public JPanel getPano() {
         return pano;
@@ -114,14 +112,21 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.addFocusListener(this);
         validerInfos.addActionListener(this);
         validerCase.addActionListener(this);
+        boutonParametre.addActionListener(this);
+        boutonSnake.addActionListener(this);
+        boutonFondAlea.addActionListener(this);
+        boutonFondNoir.addActionListener(this);
+        boutonFondBlanc.addActionListener(this);
+        boutonFondVert.addActionListener(this);
+        boutonTexteBlanc.addActionListener(this);
+        boutonTexteNoir.addActionListener(this);
     }
 
     public void initialisation() {
-        
         pano.setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
         Date heure = new Date();
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
 
         //création des composants
         //checkBox remplissage
@@ -147,129 +152,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boxMinute.addItem(i);
         }
 
-        //heure
-        setHeureAffiche();
-        setLabel(heureAffiche, 65, transparent, false, "");
+        composantsCreation();
 
-        //labels information
-        setLabel(infoNom, 30, transparent, false, "Nom :");
-        setLabel(infoPrenom, 30, transparent, false, "Prenom :");
-        setLabel(infoAdresse, 30, transparent, false, "Adresse :");
-        setLabel(infoFonction, 30, transparent, false, "Fonction :");
-        setLabel(infoTel, 30, transparent, false, "Tel :");
-        setLabel(infoMail, 30, transparent, false, "Mail :");
-        
-        //check box remplissage
-        setCheckBox(checkRetard);
-        setCheckBox(checkRemplissage);
-
-        //informations menu
-        infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
-        infosMenu.setForeground(Color.white);
-        infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
-        infosMenu.setBackground(vertFond);
-        infosMenu.setEditable(false);
-
-        //label numéro case
-        setLabel(caseRemplissage, 30, Color.white, true, "");
-
-        //labels box remplissage
-        setLabel(caseMois, 20, Color.white, true, "Mois");
-        setLabel(caseJour, 20, Color.white, true, "Jour");
-        setLabel(caseHeure, 20, Color.white, true, "Heure");
-        setLabel(caseMinute, 20, Color.white, true, "Minute");
-        
-        
-        //checkRetard.setIcon(ouiImage);
-
-        //fields information
-        setTextFieldInfo(nomEcriture, "Nom");
-        setTextFieldInfo(prenomEcriture, "Prenom");
-        setTextFieldInfo(adresseEcriture, "Adresse");
-        setTextFieldInfo(fonctionEcriture, "Fonction");
-        setTextFieldInfo(mailEcriture, "Mail");
-        setTextFieldInfo(telEcriture, "Tel");
-
-        //désactivation de Fonction
-        fonctionEcriture.setEditable(false);
-
-        //boutons menu
-        setBoutonMenu(menuSU, menuSUImage);
-        setBoutonMenu(calendrier, calendrierImage);
-        setBoutonMenu(informations, informationsImage);
-        setBoutonMenu(panicButton, panicImage);
-
-        //bouton alerte
-        setBoutonTexte(boutonAlerte, "", 70, Color.red);
-
-        //boutons menu SU
-        setBoutonTexte(boutonMenuSU0, "Informations", 50, Color.white);
-        setBoutonTexte(boutonMenuSU1, "Remplissage", 50, Color.white);
-        setBoutonTexte(boutonMenuSU2, "Historique", 50, Color.white);
-
-        //bouton retour
-        setBoutonTexte(boutonRetour, "Retour", 30, Color.white);
-
-        //flèches menus
-        setFleche(flecheGauche, flecheGaucheImage);
-        setFleche(flecheDroite, flecheDroiteImage);
-
-        //boutons valider information
-        setBoutonTexte(validerInfos, "Valider", 30, Color.white);
-        setBoutonTexte(validerCase, "Valider", 30, Color.white);
-
-        //cases calendrier
-        setTextArea(case1, true, "");
-        setTextArea(case2, true, "");
-        setTextArea(case3, true, "");
-        setTextArea(case4, true, "");
-        setTextArea(case5, true, "");
-        setTextArea(case6, true, "");
-        setTextArea(case7, true, "");
-
-        //comboBox remplissage
-        setComboBox(boxMois);
-        setComboBox(boxJour);
-        setComboBox(boxHeure);
-        setComboBox(boxMinute);
-
-        //label retard accepté
-        setLabel(retardAccepte, 20, Color.white, true, "Retard accepté");
-        setLabel(remplissageOui, 20, Color.white, true, "Case Remplie");
-
-        pano.setBackground(vertFond);
-        //placement heure
-        heureAffiche(cont, pano);
-        //placement prochain traitement + nb cases restantes
-        infosMenuAffiche(cont, pano);
-        //placement des boutons menu
-        boutonsMenuAffiche(cont, pano);
-        //placement led de marche
-        ledMarcheAffiche(cont, pano);
-        //placement boutons menu SU
-        boutonMenuSUAffiche(cont, pano);
-        //placement bouton retour
-        boutonRetourAffiche(cont, pano);
-        //placement fleches
-        flechesAffiche(cont, pano);
-        //placement infos ecriture
-        infosEcritureAffiche(cont, pano);
-        //placement boutons valider infos
-        boutonValiderInfosAffiche(cont, pano);
-        //placement labels infos
-        infosLabelsAffiche(cont, pano);
-        //placement cases menu calendrier
-        casesCalendrierAffiche(cont, pano);
-        //placement numéro case remplissage
-        numCaseAffiche(cont, pano);
-        //placement comboBox remplissage
-        boxCalendrierAffiche(cont, pano);
-        //placement checkBox retard remplissage
-        checkRetardAffiche(cont, pano);
-        //placement bouton valider cases
-        boutonValiderCaseAffiche(cont, pano);
-        //placement boutonAlerte
-        boutonAlerteAffiche(cont, pano, "");
+        //affichage de tous les composants
+        composantsAffiche();
 
         this.setContentPane(pano);
         this.pack();
@@ -286,6 +172,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonMenuSUVisible(false);
         boutonRetourVisible(false);
         boutonAlerteVisible(false, "");
+        boutonsParametreVisible(false);
 
         //désactive la flèche gauche
         flecheGauche.setEnabled(false);
@@ -334,6 +221,45 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonsMenuVisible(false);
             boutonAlerteVisible(true, "Situation d'urgence");
             boutonRetourVisible(true);
+        } else if (e.getSource() == boutonParametre) {
+            etat = EnumEtat.PARAMETRE;
+            ledMarcheVisible(false);
+            infosMenuVisible(false);
+            boutonsMenuVisible(false);
+            boutonRetourVisible(true);
+            boutonsParametreVisible(true);
+        } else if (e.getSource() == boutonSnake) {
+            System.out.println("c'est pas encore codé");
+        } else if (e.getSource() == boutonFondAlea) {
+            double clr1, clr2, clr3;
+            clr1 = Math.random() * 100 % 255;
+            clr2 = Math.random() * 100 % 255;
+            clr3 = Math.random() * 100 % 255;
+            vertFond = new Color((int) clr1, (int) clr2, (int) clr3, 255);
+            pano.setBackground(vertFond);
+            composantsCreation();
+        } else if (e.getSource() == boutonFondNoir) {
+            vertFond = Color.black;
+            pano.setBackground(vertFond);
+            composantsCreation();
+        } else if (e.getSource() == boutonFondBlanc) {
+            vertFond = Color.white;
+            pano.setBackground(vertFond);
+            composantsCreation();
+        } else if (e.getSource() == boutonFondVert) {
+            vertFond = new Color(0, 128, 128, 255);
+            pano.setBackground(vertFond);
+            composantsCreation();
+        } else if (e.getSource() == boutonTexteBlanc) {
+            blanc = Color.white;
+            ledMarche.setCouleurTour(blanc);
+            couleurTexte=false;
+            composantsCreation();
+        } else if (e.getSource() == boutonTexteNoir) {
+            blanc = Color.black;
+            couleurTexte=true;
+            ledMarche.setCouleurTour(blanc);
+            composantsCreation();
         } else if (e.getSource() == informations) {
             etat = EnumEtat.INFOLECTURE;
             ledMarcheVisible(false);
@@ -375,7 +301,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         }
                     }
                     boutonRetourVisible(false);
-                    boutonAlerteAffiche(cont, pano, "");
+                    boutonAlerteAffiche("");
                     boutonAlerteVisible(true, "Scanner badge");
                     //scan NFC
                     break;
@@ -391,6 +317,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 boutonAlerteVisible(false, "");
                 infosMenuVisible(true);
                 boutonsMenuVisible(true);
+                ledMarcheVisible(true);
                 break;
 
                 case "Scanner  badge": {
@@ -401,7 +328,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                 }
                 ledMarche.setCouleurLed(Color.green);
-                boutonAlerteAffiche(cont, pano, "");
+                boutonAlerteAffiche("");
                 boutonAlerteVisible(false, "");
                 boutonMenuSUVisible(true);
                 break;
@@ -450,9 +377,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     ledMarcheVisible(true);
 
             }
-            boutonPressed = true;
         } else if (e.getSource() == boutonRetour) {
             switch (etat) {
+                case PARAMETRE:
+                    boutonsParametreVisible(false);
+                    break;
                 case MENUSU:
                     boutonRetourVisible(false);
                     boutonMenuSUVisible(false);
@@ -502,7 +431,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     flecheDroite.setEnabled(true);
                     break;
                 case PANICBUTTON:
-                    boutonAlerteAffiche(cont, pano, "");
+                    boutonAlerteAffiche("");
                     boutonAlerteVisible(false, "");
 
             }
@@ -661,17 +590,45 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //placement des éléments
-    public void boutonValiderCaseAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridx = 3;
-        cont.gridy = 4;
+    public void boutonsParametreAffiche() {
+        cont.gridx = 0;
+        cont.gridy = 1;
+        pano.add(boutonFondAlea, cont);
+        cont.gridy = 2;
+        pano.add(boutonFondNoir, cont);
+        cont.gridy = 3;
+        pano.add(boutonFondBlanc, cont);
+        cont.gridx = 1;
+        cont.gridy = 1;
+        pano.add(boutonFondVert, cont);
+        cont.gridy = 2;
+        pano.add(boutonTexteNoir, cont);
+        cont.gridy = 3;
+        pano.add(boutonTexteBlanc, cont);
+        cont.gridy=4;
+        cont.gridx=0;
         cont.gridwidth=2;
-        cont.gridheight=2;
-        pano.add(validerCase, cont);
-        cont.gridwidth=1;
+        pano.add(boutonSnake, cont);
         cont.gridwidth=1;
     }
 
-    public void numCaseAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boutonParametreAffiche() {
+        cont.gridx = 4;
+        cont.gridy = 3;
+        pano.add(boutonParametre, cont);
+    }
+
+    public void boutonValiderCaseAffiche() {
+        cont.gridx = 3;
+        cont.gridy = 4;
+        cont.gridwidth = 2;
+        cont.gridheight = 2;
+        pano.add(validerCase, cont);
+        cont.gridwidth = 1;
+        cont.gridwidth = 1;
+    }
+
+    public void numCaseAffiche() {
         cont.gridx = 1;
         cont.gridy = 1;
         cont.gridwidth = 4;
@@ -679,20 +636,20 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.gridwidth = 1;
     }
 
-    public void checkRetardAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.gridx=3;
+    public void checkRetardAffiche() {
+        cont.gridx = 3;
         cont.gridy = 2;
         pano.add(retardAccepte, cont);
-        cont.gridx=4;
+        cont.gridx = 4;
         pano.add(checkRetard, cont);
-        cont.gridx=3;
+        cont.gridx = 3;
         cont.gridy = 3;
         pano.add(remplissageOui, cont);
-        cont.gridx=4;
+        cont.gridx = 4;
         pano.add(checkRemplissage, cont);
     }
 
-    public void boxCalendrierAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boxCalendrierAffiche() {
         cont.gridx = 1;
         cont.gridy = 2;
         pano.add(caseMois, cont);
@@ -715,7 +672,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(boxMinute, cont);
     }
 
-    public void casesCalendrierAffiche(GridBagConstraints cont, JPanel pano) {
+    public void casesCalendrierAffiche() {
         cont.insets = new Insets(10, 10, 10, 10);
         cont.gridx = 0;
         cont.gridy = 1;
@@ -735,7 +692,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(case7, cont);
     }
 
-    public void infosLabelsAffiche(GridBagConstraints cont, JPanel pano) {
+    public void infosLabelsAffiche() {
         cont.weightx = 1 / 2;
         cont.gridx = 1;
         cont.gridy = 1;
@@ -754,7 +711,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.weightx = 1;
     }
 
-    public void infosEcritureAffiche(GridBagConstraints cont, JPanel pano) {
+    public void infosEcritureAffiche() {
         cont.gridwidth = 4;
         cont.weighty = 2 / 1;
         cont.gridx = 2;
@@ -774,7 +731,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.weighty = 1;
     }
 
-    public void boutonValiderInfosAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boutonValiderInfosAffiche() {
         cont.gridwidth = 2;
         cont.gridheight = 1;
         cont.gridx = 1;
@@ -783,7 +740,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.gridwidth = 1;
     }
 
-    public void flechesAffiche(GridBagConstraints cont, JPanel pano) {
+    public void flechesAffiche() {
         cont.gridwidth = 1;
         cont.weightx = 1 / 100;
         cont.gridheight = 7;
@@ -796,15 +753,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.weightx = 1;
     }
 
-    public void infosReferentEcritureAffiche(GridBagConstraints cont, JPanel pano) {
+    public void infosReferentEcritureAffiche() {
         cont.gridx = 1;
         cont.gridy = 1;
     }
 
-    public void boutonsMenuAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boutonsMenuAffiche() {
         cont.weightx = 1;
         cont.insets = new Insets(20, 5, 20, 5);
-        cont.insets = new Insets(5, 5, 5, 5);
+        cont.insets = new Insets(10, 10, 10, 10);
         cont.gridy = 3;
         cont.gridx = 0;
         pano.add(calendrier, cont);
@@ -816,7 +773,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(panicButton, cont);
     }
 
-    public void boutonAlerteAffiche(GridBagConstraints cont, JPanel pano, String msg) {
+    public void boutonAlerteAffiche(String msg) {
         boutonAlerte.setText(msg);
         cont.fill = GridBagConstraints.BOTH;
         cont.anchor = GridBagConstraints.CENTER;
@@ -828,27 +785,27 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(boutonAlerte, cont);
         cont.gridheight = 1;
         cont.gridwidth = 1;
-        cont.insets = new Insets(5, 5, 5, 5);
+        cont.insets = new Insets(10, 10, 10, 10);
     }
 
-    public void boutonMenuSUAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boutonMenuSUAffiche() {
         cont.fill = GridBagConstraints.BOTH;
         cont.gridx = 0;
         cont.gridy = 1;
         cont.gridwidth = 4;
         cont.insets = new Insets(45, 5, 5, 5);
         pano.add(boutonMenuSU0, cont);
-        cont.insets = new Insets(5, 5, 5, 5);
+        cont.insets = new Insets(10, 10, 10, 10);
         cont.gridy = 2;
         pano.add(boutonMenuSU1, cont);
         cont.gridy = 3;
         cont.insets = new Insets(5, 5, 45, 5);
         pano.add(boutonMenuSU2, cont);
-        cont.insets = new Insets(5, 5, 5, 5);
+        cont.insets = new Insets(10, 10, 10, 10);
         cont.gridwidth = 1;
     }
 
-    public void boutonRetourAffiche(GridBagConstraints cont, JPanel pano) {
+    public void boutonRetourAffiche() {
         cont.fill = GridBagConstraints.BOTH;
         cont.gridy = 8;
         cont.gridx = 0;
@@ -857,8 +814,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(boutonRetour, cont);
     }
 
-    public void heureAffiche(GridBagConstraints cont, JPanel pano) {
-        cont.insets = new Insets(5, 5, 5, 5);
+    public void heureAffiche() {
+        cont.insets = new Insets(10, 10, 10, 10);
         cont.fill = GridBagConstraints.BOTH;
         cont.anchor = GridBagConstraints.NORTHWEST;
         cont.gridwidth = 3;
@@ -868,15 +825,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.gridwidth = 1;
     }
 
-    public void ledMarcheAffiche(GridBagConstraints cont, JPanel pano) {
+    public void ledMarcheAffiche() {
         cont.gridy = 0;
-        cont.gridx = 3;
-        cont.fill = GridBagConstraints.NONE;
-        cont.anchor = GridBagConstraints.NORTHEAST;
+        cont.gridx = 4;
         pano.add(ledMarche, cont);
     }
 
-    public void infosMenuAffiche(GridBagConstraints cont, JPanel pano) {
+    public void infosMenuAffiche() {
         cont.fill = GridBagConstraints.BOTH;
         cont.gridheight = 2;
         cont.gridwidth = 4;
@@ -887,10 +842,20 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(infosMenu, cont);
         cont.gridheight = 1;
         cont.gridwidth = 1;
-        cont.insets = new Insets(5, 5, 5, 5);
+        cont.insets = new Insets(10, 10, 10, 10);
     }
 
     //rendre visible/invisible les éléments
+    public void boutonsParametreVisible(boolean b) {
+        boutonSnake.setVisible(b);
+        boutonFondAlea.setVisible(b);
+        boutonFondNoir.setVisible(b);
+        boutonFondBlanc.setVisible(b);
+        boutonFondVert.setVisible(b);
+        boutonTexteBlanc.setVisible(b);
+        boutonTexteNoir.setVisible(b);
+    }
+
     public void numCaseVisible(boolean b) {
         caseRemplissage.setVisible(b);
     }
@@ -970,6 +935,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void ledMarcheVisible(boolean b) {
         ledMarche.setVisible(b);
+        boutonParametre.setVisible(b);
     }
 
     public void heureVisible(boolean b) {
@@ -1008,22 +974,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     //setters des éléments
     public void setCheckBox(JCheckBox bx) {
         bx.setBackground(vertFond);
-        
+
     }
 
     public void setComboBox(JComboBox bx) {
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
         bx.setBackground(vertFond);
         bx.setBorder(bordure);
-        bx.setForeground(Color.white);
+        bx.setForeground(blanc);
         bx.setFont(new Font("Arial", Font.BOLD, 20));
     }
 
     public void setBoutonIcon(JButton bt, ImageIcon img) {
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
         bt.setBackground(vertFond);
         bt.setBorder(bordure);
-        bt.setForeground(Color.white);
+        bt.setForeground(blanc);
         bt.setIcon(img);
     }
 
@@ -1035,19 +1001,24 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     public void setFleche(JButton bt, ImageIcon img) {
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
         bt.setIcon(img);
         bt.setBorder(bordure);
         bt.setBackground(vertFond);
-        bt.setForeground(Color.white);
+        bt.setForeground(blanc);
     }
 
     public void setBoutonTexte(JButton bt, String txt, int sze, Color clr) {
         Border bordure = BorderFactory.createLineBorder(clr);
         bt.setText(txt);
-        bt.setBackground(vertFond);
-        bt.setBorder(bordure);
-        bt.setForeground(clr);
+        bt.setBackground(clr);
+        bt.setForeground(vertFond);
+        if (clr == Color.red) {
+            if(couleurTexte)
+                bt.setForeground(Color.black);
+            else
+                bt.setForeground(Color.white);
+        }
         bt.setFont(new Font("Arial", Font.BOLD, sze));
     }
 
@@ -1059,24 +1030,24 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         lbl.setBorder(bordure);
         lbl.setText(txt);
         lbl.setFont(new Font("Arial", Font.BOLD, sze));
-        lbl.setForeground(Color.white);
+        lbl.setForeground(blanc);
     }
 
     public void setTextArea(JTextArea area, boolean b, String txt) {
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
         area.setBorder(bordure);
         area.setText(txt);
         area.setName("textArea");
         area.setFont(new Font("Arial", Font.BOLD, 38));
-        area.setForeground(Color.white);
+        area.setForeground(blanc);
         area.setBackground(vertFond);
         area.setEditable(false);
     }
 
     public void setTextFieldInfo(JTextField txtf, String txt) {
-        Border bordure = BorderFactory.createLineBorder(Color.white);
+        Border bordure = BorderFactory.createLineBorder(blanc);
         txtf.setBackground(vertFond);
-        txtf.setForeground(Color.white);
+        txtf.setForeground(blanc);
         txtf.setBorder(bordure);
         txtf.setFont(new Font("Arial", Font.BOLD, 30));
         txtf.setText(txt);
@@ -1438,7 +1409,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         if (pilulier.getBuzzer() != null) {
                             pilulier.getBuzzer().stop();
                         }
-                        retardPilule = true;
                         if (!pilulier.getCase(indexCaseOuvrir - 2).getRetardAccepte()) {
                             System.out.println(indexCaseOuvrir);
                             pilulier.getCase(indexCaseOuvrir - 2).setEtatRemplissage(false);
@@ -1464,5 +1434,109 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         };
         return new Timer(duree, action);
+    }
+
+    public void composantsAffiche() {
+        pano.setBackground(vertFond);
+        heureAffiche();
+        infosMenuAffiche();
+        boutonsMenuAffiche();
+        ledMarcheAffiche();
+        boutonMenuSUAffiche();
+        boutonRetourAffiche();
+        flechesAffiche();
+        infosEcritureAffiche();
+        boutonValiderInfosAffiche();
+        infosLabelsAffiche();
+        casesCalendrierAffiche();
+        numCaseAffiche();
+        boxCalendrierAffiche();
+        checkRetardAffiche();
+        boutonValiderCaseAffiche();
+        boutonAlerteAffiche("");
+        boutonParametreAffiche();
+        boutonsParametreAffiche();
+    }
+
+    public void composantsCreation() {
+        if(couleurTexte){
+            panicImage = setImage("images/panicNoirImage.png", 120, 120);
+            calendrierImage = setImage("images/calendrierNoirImage.png", 120, 120);
+            informationsImage = setImage("images/informationNoirImage.png", 120, 120);
+            menuSUImage = setImage("images/menuSUNoirImage.png", 120, 120);
+            flecheGaucheImage = setImage("images/flecheNoirImageGauche.png", 50, 300);
+            flecheDroiteImage = setImage("images/flecheNoirImageDroite.png", 50, 300);
+            parametreImage = setImage("images/parametreNoirImage.png", 120, 120);
+        }
+        else{
+            panicImage = setImage("images/panicImage.png", 120, 120);
+            calendrierImage = setImage("images/calendrierImage.png", 120, 120);
+            informationsImage = setImage("images/informationImage.png", 120, 120);
+            menuSUImage = setImage("images/menuSUImage.png", 120, 120);
+            flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
+            flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
+            parametreImage = setImage("images/parametreImage.png", 120, 120);
+        }
+        setHeureAffiche();
+        setLabel(heureAffiche, 65, vertFond, false, "");
+        setLabel(infoNom, 30, vertFond, false, "Nom :");
+        setLabel(infoPrenom, 30, vertFond, false, "Prenom :");
+        setLabel(infoAdresse, 30, vertFond, false, "Adresse :");
+        setLabel(infoFonction, 30, vertFond, false, "Fonction :");
+        setLabel(infoTel, 30, vertFond, false, "Tel :");
+        setLabel(infoMail, 30, vertFond, false, "Mail :");
+        setCheckBox(checkRetard);
+        setCheckBox(checkRemplissage);
+        infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
+        infosMenu.setForeground(blanc);
+        infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
+        infosMenu.setBackground(vertFond);
+        infosMenu.setEditable(false);
+        setLabel(caseRemplissage, 30, blanc, true, "");
+        setLabel(caseMois, 20, blanc, true, "Mois");
+        setLabel(caseJour, 20, blanc, true, "Jour");
+        setLabel(caseHeure, 20, blanc, true, "Heure");
+        setLabel(caseMinute, 20, blanc, true, "Minute");
+        setTextFieldInfo(nomEcriture, "Nom");
+        setTextFieldInfo(prenomEcriture, "Prenom");
+        setTextFieldInfo(adresseEcriture, "Adresse");
+        setTextFieldInfo(fonctionEcriture, "Fonction");
+        setTextFieldInfo(mailEcriture, "Mail");
+        setTextFieldInfo(telEcriture, "Tel");
+        fonctionEcriture.setEditable(false);
+        setBoutonMenu(menuSU, menuSUImage);
+        setBoutonMenu(calendrier, calendrierImage);
+        setBoutonMenu(informations, informationsImage);
+        setBoutonMenu(panicButton, panicImage);
+        setBoutonMenu(boutonParametre, parametreImage);
+        setBoutonTexte(boutonAlerte, "", 70, Color.red);
+        setBoutonTexte(boutonMenuSU0, "Informations", 50, blanc);
+        setBoutonTexte(boutonMenuSU1, "Remplissage", 50, blanc);
+        setBoutonTexte(boutonMenuSU2, "Historique", 50, blanc);
+        setBoutonTexte(boutonSnake, "Snake", 50, blanc);
+        setBoutonTexte(boutonFondAlea, "Fond aléatoire", 50, blanc);
+        setBoutonTexte(boutonFondNoir, "Fond noir", 50, blanc);
+        setBoutonTexte(boutonFondBlanc, "Fond blanc", 50, blanc);
+        setBoutonTexte(boutonFondVert, "Fond vert", 50, blanc);
+        setBoutonTexte(boutonTexteBlanc, "Texte blanc", 50, blanc);
+        setBoutonTexte(boutonTexteNoir, "Texte noir", 50, blanc);
+        setBoutonTexte(boutonRetour, "Retour", 30, blanc);
+        setFleche(flecheGauche, flecheGaucheImage);
+        setFleche(flecheDroite, flecheDroiteImage);
+        setBoutonTexte(validerInfos, "Valider", 30, blanc);
+        setBoutonTexte(validerCase, "Valider", 30, blanc);
+        setTextArea(case1, true, "");
+        setTextArea(case2, true, "");
+        setTextArea(case3, true, "");
+        setTextArea(case4, true, "");
+        setTextArea(case5, true, "");
+        setTextArea(case6, true, "");
+        setTextArea(case7, true, "");
+        setComboBox(boxMois);
+        setComboBox(boxJour);
+        setComboBox(boxHeure);
+        setComboBox(boxMinute);
+        setLabel(retardAccepte, 20, blanc, true, "Retard accepté");
+        setLabel(remplissageOui, 20, blanc, true, "Case Remplie");
     }
 }
