@@ -484,11 +484,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
-                    System.out.println("bg");
-                    if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-1);
-                        pilulier.getMotor().start();
-                    }
+            if(pilulier.getMotor()!=null){
+                pilulier.getMotor().setAngle(indexCase);
+                pilulier.getMotor().start();
+            }
                     indexCase = 0;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
@@ -589,8 +588,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    if (pilulier.getMotor() != null) {
-                        pilulier.getMotor().setAngle(-1);
+                    if (pilulier.getMotor()!=null) {
+                        pilulier.getMotor().setAngle(1);
                         pilulier.getMotor().start();
                     }
                     indexCase--;
@@ -1324,7 +1323,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //mise à jour du nombre de cases restantes
     public void updateCasesRestantes() {
-        System.out.println("ta mere");
         int tmp = 0;
         for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
             if (pilulier.getCase(i).getEtatRemplissage()) {
@@ -1332,7 +1330,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
         nbCasesRestantes = tmp;
-        System.out.println(nbCasesRestantes);
     }
     //mise à jour du temps restant avant le prochain traitement
 
