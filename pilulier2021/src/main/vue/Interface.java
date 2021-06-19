@@ -318,13 +318,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         if (infosMenu.isVisible()) {
             updateTempsRestant();
-            String tmp="0 jours, 0 heures, 0 minutes";
-            if(tempsRestant.equals(tmp))
+            String tmp = "0 jours, 0 heures, 0 minutes";
+            if (tempsRestant.equals(tmp)) {
                 System.out.println("tbo");
-            if(nbCasesRestantes>1)
+            }
+            if (nbCasesRestantes > 1) {
                 infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
-            else
+            } else {
                 infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " case restante");
+            }
         }
     }
 
@@ -410,7 +412,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 break;
                 case "Heure traitement":
                     timer.stop();
-                    pilulier.getCase(indexCaseOuvrir-1).setEtatRemplissage(false);
+                    pilulier.getCase(indexCaseOuvrir - 1).setEtatRemplissage(false);
                     System.out.println("fin de la sonnerie");
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
@@ -422,7 +424,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    if (pilulier.getMotor()!=null) {
+                    if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(-1);
                         pilulier.getMotor().start();
                     }
@@ -439,10 +441,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getBuzzer().stop();
                     }
                     timer.stop();
-            if(pilulier.getMotor()!=null){
-                pilulier.getMotor().setAngle(-1);
-                pilulier.getMotor().start();
-            }
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(-1);
+                        pilulier.getMotor().start();
+                    }
 //                    updateCasesRestantes();
                     boutonAlerteVisible(false, "");
                     infosMenuVisible(true);
@@ -482,10 +484,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     casesCalendrierVisible(false);
                     break;
                 case CALENDRIERECRITURE:
-            if(pilulier.getMotor()!=null){
-                pilulier.getMotor().setAngle(-1);
-                pilulier.getMotor().start();
-            }
+                    System.out.println("bg");
+                    if (pilulier.getMotor() != null) {
+                        pilulier.getMotor().setAngle(-1);
+                        pilulier.getMotor().start();
+                    }
                     indexCase = 0;
                     boxCalendrierVisible(false);
                     flechesVisible(false);
@@ -537,7 +540,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             numCaseVisible(true);
             checkRetardVisible(true);
-            if (pilulier.getMotor()!=null) {
+            if (pilulier.getMotor() != null) {
                 pilulier.getMotor().setAngle(-1);
                 pilulier.getMotor().start();
             }
@@ -570,11 +573,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == validerCase) {
             caseEcriture(indexCase);
 //            updateCasesRestantes();
-            if(ledMarche.getCouleurLed()!=Color.orange)
-            if (nbCasesRestantes == 0) {
-                ledMarche.setCouleurLed(Color.red);
-            } else {
-                ledMarche.setCouleurLed(Color.green);
+            if (ledMarche.getCouleurLed() != Color.orange) {
+                if (nbCasesRestantes == 0) {
+                    ledMarche.setCouleurLed(Color.red);
+                } else {
+                    ledMarche.setCouleurLed(Color.green);
+                }
             }
 
             try {
@@ -585,7 +589,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheGauche) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    if (pilulier.getMotor()!=null) {
+                    if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(-1);
                         pilulier.getMotor().start();
                     }
@@ -624,7 +628,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
                 case CALENDRIERECRITURE:
-                    if (pilulier.getMotor()!=null) {
+                    if (pilulier.getMotor() != null) {
                         pilulier.getMotor().setAngle(-1);
                         pilulier.getMotor().start();
                     }
