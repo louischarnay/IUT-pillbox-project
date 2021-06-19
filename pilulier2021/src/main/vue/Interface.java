@@ -76,7 +76,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     ImageIcon menuSUImage = setImage("images/menuSUImage.png", 120, 120);
     ImageIcon flecheGaucheImage = setImage("images/flecheImageGauche.png", 50, 300);
     ImageIcon flecheDroiteImage = setImage("images/flecheImageDroite.png", 50, 300);
-    ImageIcon ouiImage =setImage("images/oui.png", 50, 20);
+    ImageIcon ouiImage = setImage("images/oui.png", 50, 20);
 
     Color transparent = new Color(0, 0, 0, 0);
     Color vertFond = new Color(0, 128, 128, 255);
