@@ -1320,7 +1320,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //mise à jour du nombre de cases restantes
     public void updateCasesRestantes() {
-        System.out.println("ta mere");
         int tmp = 0;
         for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
             if (pilulier.getCase(i).getEtatRemplissage()) {
@@ -1328,7 +1327,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
         nbCasesRestantes = tmp;
-        System.out.println(nbCasesRestantes);
     }
     //mise à jour du temps restant avant le prochain traitement
 
