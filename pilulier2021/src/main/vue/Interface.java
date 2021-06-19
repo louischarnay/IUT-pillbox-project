@@ -318,10 +318,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         if (infosMenu.isVisible()) {
             updateTempsRestant();
-            String tmp = "0 jours, 0 heures, 0 minutes";
-            if (tempsRestant.equals(tmp)) {
-                System.out.println("tbo");
+            updateCasesRestantes();
+            if (ledMarche.getCouleurLed() != Color.orange) {
+                if (nbCasesRestantes == 0) {
+                    ledMarche.setCouleurLed(Color.red);
+                } else {
+                    ledMarche.setCouleurLed(Color.green);
+                }
             }
+            String tmp = "0 jours, 0 heures, 0 minutes";
             if (nbCasesRestantes > 1) {
                 infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
             } else {
@@ -406,13 +411,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                ledMarche.setCouleurLed(Color.green);
                 boutonAlerteAffiche(cont, pano, "");
                 boutonAlerteVisible(false, "");
                 boutonMenuSUVisible(true);
                 break;
                 case "Heure traitement":
                     timer.stop();
-                    pilulier.getCase(indexCaseOuvrir - 1).setEtatRemplissage(false);
+                    pilulier.getCase(indexCaseOuvrir - 2).setEtatRemplissage(false);
                     System.out.println("fin de la sonnerie");
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
@@ -437,6 +443,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
                 case "Refermer le pilulier":
                     System.out.println("fin sonnerie");
+                    updateCasesRestantes();
+                    if(nbCasesRestantes==0)
+                        System.out.println("envoi notification \"pilulier vide\"");
                     if (pilulier.getBuzzer() != null) {
                         pilulier.getBuzzer().stop();
                     }
@@ -572,14 +581,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         } else if (e.getSource() == validerCase) {
             caseEcriture(indexCase);
-//            updateCasesRestantes();
-            if (ledMarche.getCouleurLed() != Color.orange) {
-                if (nbCasesRestantes == 0) {
-                    ledMarche.setCouleurLed(Color.red);
-                } else {
-                    ledMarche.setCouleurLed(Color.green);
-                }
-            }
 
             try {
                 pilulier.addHistorique("Horaire de la case " + (indexCase + 1) + " modifié", new Date());
