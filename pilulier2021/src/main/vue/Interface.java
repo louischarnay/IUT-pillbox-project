@@ -1137,6 +1137,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonValiderCode.setVisible(b);
         labelCode.setVisible(b);
     }
+    
+    
 
     //setters des éléments
     public void setCheckBox(JCheckBox bx) {
