@@ -44,10 +44,10 @@ import main.modele.Pilulier;
  */
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
-    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel(), labelCode=new JLabel();
+    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel(), labelCode = new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage=new JButton(), bouton1=new JButton(), bouton2=new JButton(), bouton3=new JButton(), bouton4=new JButton(), bouton5=new JButton(), bouton6=new JButton(), bouton7=new JButton(), bouton8=new JButton(), bouton9=new JButton(), bouton0=new JButton(), boutonEffacer=new JButton(), boutonValiderCode=new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage = new JButton(), bouton1 = new JButton(), bouton2 = new JButton(), bouton3 = new JButton(), bouton4 = new JButton(), bouton5 = new JButton(), bouton6 = new JButton(), bouton7 = new JButton(), bouton8 = new JButton(), bouton9 = new JButton(), bouton0 = new JButton(), boutonEffacer = new JButton(), boutonValiderCode = new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox(), checkRemplissage = new JCheckBox();
@@ -57,9 +57,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private boolean boutonPressed = false, retardPilule = false;
     private int timerAlarme = 0;
     private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
-    private String tempsRestant = "00 jours, 00 heures 00 minutes", code=" . . . . ";
+    private String tempsRestant = "00 jours, 00 heures 00 minutes", code = "", bonCode = " 7 6 7 9";
     private Timer timer = createTimer(dureeTimer);
-    private boolean couleurTexte=false;
+    private boolean couleurTexte = false;
 
     private EnumEtat etat;
     private EnumTimer etatTimer;
@@ -72,8 +72,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     //boolean qui dit si il faure retourner au menu principal ou menu SU
     private boolean tmp = true;
-    
-    
+
     private ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
     private ImageIcon calendrierImage = setImage("images/calendrierImage.png", 120, 120);
     private ImageIcon informationsImage = setImage("images/informationImage.png", 120, 120);
@@ -125,6 +124,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonFondVert.addActionListener(this);
         boutonTexteBlanc.addActionListener(this);
         boutonTexteNoir.addActionListener(this);
+        bouton1.addActionListener(this);
+        bouton2.addActionListener(this);
+        bouton3.addActionListener(this);
+        bouton4.addActionListener(this);
+        bouton5.addActionListener(this);
+        bouton6.addActionListener(this);
+        bouton7.addActionListener(this);
+        bouton8.addActionListener(this);
+        bouton9.addActionListener(this);
+        bouton0.addActionListener(this);
+        boutonEffacer.addActionListener(this);
+        boutonValiderCode.addActionListener(this);
     }
 
     public void initialisation() {
@@ -227,7 +238,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonsMenuVisible(false);
             boutonAlerteVisible(true, "Situation d'urgence");
             boutonRetourVisible(true);
-        }else if(e.getSource()==boutonCalibrage){
+        } else if (e.getSource() == boutonCalibrage) {
             System.out.println("tu gere louis");
         } else if (e.getSource() == boutonParametre) {
             etat = EnumEtat.PARAMETRE;
@@ -261,11 +272,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonTexteBlanc) {
             blanc = Color.white;
             ledMarche.setCouleurTour(blanc);
-            couleurTexte=false;
+            couleurTexte = false;
             composantsCreation();
         } else if (e.getSource() == boutonTexteNoir) {
             blanc = Color.black;
-            couleurTexte=true;
+            couleurTexte = true;
             ledMarche.setCouleurTour(blanc);
             composantsCreation();
         } else if (e.getSource() == informations) {
@@ -295,12 +306,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonAlerteVisible(false, "");
             boutonsMenuVisible(false);
             infosMenuVisible(false);
-            boutonAlerteVisible(true, "Scanner  badge");
+            interfaceCodeVisible(true);
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
                 case "Situation d'urgence":
-                    if (notif != null){
+                    if (notif != null) {
                         notif.send("SITUATION D'URGENCE Veuillez vous rendre au domicile du patient");
                     }
                      {
@@ -310,17 +321,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                    boutonAlerteVisible(false, "");
                     boutonRetourVisible(false);
-                    boutonAlerteAffiche("");
-                    boutonAlerteVisible(true, "Scanner badge");
-                    //scan NFC
+                    interfaceCodeVisible(true);
                     break;
 
                 case "Scanner badge": {
                     try {
-                   if (notif != null){
-                        notif.send("SITUATION D'URGENCE Référent arrivé sur place");
-                    }
+                        if (notif != null) {
+                            notif.send("SITUATION D'URGENCE Référent arrivé sur place");
+                        }
                         pilulier.addHistorique("Référent arrivé", new Date());
                     } catch (IOException ex) {
                         Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,7 +383,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     System.out.println("fin sonnerie");
                     updateCasesRestantes();
                     if (nbCasesRestantes == 0) {
-                        if (notif != null){
+                        if (notif != null) {
                             notif.send("PILULIER VIDE Veuillez vous rendre au domicile du patient");
                         }
                     }
@@ -399,6 +409,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 case MENUSU:
                     boutonRetourVisible(false);
                     boutonMenuSUVisible(false);
+                    interfaceCodeVisible(false);
                     break;
                 case BADGE:
                     //faire le badge
@@ -447,6 +458,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 case PANICBUTTON:
                     boutonAlerteAffiche("");
                     boutonAlerteVisible(false, "");
+                    interfaceCodeVisible(false);
 
             }
             if (tmp == true) {
@@ -600,46 +612,130 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     }
                     break;
             }
+        } else if (e.getSource() == bouton1) {
+            if (code.length() < bonCode.length()) {
+                code += " 1";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton2) {
+            if (code.length() < bonCode.length()) {
+                code += " 2";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton3) {
+            if (code.length() < bonCode.length()) {
+                code += " 3";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton4) {
+            if (code.length() < bonCode.length()) {
+                code += " 4";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton5) {
+            if (code.length() < bonCode.length()) {
+                code += " 5";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton6) {
+            if (code.length() < bonCode.length()) {
+                code += " 6";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton7) {
+            if (code.length() < bonCode.length()) {
+                code += " 7";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton8) {
+            if (code.length() < bonCode.length()) {
+                code += " 8";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton9) {
+            if (code.length() < bonCode.length()) {
+                code += " 9";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == bouton0) {
+            if (code.length() < bonCode.length()) {
+                code += " 0";
+                labelCode.setText(code);
+            }
+        } else if (e.getSource() == boutonEffacer) {
+            if (code.length() > 1) {
+                code = code.substring(0, code.length() - 2);
+            }
+            labelCode.setText(code);
+        } else if (e.getSource() == boutonValiderCode) {
+            if (code.equals(bonCode)) {
+                if (etat == EnumEtat.MENUSU) {
+                    try {
+                        pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ledMarche.setCouleurLed(Color.green);
+                    interfaceCodeVisible(false);
+                    boutonMenuSUVisible(true);
+                } else {
+                    try {
+                        if (notif != null) {
+                            notif.send("SITUATION D'URGENCE Référent arrivé sur place");
+                        }
+                        pilulier.addHistorique("Référent arrivé", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    interfaceCodeVisible(false);
+                    boutonsMenuVisible(true);
+                    infosMenuVisible(true);
+                    ledMarcheVisible(true);
+                }
+            } else {
+                code = "";
+                labelCode.setText(code);
+            }
         }
-    }
 
-    //placement des éléments
-    
-    public void interfaceCodeAffiche(){
-        cont.gridx=0;
-        cont.gridy=1;
+    }
+//placement des éléments
+
+    public void interfaceCodeAffiche() {
+        cont.gridx = 0;
+        cont.gridy = 1;
         pano.add(bouton1, cont);
-        cont.gridy=2;
+        cont.gridy = 2;
         pano.add(bouton4, cont);
-        cont.gridy=3;
+        cont.gridy = 3;
         pano.add(bouton7, cont);
-        cont.gridx=1;
-        cont.gridy=1;
+        cont.gridx = 1;
+        cont.gridy = 1;
         pano.add(bouton2, cont);
-        cont.gridy=2;
+        cont.gridy = 2;
         pano.add(bouton5, cont);
-        cont.gridy=3;
+        cont.gridy = 3;
         pano.add(bouton8, cont);
-        cont.gridx=2;
-        cont.gridy=1;
+        cont.gridx = 2;
+        cont.gridy = 1;
         pano.add(bouton3, cont);
-        cont.gridy=2;
+        cont.gridy = 2;
         pano.add(bouton6, cont);
-        cont.gridy=3;
+        cont.gridy = 3;
         pano.add(bouton9, cont);
-        cont.gridx=3;
-        cont.gridy=1;
-        cont.gridwidth=2;
+        cont.gridx = 3;
+        cont.gridy = 1;
+        cont.gridwidth = 2;
         pano.add(labelCode, cont);
-        cont.gridy=3;
+        cont.gridy = 3;
         pano.add(bouton0, cont);
-        cont.gridwidth=1;
-        cont.gridy=2;
+        cont.gridwidth = 1;
+        cont.gridy = 2;
         pano.add(boutonEffacer, cont);
-        cont.gridx=4;
+        cont.gridx = 4;
         pano.add(boutonValiderCode, cont);
     }
-    
+
     public void boutonsParametreAffiche() {
         cont.gridx = 0;
         cont.gridy = 1;
@@ -655,11 +751,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(boutonTexteNoir, cont);
         cont.gridy = 3;
         pano.add(boutonTexteBlanc, cont);
-        cont.gridy=4;
-        cont.gridx=0;
-        cont.gridwidth=2;
+        cont.gridy = 4;
+        cont.gridx = 0;
+        cont.gridwidth = 2;
         pano.add(boutonSnake, cont);
-        cont.gridwidth=1;
+        cont.gridwidth = 1;
     }
 
     public void boutonParametreAffiche() {
@@ -850,7 +946,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pano.add(boutonMenuSU1, cont);
         cont.gridy = 3;
         pano.add(boutonMenuSU2, cont);
-        cont.gridy=4;
+        cont.gridy = 4;
         //cont.insets = new Insets(5, 5, 45, 5);
         pano.add(boutonCalibrage, cont);
         //cont.insets = new Insets(10, 10, 10, 10);
@@ -1023,8 +1119,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void boutonsValiderInfosVisible(boolean b) {
         validerInfos.setVisible(b);
     }
-    
-    public void interfaceCodeVisible(boolean b){
+
+    public void interfaceCodeVisible(boolean b) {
+        code = "";
+        labelCode.setText(code);
         bouton1.setVisible(b);
         bouton2.setVisible(b);
         bouton3.setVisible(b);
@@ -1083,10 +1181,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         bt.setBackground(clr);
         bt.setForeground(vertFond);
         if (clr == Color.red) {
-            if(couleurTexte)
+            if (couleurTexte) {
                 bt.setForeground(Color.black);
-            else
+            } else {
                 bt.setForeground(Color.white);
+            }
         }
         bt.setFont(new Font("Arial", Font.BOLD, sze));
     }
@@ -1118,7 +1217,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setBackground(vertFond);
         txtf.setForeground(blanc);
         txtf.setBorder(bordure);
-        txtf.setFont(new Font("Arial", Font.BOLD, 30));
+        txtf.setFont(new Font("Arial", Font.BOLD, 25));
         txtf.setText(txt);
     }
     //charger les images
@@ -1467,13 +1566,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             public void actionPerformed(ActionEvent event) {
                 switch (etatTimer) {
                     case ITSTIME:
-                        if (notif != null){
+                        if (notif != null) {
                             notif.send("TRAITEMENT EN RETARD Veuillez vous rendre au domicile du patient");
                         }
                         try {
                             pilulier.addHistorique("pilule non prise à l'heure", new Date());
+
                         } catch (IOException ex) {
-                            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Interface.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
                         System.out.println("fin de la sonnerie");
                         ledMarche.setCouleurLed(Color.orange);
@@ -1492,8 +1593,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     case CLOSE:
                         try {
                         pilulier.addHistorique("pilulier non refermé à l'heure", new Date());
+
                     } catch (IOException ex) {
-                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Interface.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("début sonnerie");
                     if (pilulier.getBuzzer() != null) {
@@ -1531,7 +1634,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     public void composantsCreation() {
-        if(couleurTexte){
+        if (couleurTexte) {
             panicImage = setImage("images/panicNoirImage.png", 120, 120);
             calendrierImage = setImage("images/calendrierNoirImage.png", 120, 120);
             informationsImage = setImage("images/informationNoirImage.png", 120, 120);
@@ -1539,8 +1642,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flecheGaucheImage = setImage("images/flecheNoirImageGauche.png", 50, 300);
             flecheDroiteImage = setImage("images/flecheNoirImageDroite.png", 50, 300);
             parametreImage = setImage("images/parametreNoirImage.png", 120, 120);
-        }
-        else{
+        } else {
             panicImage = setImage("images/panicImage.png", 120, 120);
             calendrierImage = setImage("images/calendrierImage.png", 120, 120);
             informationsImage = setImage("images/informationImage.png", 120, 120);
