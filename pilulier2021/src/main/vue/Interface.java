@@ -170,123 +170,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         composantsCreation();
 
-        //labels information
-        setLabel(infoNom, 30, transparent, false, "Nom :");
-        setLabel(infoPrenom, 30, transparent, false, "Prenom :");
-        setLabel(infoAdresse, 30, transparent, false, "Adresse :");
-        setLabel(infoFonction, 30, transparent, false, "Fonction :");
-        setLabel(infoTel, 30, transparent, false, "Tel :");
-        setLabel(infoMail, 30, transparent, false, "Mail :");
-
-        //check box remplissage
-        setCheckBox(checkRetard);
-        setCheckBox(checkRemplissage);
-
-        //informations menu
-        infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
-        infosMenu.setForeground(Color.white);
-        infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
-        infosMenu.setBackground(vertFond);
-        infosMenu.setEditable(false);
-
-        //label numéro case
-        setLabel(caseRemplissage, 30, Color.white, true, "");
-
-        //labels box remplissage
-        setLabel(caseMois, 20, Color.white, true, "Mois");
-        setLabel(caseJour, 20, Color.white, true, "Jour");
-        setLabel(caseHeure, 20, Color.white, true, "Heure");
-        setLabel(caseMinute, 20, Color.white, true, "Minute");
-
-        //checkRetard.setIcon(ouiImage);
-        //fields information
-        setTextFieldInfo(nomEcriture, "Nom");
-        setTextFieldInfo(prenomEcriture, "Prenom");
-        setTextFieldInfo(adresseEcriture, "Adresse");
-        setTextFieldInfo(fonctionEcriture, "Fonction");
-        setTextFieldInfo(mailEcriture, "Mail");
-        setTextFieldInfo(telEcriture, "Tel");
-
-        //désactivation de Fonction
-        fonctionEcriture.setEditable(false);
-
-        //boutons menu
-        setBoutonMenu(menuSU, menuSUImage);
-        setBoutonMenu(calendrier, calendrierImage);
-        setBoutonMenu(informations, informationsImage);
-        setBoutonMenu(panicButton, panicImage);
-
-        //bouton alerte
-        setBoutonTexte(boutonAlerte, "", 70, Color.red);
-
-        //boutons menu SU
-        setBoutonTexte(boutonMenuSU0, "Informations", 50, Color.white);
-        setBoutonTexte(boutonMenuSU1, "Remplissage", 50, Color.white);
-        setBoutonTexte(boutonMenuSU2, "Historique", 50, Color.white);
-
-        //bouton retour
-        setBoutonTexte(boutonRetour, "Retour", 30, Color.white);
-
-        //flèches menus
-        setFleche(flecheGauche, flecheGaucheImage);
-        setFleche(flecheDroite, flecheDroiteImage);
-
-        //boutons valider information
-        setBoutonTexte(validerInfos, "Valider", 30, Color.white);
-        setBoutonTexte(validerCase, "Valider", 30, Color.white);
-
-        //cases calendrier
-        setTextArea(case1, true, "");
-        setTextArea(case2, true, "");
-        setTextArea(case3, true, "");
-        setTextArea(case4, true, "");
-        setTextArea(case5, true, "");
-        setTextArea(case6, true, "");
-        setTextArea(case7, true, "");
-
-        //comboBox remplissage
-        setComboBox(boxMois);
-        setComboBox(boxJour);
-        setComboBox(boxHeure);
-        setComboBox(boxMinute);
-
-        //label retard accepté
-        setLabel(retardAccepte, 20, Color.white, true, "Retard accepté");
-        setLabel(remplissageOui, 20, Color.white, true, "Case Remplie");
-
-        pano.setBackground(vertFond);
-        //placement heure
-        heureAffiche(cont, pano);
-        //placement prochain traitement + nb cases restantes
-        infosMenuAffiche(cont, pano);
-        //placement des boutons menu
-        boutonsMenuAffiche(cont, pano);
-        //placement led de marche
-        ledMarcheAffiche(cont, pano);
-        //placement boutons menu SU
-        boutonMenuSUAffiche(cont, pano);
-        //placement bouton retour
-        boutonRetourAffiche(cont, pano);
-        //placement fleches
-        flechesAffiche(cont, pano);
-        //placement infos ecriture
-        infosEcritureAffiche(cont, pano);
-        //placement boutons valider infos
-        boutonValiderInfosAffiche(cont, pano);
-        //placement labels infos
-        infosLabelsAffiche(cont, pano);
-        //placement cases menu calendrier
-        casesCalendrierAffiche(cont, pano);
-        //placement numéro case remplissage
-        numCaseAffiche(cont, pano);
-        //placement comboBox remplissage
-        boxCalendrierAffiche(cont, pano);
-        //placement checkBox retard remplissage
-        checkRetardAffiche(cont, pano);
-        //placement bouton valider cases
-        boutonValiderCaseAffiche(cont, pano);
-        //placement boutonAlerte
-        boutonAlerteAffiche(cont, pano, "");
+        //affichage de tous les composants
+        composantsAffiche();
 
         this.setContentPane(pano);
         this.pack();
@@ -622,17 +507,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonMenuSUVisible(false);
             flechesVisible(true);
             infosEcritureVisible(true, false);
-            try {
-                chargerHistorique(indexHistorique);
-            } catch (IOException ex) {
-                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            chargerHistorique(indexHistorique);
         } else if (e.getSource() == validerInfos) {
-            try {
-                infosEcriture(indexInfoEcriture);
-            } catch (IOException ex) {
-                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            infosEcriture(indexInfoEcriture);
             if (indexInfoEcriture == 0) {
                 try {
                     pilulier.addHistorique("Patient modifié", new Date());
@@ -687,19 +564,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
                 case HISTORIQUE:
                     indexHistorique--;
-                {
-                    try {
-                        chargerHistorique(indexHistorique);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                    chargerHistorique(indexHistorique);
                     flecheDroite.setEnabled(true);
                     if (indexHistorique == 0) {
                         flecheGauche.setEnabled(false);
                     }
                     break;
-
             }
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
@@ -735,20 +605,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     break;
                 case HISTORIQUE:
                     indexHistorique++;
-                {
-                    try {
-                        chargerHistorique(indexHistorique);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                    chargerHistorique(indexHistorique);
                     flecheGauche.setEnabled(true);
                     boutonRetour.requestFocus();
                     if (indexHistorique >= pilulier.getSizeHistorique() / 6) {
                         flecheDroite.setEnabled(false);
                     }
                     break;
-
             }
         } else if (e.getSource() == bouton1) {
             if (code.length() < bonCode.length()) {
@@ -1368,14 +1231,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //charger l'historique
-    public void chargerHistorique(int page) throws IOException {
+    public void chargerHistorique(int page) {
         fonctionEcriture.setText("");
         prenomEcriture.setText("");
         nomEcriture.setText("");
         adresseEcriture.setText("");
         telEcriture.setText("");
         mailEcriture.setText("");
-        
         if (pilulier.getSizeHistorique() > 0 + (page * 6)) {
             fonctionEcriture.setText(pilulier.getHistorique(0 + (page * 6)));
         }
@@ -1393,35 +1255,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         if (pilulier.getSizeHistorique() > 5 + (page * 6)) {
             mailEcriture.setText(pilulier.getHistorique(5 + (page * 6)));
-        }
-    }
-    public void chargerLogHistorique(int page) throws IOException {
-        fonctionEcriture.setText("");
-        prenomEcriture.setText("");
-        nomEcriture.setText("");
-        adresseEcriture.setText("");
-        telEcriture.setText("");
-        mailEcriture.setText("");
-
-        pilulier.loadHistorique();
-
-        if (pilulier.getSizeLogHistorique() > 0 + (page * 6)) {
-            fonctionEcriture.setText(pilulier.getLogHistorique(0 + (page * 6)));
-        }
-        if (pilulier.getSizeLogHistorique() > 1 + (page * 6)) {
-            prenomEcriture.setText(pilulier.getLogHistorique(1 + (page * 6)));
-        }
-        if (pilulier.getSizeLogHistorique() > 2 + (page * 6)) {
-            nomEcriture.setText(pilulier.getLogHistorique(2 + (page * 6)));
-        }
-        if (pilulier.getSizeLogHistorique() > 3 + (page * 6)) {
-            adresseEcriture.setText(pilulier.getLogHistorique(3 + (page * 6)));
-        }
-        if (pilulier.getSizeLogHistorique() > 4 + (page * 6)) {
-            telEcriture.setText(pilulier.getLogHistorique(4 + (page * 6)));
-        }
-        if (pilulier.getSizeLogHistorique() > 5 + (page * 6)) {
-            mailEcriture.setText(pilulier.getLogHistorique(5 + (page * 6)));
         }
     }
 
@@ -1601,14 +1434,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //écriture des infos
-    public void infosEcriture(int index) throws IOException {
+    public void infosEcriture(int index) {
         pilulier.getReferents().get(index).setPrenom(prenomEcriture.getText());
         pilulier.getReferents().get(index).setNom(nomEcriture.getText());
         pilulier.getReferents().get(index).setAge(fonctionEcriture.getText());
         pilulier.getReferents().get(index).setAdresse(adresseEcriture.getText());
         pilulier.getReferents().get(index).setTel(telEcriture.getText());
         pilulier.getReferents().get(index).setMail(mailEcriture.getText());
-        pilulier.addReferentLog(index);
     }
 
     //charger une case remplissage
