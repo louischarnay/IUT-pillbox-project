@@ -611,10 +611,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 } catch (IOException ex) {
                     Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                    flecheDroite.setEnabled(true);
-                    if (indexHistorique == 0) {
-                        flecheGauche.setEnabled(false);
-                    }
+                flecheDroite.setEnabled(true);
+                if (indexHistorique == 0) {
+                    flecheGauche.setEnabled(false);
+                }
                 break;
             }
         } else if (e.getSource() == flecheDroite) {
@@ -1111,6 +1111,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * gère la visibilité des boutons du menu Paramètre
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonsParametreVisible(boolean b) {
@@ -1123,8 +1124,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonTexteNoir.setVisible(b);
     }
 
-     /**
+    /**
      * gère la visibilité du Label numéro de case de l'interface Remplissage
+     *
      * @param b true = visible / false = invisible
      */
     public void numCaseVisible(boolean b) {
@@ -1133,6 +1135,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * gère la visibilité des ComboBox de l'interface Remplissage
+     *
      * @param b true = visible / false = invisible
      */
     public void boxCalendrierVisible(boolean b) {
@@ -1149,7 +1152,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     /**
-     * gère la visibilité des checkBox/Labels de retard/remplissage de l'interface Remplissage
+     * gère la visibilité des checkBox/Labels de retard/remplissage de
+     * l'interface Remplissage
+     *
      * @param b true = visible / false = invisible
      */
     public void checkRetardVisible(boolean b) {
@@ -1161,6 +1166,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * gère la visibilité des TextFields de l'interface Celendrier
+     *
      * @param b true = visible / false = invisible
      */
     public void casesCalendrierVisible(boolean b) {
@@ -1175,6 +1181,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * gère la visibilité des labels infos des interfaces Infos Lecture/Ecriture
+     *
      * @param b true = visible / false = invisible
      */
     public void infosLabelsVisible(boolean b) {
@@ -1188,6 +1195,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * gère la visibilité des boutons du menu principal
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonsMenuVisible(boolean b) {
@@ -1196,45 +1204,72 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         menuSU.setVisible(b);
         panicButton.setVisible(b);
     }
+
     /**
      * gère la visibilité du bouton Alerte de toutes les interfaces
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonAlerteVisible(boolean b, String txt) {
+        boutonAlerte.setText(txt);
+        if ("Situation d'urgence".equals(txt) | "Scanner votre  badge".equals(txt)) {
+            cont.fill = GridBagConstraints.BOTH;
+            cont.anchor = GridBagConstraints.CENTER;
+            cont.insets = new Insets(70, 5, 130, 5);
+            cont.gridx = 0;
+            cont.gridheight = 2;
+            cont.gridwidth = 20;
+            cont.gridy = 1;
+            pano.add(boutonAlerte, cont);
+            cont.gridheight = 1;
+            cont.gridwidth = 1;
+            cont.insets = new Insets(5, 5, 5, 5);
+        }
         boutonAlerte.setVisible(b);
+
     }
+
     /**
      * gère la visibilité du bouton retour de toutes les interfaces
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonRetourVisible(boolean b) {
         boutonRetour.setVisible(b);
     }
+
     /**
      * gère la visibilité des infos du menu principal
+     *
      * @param b true = visible / false = invisible
      */
     public void infosMenuVisible(boolean b) {
         infosMenu.setVisible(b);
         updateCasesRestantes();
     }
+
     /**
      * gère la visibilité de la led du menu principal
+     *
      * @param b true = visible / false = invisible
      */
     public void ledMarcheVisible(boolean b) {
         ledMarche.setVisible(b);
         boutonParametre.setVisible(b);
     }
+
     /**
      * gère la visibilité de l'heure de toutes les interfaces
+     *
      * @param b true = visible / false = invisible
      */
     public void heureVisible(boolean b) {
         heureAffiche.setVisible(b);
     }
+
     /**
      * gère la visibilité des boutons du menu SU
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonMenuSUVisible(boolean b) {
@@ -1245,16 +1280,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonCalibrage.setVisible(b);
         boutonCalibrage2.setVisible(b);
     }
+
     /**
-     * gère la visibilité des fleches des interfaces Remplissage, Historique, Ancien, Infos Lecture/Ecriture
+     * gère la visibilité des fleches des interfaces Remplissage, Historique,
+     * Ancien, Infos Lecture/Ecriture
+     *
      * @param b true = visible / false = invisible
      */
     public void flechesVisible(boolean b) {
         flecheGauche.setVisible(b);
         flecheDroite.setVisible(b);
     }
+
     /**
-     * gère la visibilité des TextFields des interfaces Remplissage, Historique, Ancien, Infos Lecture/Ecriture
+     * gère la visibilité des TextFields des interfaces Remplissage, Historique,
+     * Ancien, Infos Lecture/Ecriture
+     *
      * @param b true = visible / false = invisible
      */
     public void infosEcritureVisible(boolean b, boolean c) {
@@ -1270,15 +1311,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.setEditable(c);
         adresseEcriture.setEditable(c);
     }
+
     /**
      * gère la visibilité du bouton Valider de l'interface Infos Ecriture
+     *
      * @param b true = visible / false = invisible
      */
     public void boutonsValiderInfosVisible(boolean b) {
         validerInfos.setVisible(b);
     }
+
     /**
      * gère la visibilité des boutons/Labels de l'interface Code secret
+     *
      * @param b true = visible / false = invisible
      */
     public void interfaceCodeVisible(boolean b) {
@@ -1298,18 +1343,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonValiderCode.setVisible(b);
         labelCode.setVisible(b);
     }
-/**
- * set les CheckBox
- * @param bx CheckBox à set
- */
+
+    /**
+     * set les CheckBox
+     *
+     * @param bx CheckBox à set
+     */
     public void setCheckBox(JCheckBox bx) {
         bx.setBackground(vertFond);
 
     }
-/**
- * set les ComboBox
- * @param bx ComboBox à set
- */
+
+    /**
+     * set les ComboBox
+     *
+     * @param bx ComboBox à set
+     */
     public void setComboBox(JComboBox bx) {
         Border bordure = BorderFactory.createLineBorder(blanc);
         bx.setBackground(vertFond);
@@ -1317,22 +1366,26 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         bx.setForeground(blanc);
         bx.setFont(new Font("Arial", Font.BOLD, 20));
     }
-/**
- * set les boutons de menu avec une icone
- * @param bt bouton à set
- * @param img icone à set sur le bouton
- */
+
+    /**
+     * set les boutons de menu avec une icone
+     *
+     * @param bt bouton à set
+     * @param img icone à set sur le bouton
+     */
     public void setBoutonMenu(JButton bt, ImageIcon img) {
         bt.setIcon(img);
         bt.setOpaque(false);
         bt.setBorderPainted(false);
         bt.setBackground(vertFond);
     }
-/**
- * set les boutons Flèche
- * @param bt bouton à set
- * @param img image à set sur le bouton
- */
+
+    /**
+     * set les boutons Flèche
+     *
+     * @param bt bouton à set
+     * @param img image à set sur le bouton
+     */
     public void setFleche(JButton bt, ImageIcon img) {
         Border bordure = BorderFactory.createLineBorder(blanc);
         bt.setIcon(img);
@@ -1340,13 +1393,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         bt.setBackground(vertFond);
         bt.setForeground(blanc);
     }
-/**
- * set les boutons avec du texte
- * @param bt bouton à set
- * @param txt texte à set sur le bouton
- * @param sze taille de la police du texte
- * @param clr couleur du background du bouton
- */
+
+    /**
+     * set les boutons avec du texte
+     *
+     * @param bt bouton à set
+     * @param txt texte à set sur le bouton
+     * @param sze taille de la police du texte
+     * @param clr couleur du background du bouton
+     */
     public void setBoutonTexte(JButton bt, String txt, int sze, Color clr) {
         Border bordure = BorderFactory.createLineBorder(clr);
         bt.setText(txt);
@@ -1361,14 +1416,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         bt.setFont(new Font("Arial", Font.BOLD, sze));
     }
-/**
- * set un label
- * @param lbl label à set
- * @param sze taille de la police du texte
- * @param clr couleur de la bordure du label
- * @param b centre le texte du bouton
- * @param txt text à set sur le label
- */
+
+    /**
+     * set un label
+     *
+     * @param lbl label à set
+     * @param sze taille de la police du texte
+     * @param clr couleur de la bordure du label
+     * @param b centre le texte du bouton
+     * @param txt text à set sur le label
+     */
     public void setLabel(JLabel lbl, int sze, Color clr, boolean b, String txt) {
         Border bordure = BorderFactory.createLineBorder(clr);
         if (b) {
@@ -1379,11 +1436,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         lbl.setFont(new Font("Arial", Font.BOLD, sze));
         lbl.setForeground(blanc);
     }
-/**
- * set une TextArea
- * @param area TextArea à set
- * @param txt texte à set sur la TextArea
- */
+
+    /**
+     * set une TextArea
+     *
+     * @param area TextArea à set
+     * @param txt texte à set sur la TextArea
+     */
     public void setTextArea(JTextArea area, String txt) {
         Border bordure = BorderFactory.createLineBorder(blanc);
         area.setBorder(bordure);
@@ -1394,11 +1453,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         area.setBackground(vertFond);
         area.setEditable(false);
     }
-/**
- * set un TextField
- * @param txtf TextField à set
- * @param txt texte à set sur le TextField
- */
+
+    /**
+     * set un TextField
+     *
+     * @param txtf TextField à set
+     * @param txt texte à set sur le TextField
+     */
     public void setTextFieldInfo(JTextField txtf, String txt) {
         Border bordure = BorderFactory.createLineBorder(blanc);
         txtf.setBackground(vertFond);
@@ -1407,23 +1468,27 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         txtf.setFont(new Font("Arial", Font.BOLD, 25));
         txtf.setText(txt);
     }
-/**
- * set une icone
- * @param chemin localisation de l'imag à set
- * @param x largeur de l'image
- * @param y hauteur de l'image
- * @return l'image qui a été set
- */
+
+    /**
+     * set une icone
+     *
+     * @param chemin localisation de l'imag à set
+     * @param x largeur de l'image
+     * @param y hauteur de l'image
+     * @return l'image qui a été set
+     */
     public ImageIcon setImage(String chemin, int x, int y) {
         ImageIcon imageBase = new ImageIcon(getClass().getResource(chemin));
         Image image = imageBase.getImage();
         Image newimg = image.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
         return imageBase;
     }
-/**
- * charge une page d'historique dans les TextFields prévus
- * @param page page de l'hitorique à charger
- */
+
+    /**
+     * charge une page d'historique dans les TextFields prévus
+     *
+     * @param page page de l'hitorique à charger
+     */
     public void chargerHistorique(int page) {
         fonctionEcriture.setText("");
         prenomEcriture.setText("");
@@ -1450,9 +1515,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             mailEcriture.setText(pilulier.getHistorique(5 + (page * 6)));
         }
     }
-/**
- * charge les cases de l'interface Calendrier dans les TextFields prévus
- */
+
+    /**
+     * charge les cases de l'interface Calendrier dans les TextFields prévus
+     */
     public void chargerCasesLecture() {
         String tmp;
         tmp = "  Case 1" + newLine;
@@ -1616,10 +1682,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         case7.setText(tmp);
     }
-/**
- * charge un référent de l'interface Infos Lecture/Ecriture dans les TextFields prévus
- * @param index 
- */
+
+    /**
+     * charge un référent de l'interface Infos Lecture/Ecriture dans les
+     * TextFields prévus
+     *
+     * @param index
+     */
     public void chargerReferent(int index) {
         nomEcriture.setText(pilulier.getReferents().get(index).getNom());
         prenomEcriture.setText(pilulier.getReferents().get(index).getPrenom());
@@ -1628,10 +1697,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.setText(pilulier.getReferents().get(index).getMail());
         telEcriture.setText(pilulier.getReferents().get(index).getTel());
     }
-/**
- * sauvegarde dans Pilulier les informations d'un référent qui sont set dans les TextFields prévus
- * @param index inde de la liste de Pilulier à sauvegarder
- */
+
+    /**
+     * sauvegarde dans Pilulier les informations d'un référent qui sont set dans
+     * les TextFields prévus
+     *
+     * @param index inde de la liste de Pilulier à sauvegarder
+     */
     public void infosEcriture(int index) {
         pilulier.getReferents().get(index).setPrenom(prenomEcriture.getText());
         pilulier.getReferents().get(index).setNom(nomEcriture.getText());
@@ -1640,10 +1712,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pilulier.getReferents().get(index).setTel(telEcriture.getText());
         pilulier.getReferents().get(index).setMail(mailEcriture.getText());
     }
-/**
- * charge les informations d'une case dans l'interface Rmeplissage dans les ComboBox/CheckBox prévues
- * @param index index de la liste de Case à charger
- */
+
+    /**
+     * charge les informations d'une case dans l'interface Rmeplissage dans les
+     * ComboBox/CheckBox prévues
+     *
+     * @param index index de la liste de Case à charger
+     */
     public void chargerCaseRemplissage(int index) {
         caseRemplissage.setText("Case " + (index + 1));
         checkRetard.setSelected(pilulier.getCase(index).getRetardAccepte());
@@ -1653,10 +1728,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boxMois.setSelectedIndex(pilulier.getCase(index).getDate().getMonth());
         checkRemplissage.setSelected(pilulier.getCase(index).getEtatRemplissage());
     }
-/**
- * sauvegarde dans Pilulier les informations d'une case qui sont set dans les ComboBox/CheckBox prévues
- * @param index index de la liste de Case à sauvegarder
- */
+
+    /**
+     * sauvegarde dans Pilulier les informations d'une case qui sont set dans
+     * les ComboBox/CheckBox prévues
+     *
+     * @param index index de la liste de Case à sauvegarder
+     */
     public void caseEcriture(int index) {
         Date date = new Date();
         date.setMonth((int) boxMois.getSelectedIndex());
@@ -1670,9 +1748,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pilulier.getCase(index).setEtatRemplissage(checkRemplissage.isSelected());
 
     }
-/**
- * met à jour la variable qui indique le nombre de cases remplies restantes
- */
+
+    /**
+     * met à jour la variable qui indique le nombre de cases remplies restantes
+     */
     public void updateCasesRestantes() {
         int tmp = 0;
         for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
@@ -1682,8 +1761,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         nbCasesRestantes = tmp;
     }
+
     /**
-     * met à jour la variable qui indique le temps restant avant la prochaine alerte
+     * met à jour la variable qui indique le temps restant avant la prochaine
+     * alerte
      */
     public void updateTempsRestant() {
         int tmp = 0;
@@ -1710,11 +1791,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             tempsRestant = jours + " jours, " + heures + " heures et " + minutes + " minutes";
         }
     }
-/**
- * procotocole d'ouverture/fermeture d'une case
- * @param index index de la case à ouvrir
- * @return true si la fonction s'est bien déroulée
- */
+
+    /**
+     * procotocole d'ouverture/fermeture d'une case
+     *
+     * @param index index de la case à ouvrir
+     * @return true si la fonction s'est bien déroulée
+     */
     public boolean itsTime(int index) {
         //efface tous les composants
         numCaseVisible(false);
@@ -1743,10 +1826,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         etatTimer = EnumTimer.ITSTIME;
         return true;
     }
-/**
- * vide un TextField quand on clique dessus
- * @param e FocusEvent de toute l'interface
- */
+
+    /**
+     * vide un TextField quand on clique dessus
+     *
+     * @param e FocusEvent de toute l'interface
+     */
     @Override
     public void focusGained(FocusEvent e) {
         if (etat == EnumEtat.INFOECRITURE) {
@@ -1763,19 +1848,23 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             }
         }
     }
-/**
- * inutilisé
- * @param e FocusEvent de toute l'interface
- */
+
+    /**
+     * inutilisé
+     *
+     * @param e FocusEvent de toute l'interface
+     */
     @Override
     public void focusLost(FocusEvent e) {
         ;
     }
-/**
- * crée un Timer et gère les actions liées
- * @param duree durée du timer(millisecondes)
- * @return le Timer créé
- */
+
+    /**
+     * crée un Timer et gère les actions liées
+     *
+     * @param duree durée du timer(millisecondes)
+     * @return le Timer créé
+     */
     private Timer createTimer(int duree) {
         ActionListener action;
         action = new ActionListener() {
@@ -1824,9 +1913,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         };
         return new Timer(duree, action);
     }
-/**
- * affiche tous les composants de la fenêtre
- */
+
+    /**
+     * affiche tous les composants de la fenêtre
+     */
     public void composantsAffiche() {
         pano.setBackground(vertFond);
         heureAffiche();
@@ -1849,9 +1939,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsParametreAffiche();
         interfaceCodeAffiche();
     }
-/**
- * charge toutes les images et set tous les éléments de la fenêtre
- */
+
+    /**
+     * charge toutes les images et set tous les éléments de la fenêtre
+     */
     public void composantsCreation() {
         if (couleurTexte) {
             panicImage = setImage("images/panicNoirImage.png", 120, 120);
@@ -1948,11 +2039,15 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setLabel(retardAccepte, 20, blanc, true, "Retard accepté");
         setLabel(remplissageOui, 20, blanc, true, "Case Remplie");
     }
-/**
- * charge l'historique contenu dans le fichier HistoriqueLogs dans les TextFields prévus
- * @param page page de l'historique à chager
- * @throws IOException renvoie si le fonctino n'a pas fonctionné correctement
- */
+
+    /**
+     * charge l'historique contenu dans le fichier HistoriqueLogs dans les
+     * TextFields prévus
+     *
+     * @param page page de l'historique à chager
+     * @throws IOException renvoie si le fonctino n'a pas fonctionné
+     * correctement
+     */
     public void chargerLogHistorique(int page) throws IOException {
         fonctionEcriture.setText("");
         prenomEcriture.setText("");
