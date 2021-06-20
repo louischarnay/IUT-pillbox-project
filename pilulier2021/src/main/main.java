@@ -64,31 +64,31 @@ public class main {
         calendrier.add(new Case(6,new Date()));
         calendrier.add(new Case(7,new Date()));
         
-        File rl = new File("ReferentLogs");
-        BufferedReader buffered = null;
-        
-        FileReader fileReader = new FileReader(rl);
-        buffered = new BufferedReader(fileReader);
-        String line;
-        ArrayList<String> info = new ArrayList<>();
-        while ((line = buffered.readLine()) != null) {
-            info.add(line);
-        }
-        System.out.println(info);
+//        File rl = new File("ReferentLogs");
+//        BufferedReader buffered = null;
+//        
+//        FileReader fileReader = new FileReader(rl);
+//        buffered = new BufferedReader(fileReader);
+//        String line;
+//        ArrayList<String> info = new ArrayList<>();
+//        while ((line = buffered.readLine()) != null) {
+//            info.add(line);
+//        }
+//        System.out.println(info);
         
 
-        Moteur motor = null; //si moteur non raccordé à la raspberry
-//        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
+//        Moteur motor = null; //si moteur non raccordé à la raspberry
+        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
         HautParleur buzzer = null; //si hp non raccordé à la raspberry
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26); //si hp raccordé à la raspberry
         
         Pilulier pilulier = new Pilulier(referents, calendrier, buzzer, motor);
-        if(info!=null){
-        pilulier.chargerInfo(info);
-        }
+//        if(info!=null){
+//        pilulier.chargerInfo(info);
+//        }
         Notification notif = null;
-        ArrayList<String>list=new ArrayList<>();
-        pilulier.loadHistorique();
+//        ArrayList<String>list=new ArrayList<>();
+//        pilulier.loadHistorique();
         Interface fenetre = new Interface(pilulier, notif);
         fenetre.setVisible(true);
         
@@ -103,8 +103,6 @@ public class main {
             }
             Thread.sleep(1000);
         }
-        pilulier.closeLog(true);
+//        pilulier.closeLog(true);
     }
-    //rip michel
-    //répare tes bug pablo
 }
