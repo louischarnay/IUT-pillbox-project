@@ -1120,22 +1120,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void boutonsValiderInfosVisible(boolean b) {
         validerInfos.setVisible(b);
     }
-    
-    public void interfaceCodeVisible(boolean b){
-        bouton1.setVisible(b);
-        bouton2.setVisible(b);
-        bouton3.setVisible(b);
-        bouton4.setVisible(b);
-        bouton5.setVisible(b);
-        bouton6.setVisible(b);
-        bouton7.setVisible(b);
-        bouton8.setVisible(b);
-        bouton9.setVisible(b);
-        bouton0.setVisible(b);
-        boutonEffacer.setVisible(b);
-        boutonValiderCode.setVisible(b);
-        labelCode.setVisible(b);
-    }
 
     public void interfaceCodeVisible(boolean b) {
         code = "";
