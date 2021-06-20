@@ -44,10 +44,10 @@ import main.modele.Pilulier;
  */
 public class Interface extends JFrame implements ActionListener, FocusListener {
 
-    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel();
+    private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel(), labelCode=new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage=new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage=new JButton(), bouton1=new JButton(), bouton2=new JButton(), bouton3=new JButton(), bouton4=new JButton(), bouton5=new JButton(), bouton6=new JButton(), bouton7=new JButton(), bouton8=new JButton(), bouton9=new JButton(), bouton0=new JButton(), boutonEffacer=new JButton(), boutonValiderCode=new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox(), checkRemplissage = new JCheckBox();
@@ -57,7 +57,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private boolean boutonPressed = false, retardPilule = false;
     private int timerAlarme = 0;
     private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
-    private String tempsRestant = "00 jours, 00 heures 00 minutes";
+    private String tempsRestant = "00 jours, 00 heures 00 minutes", code=" . . . . ";
     private Timer timer = createTimer(dureeTimer);
     private boolean couleurTexte=false;
 
@@ -178,6 +178,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonRetourVisible(false);
         boutonAlerteVisible(false, "");
         boutonsParametreVisible(false);
+        interfaceCodeVisible(false);
 
         //désactive la flèche gauche
         flecheGauche.setEnabled(false);
@@ -604,6 +605,42 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //placement des éléments
+    
+    public void interfaceCodeAffiche(){
+        cont.gridx=0;
+        cont.gridy=1;
+        pano.add(bouton1, cont);
+        cont.gridy=2;
+        pano.add(bouton4, cont);
+        cont.gridy=3;
+        pano.add(bouton7, cont);
+        cont.gridx=1;
+        cont.gridy=1;
+        pano.add(bouton2, cont);
+        cont.gridy=2;
+        pano.add(bouton5, cont);
+        cont.gridy=3;
+        pano.add(bouton8, cont);
+        cont.gridx=2;
+        cont.gridy=1;
+        pano.add(bouton3, cont);
+        cont.gridy=2;
+        pano.add(bouton6, cont);
+        cont.gridy=3;
+        pano.add(bouton9, cont);
+        cont.gridx=3;
+        cont.gridy=1;
+        cont.gridwidth=2;
+        pano.add(labelCode, cont);
+        cont.gridy=3;
+        pano.add(bouton0, cont);
+        cont.gridwidth=1;
+        cont.gridy=2;
+        pano.add(boutonEffacer, cont);
+        cont.gridx=4;
+        pano.add(boutonValiderCode, cont);
+    }
+    
     public void boutonsParametreAffiche() {
         cont.gridx = 0;
         cont.gridy = 1;
@@ -986,6 +1023,22 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     public void boutonsValiderInfosVisible(boolean b) {
         validerInfos.setVisible(b);
+    }
+    
+    public void interfaceCodeVisible(boolean b){
+        bouton1.setVisible(b);
+        bouton2.setVisible(b);
+        bouton3.setVisible(b);
+        bouton4.setVisible(b);
+        bouton5.setVisible(b);
+        bouton6.setVisible(b);
+        bouton7.setVisible(b);
+        bouton8.setVisible(b);
+        bouton9.setVisible(b);
+        bouton0.setVisible(b);
+        boutonEffacer.setVisible(b);
+        boutonValiderCode.setVisible(b);
+        labelCode.setVisible(b);
     }
 
     //setters des éléments
@@ -1475,6 +1528,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteAffiche("");
         boutonParametreAffiche();
         boutonsParametreAffiche();
+        interfaceCodeAffiche();
     }
 
     public void composantsCreation() {
@@ -1516,6 +1570,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setLabel(caseJour, 20, blanc, true, "Jour");
         setLabel(caseHeure, 20, blanc, true, "Heure");
         setLabel(caseMinute, 20, blanc, true, "Minute");
+        setLabel(labelCode, 30, blanc, true, code);
         setTextFieldInfo(nomEcriture, "Nom");
         setTextFieldInfo(prenomEcriture, "Prenom");
         setTextFieldInfo(adresseEcriture, "Adresse");
@@ -1540,6 +1595,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(boutonFondVert, "Fond vert", 50, blanc);
         setBoutonTexte(boutonTexteBlanc, "Texte blanc", 50, blanc);
         setBoutonTexte(boutonTexteNoir, "Texte noir", 50, blanc);
+        setBoutonTexte(bouton1, "1", 30, blanc);
+        setBoutonTexte(bouton2, "2", 30, blanc);
+        setBoutonTexte(bouton3, "3", 30, blanc);
+        setBoutonTexte(bouton4, "4", 30, blanc);
+        setBoutonTexte(bouton5, "5", 30, blanc);
+        setBoutonTexte(bouton6, "6", 30, blanc);
+        setBoutonTexte(bouton7, "7", 30, blanc);
+        setBoutonTexte(bouton8, "8", 30, blanc);
+        setBoutonTexte(bouton9, "9", 30, blanc);
+        setBoutonTexte(bouton0, "0", 30, blanc);
+        setBoutonTexte(boutonEffacer, "Effacer", 30, blanc);
+        setBoutonTexte(boutonValiderCode, "Valider", 30, blanc);
         setBoutonTexte(boutonRetour, "Retour", 30, blanc);
         setFleche(flecheGauche, flecheGaucheImage);
         setFleche(flecheDroite, flecheDroiteImage);
