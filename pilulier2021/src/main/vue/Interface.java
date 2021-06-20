@@ -227,7 +227,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonAlerteVisible(true, "Situation d'urgence");
             boutonRetourVisible(true);
         }else if(e.getSource()==boutonCalibrage){
-            System.out.println("tu gere louis");
+            pilulier.getMotor().calibrage();         
         } else if (e.getSource() == boutonParametre) {
             etat = EnumEtat.PARAMETRE;
             ledMarcheVisible(false);
