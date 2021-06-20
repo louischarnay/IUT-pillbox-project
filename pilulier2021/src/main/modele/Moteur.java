@@ -104,7 +104,7 @@ public class Moteur implements Execute{
         motor.setStepInterval(10);
         motor.rotate(1);
 */
-        System.out.println("   Motor STOPPED.");
+        System.out.println("Motor STOPPED.");
 
         // final stop to ensure no motor activity
         motor.stop();

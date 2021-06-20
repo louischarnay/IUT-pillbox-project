@@ -37,7 +37,7 @@ public class HautParleur implements Execute{
         gpio = GpioFactory.getInstance();
 
         // provision broadcom gpio pin #16 as an output pin and turn on
-        pin = gpio.provisionDigitalOutputPin(pinNumber, "MyLED", PinState.HIGH);
+        pin = gpio.provisionDigitalOutputPin(pinNumber, "Haut-Parleur", PinState.HIGH);
         
         // set shutdown state for this pin
         pin.setShutdownOptions(true, PinState.LOW);      
@@ -53,7 +53,6 @@ public class HautParleur implements Execute{
         
         try {
             while (etatHP == true){
-                
                 pin.high();
                 Thread.sleep(intensite);
                 pin.low();
