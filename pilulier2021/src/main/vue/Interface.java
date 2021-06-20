@@ -886,6 +886,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     //rendre visible/invisible les éléments
+    public void boutonsParametreVisible(boolean b) {
+        boutonSnake.setVisible(false);
+        boutonFondAlea.setVisible(b);
+        boutonFondNoir.setVisible(b);
+        boutonFondBlanc.setVisible(b);
+        boutonFondVert.setVisible(b);
+        boutonTexteBlanc.setVisible(b);
+        boutonTexteNoir.setVisible(b);
+    }
+
     public void numCaseVisible(boolean b) {
         caseRemplissage.setVisible(b);
     }
