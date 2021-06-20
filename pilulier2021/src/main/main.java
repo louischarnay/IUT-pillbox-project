@@ -35,7 +35,7 @@ public class main {
      */
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, UnsupportedEncodingException, IOException {;
         ArrayList<Case> calendrier=new ArrayList<>();
-        ArrayList<Referent> referents=new ArrayList<>();r
+        ArrayList<Referent> referents=new ArrayList<>();
         Referent patient=new Referent("...","...","Patient","...","...","...");
         Referent referent1=new Referent("...","...","Référent 1","...","...","...");
         Referent referent2=new Referent("...","...","Référent 2","...","...","...");
