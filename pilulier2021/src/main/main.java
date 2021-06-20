@@ -19,6 +19,7 @@ import java.util.Date;
 import main.modele.Case;
 import main.modele.HautParleur;
 import main.modele.Moteur;
+import main.modele.Notification;
 import main.modele.Patient;
 import main.modele.Pilulier;
 import main.modele.Referent;
@@ -34,6 +35,8 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, UnsupportedEncodingException, IOException {;
+
+        
         ArrayList<Case> calendrier=new ArrayList<>();
         ArrayList<Referent> referents=new ArrayList<>();
         Referent patient=new Referent("...","...","Patient","...","...","...");
@@ -59,7 +62,10 @@ public class main {
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26); //si hp raccordé à la raspberry
 
         Pilulier pilulier=new Pilulier(referents,calendrier,buzzer, motor);
-        Interface fenetre=new Interface(pilulier);
+    
+        Notification notif = null;
+        
+        Interface fenetre=new Interface(pilulier, notif);
         fenetre.setVisible(true);
         
         int i = 0;
