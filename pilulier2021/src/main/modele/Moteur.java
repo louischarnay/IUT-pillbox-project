@@ -32,7 +32,7 @@ public class Moteur implements Execute{
     public Moteur(int angle, Pin in1, Pin in2, Pin in3, Pin in4){
         angleRotation = angle;
         
-         // in order to use the Broadcom GPIO pin numbering scheme, we need to configure the
+        // in order to use the Broadcom GPIO pin numbering scheme, we need to configure the
         // GPIO factory to use a custom configured Raspberry Pi GPIO provider
         GpioFactory.setDefaultProvider(new RaspiGpioProvider(RaspiPinNumberingScheme.BROADCOM_PIN_NUMBERING));
 
@@ -110,7 +110,7 @@ public class Moteur implements Execute{
         System.out.println("Exiting StepperMotorGpio");
     }
     
-    public void calibrage(){
+    public void calibrageG(){
         byte[] double_step_sequence = new byte[4];
         double_step_sequence[0] = (byte) 0b0011;
         double_step_sequence[1] = (byte) 0b0110;
@@ -136,6 +136,34 @@ public class Moteur implements Execute{
         // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
         gpio.shutdown();
     }
+    
+    public void calibrageD(){
+        byte[] double_step_sequence = new byte[4];
+        double_step_sequence[0] = (byte) 0b0011;
+        double_step_sequence[1] = (byte) 0b0110;
+        double_step_sequence[2] = (byte) 0b1100;
+        double_step_sequence[3] = (byte) 0b1001;
+
+        // define stepper parameters before attempting to control motor
+        // anything lower than 2 ms does not work for my sample motor using single step sequence
+        motor.setStepInterval(2);
+        motor.setStepSequence(double_step_sequence);
+
+        // There are 32 steps per revolution on my sample motor, and inside is a ~1/64 reduction gear set.
+        // Gear reduction is actually: (32/9)/(22/11)x(26/9)x(31/10)=63.683950617
+        // This means is that there are really 32*63.683950617 steps per revolution =  2037.88641975 ~ 2038 steps!
+        motor.setStepsPerRevolution(2048);
+
+        motor.step((long)-76.4);   
+       
+        // final stop to ensure no motor activity
+        motor.stop();
+
+        // stop all GPIO activity/threads by shutting down the GPIO controller
+        // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+        gpio.shutdown();
+    }
+    
     
     public void setAngle(int angle){
         angleRotation = angle;

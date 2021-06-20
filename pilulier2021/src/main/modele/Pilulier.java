@@ -47,7 +47,7 @@ public class Pilulier {
         calendrier = c;
         buzzer = b;
         moteur = m;
-        histoLog = new FileWriter("HistoriqueLogs",true);
+        histoLog = new FileWriter("HistoriqueLogs", true);
         refLog = new FileWriter("ReferentLogs");
         historiqueLog = new ArrayList<>();
     }

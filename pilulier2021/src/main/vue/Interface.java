@@ -251,10 +251,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonCalibrage) {
             if (pilulier.getMotor() != null) {
-                pilulier.getMotor().calibrage();
+                pilulier.getMotor().calibrageG();
             }
         } else if (e.getSource() == boutonCalibrage2) {
-            System.out.println("tiens ton bouton joujou");
+            if (pilulier.getMotor() != null) {
+                pilulier.getMotor().calibrageD();
+            }
         } else if (e.getSource() == boutonParametre) {
             etat = EnumEtat.PARAMETRE;
             ledMarcheVisible(false);
@@ -1906,8 +1908,8 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(boutonMenuSU1, "Remplissage", 40, blanc);
         setBoutonTexte(boutonMenuSU2, "Historique", 40, blanc);
         setBoutonTexte(boutonMenuSU3, "Ancien", 40, blanc);
-        setBoutonTexte(boutonCalibrage, "Calibrage", 40, blanc);
-        setBoutonTexte(boutonCalibrage2, "Calibrage 2", 40, blanc);
+        setBoutonTexte(boutonCalibrage, "Calibrage G", 40, blanc);
+        setBoutonTexte(boutonCalibrage2, "Calibrage D", 40, blanc);
         setBoutonTexte(boutonSnake, "Snake", 50, blanc);
         setBoutonTexte(boutonFondAlea, "Fond aléatoire", 50, blanc);
         setBoutonTexte(boutonFondNoir, "Fond noir", 50, blanc);
