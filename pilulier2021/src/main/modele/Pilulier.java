@@ -32,6 +32,9 @@ public class Pilulier {
     protected FileWriter refLog;
     protected ArrayList<String> historiqueLog;
 
+    /**
+     * constructeur par défaut
+     */
     public Pilulier() {
         calendrier = new ArrayList<>();
         historique = new Historique();
@@ -41,6 +44,15 @@ public class Pilulier {
         referents = new ArrayList<>();
     }
 
+    /**
+     * constructeur
+     *
+     * @param r Liste de referent
+     * @param c Liste de Case
+     * @param b Haut parleur
+     * @param m Moteur
+     * @throws IOException
+     */
     public Pilulier(ArrayList<Referent> r, ArrayList<Case> c, HautParleur b, Moteur m) throws IOException {
         historique = new Historique();
         referents = r;
@@ -52,53 +64,115 @@ public class Pilulier {
 //        historiqueLog = new ArrayList<>();
     }
 
+    /**
+     * Retourne le patient
+     *
+     * @return patient
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    /**
+     * Retourne la case du calendrier à l'index passer en parametre
+     *
+     * @param index
+     * @return Case
+     */
     public Case getCase(int index) {
         return calendrier.get(index);
     }
 
+    /**
+     * Retourne le calendrier
+     *
+     * @return
+     */
     public ArrayList<Case> getCalendrier() {
         return calendrier;
     }
 
+    /**
+     * Retourne la liste des referents
+     *
+     * @return referents
+     */
     public ArrayList<Referent> getReferents() {
         return referents;
     }
 
+    /**
+     * Retourne le moteur
+     *
+     * @return moteur
+     */
     public Moteur getMotor() {
         return moteur;
     }
 
+    /**
+     * Retourne le haut parleur
+     *
+     * @return buzzer
+     */
     public HautParleur getBuzzer() {
         return buzzer;
     }
 
+    /**
+     * Set le haut parleur
+     *
+     * @param buzzer
+     */
     public void setBuzzer(HautParleur buzzer) {
         this.buzzer = buzzer;
     }
 
+    /**
+     * Set le moteur
+     *
+     * @param moteur
+     */
     public void setMoteur(Moteur moteur) {
         this.moteur = moteur;
     }
 
+    /**
+     * Set le patient
+     *
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    /**
+     * Set la list des referents
+     *
+     * @param referents
+     */
     public void setReferents(ArrayList<Referent> referents) {
         this.referents = referents;
     }
 
+    /**
+     * Set le calendrier
+     *
+     * @param calendrier
+     */
     public void setCalendrier(ArrayList<Case> calendrier) {
         this.calendrier = calendrier;
     }
 
+    /**
+     * ajoute un referent a la liste
+     *
+     * @param r referent
+     * @throws IOException
+     */
     public void addReferent(Referent r) throws IOException {
         referents.add(r);
-        
+
     }
 //    public void addReferentLog(int index) throws IOException{
 //        refLog.write(referents.get(index).getPrenom()+"\n");
@@ -138,17 +212,42 @@ public class Pilulier {
 //        }
 //        
 //    }
-    public String getLogHistorique(int i){
+
+    /**
+     * Retourne une action à l'index i
+     *
+     * @param i index
+     * @return Action dans l'historique
+     */
+    public String getLogHistorique(int i) {
         return historiqueLog.get(i);
     }
-    public int getSizeLogHistorique(){
+
+    /**
+     * Retourne la taille de la liste des Logs de l'historique
+     *
+     * @return taille de la liste
+     */
+    public int getSizeLogHistorique() {
         return historiqueLog.size();
     }
 
+    /**
+     * Retourne la taille du calendrier
+     *
+     * @return taille du calendrier
+     */
     public int getCalendrierSize() {
         return calendrier.size();
     }
 
+    /**
+     * Transforme une date en string pour le calendrier
+     *
+     * @param d la date
+     * @param ind l'indice de la case
+     * @return la date de la case
+     */
     public String getDateString(Date d, int ind) {
         String res = "";
 
@@ -157,16 +256,32 @@ public class Pilulier {
         return res;
     }
 
+    /**
+     * retourne la date du calendrier à l'indice i
+     *
+     * @param i index
+     * @return date
+     */
     public Date getdate(int i) {
         return calendrier.get(i).getDate();
     }
 
+    /**
+     * ajoute une case au calendrier
+     *
+     * @param c case
+     */
     public void addCase(Case c) {
         c.setEtatRemplissage(true);
         calendrier.add(c);
 
     }
 
+    /**
+     * retourne un String contenant toutes les infi des referents et du patient
+     *
+     * @return
+     */
     public String getInfoAll() {
         String res = "";
         res += "réferents : \n";
@@ -177,12 +292,24 @@ public class Pilulier {
         return res;
     }
 
+    /**
+     * retourne la date d'une case
+     *
+     * @param c case
+     * @return date
+     */
     public Date getCaseCalendrier(Case c) {
 
         return c.getDate();
 
     }
 
+    /**
+     * parcours le calendrier et return l'indice de la case qui doit etre prise
+     * ou 0 si aucune case ne doit etre prise
+     *
+     * @return indice de la case ou 0
+     */
     public int itsTime() {
         Date d = new Date();
         for (int i = 0; i < calendrier.size(); i++) {
@@ -193,14 +320,32 @@ public class Pilulier {
         return 0;
     }
 
+    /**
+     * transforme une ActionHistorique en String et la retourne
+     *
+     * @param i indice
+     * @return string de l'action
+     */
     public String getHistorique(int i) {
         return historique.toString(i);
     }
 
+    /**
+     * retourne la taille de l'historique
+     *
+     * @return
+     */
     public int getSizeHistorique() {
         return historique.getListeHistorique().size();
     }
 
+    /**
+     * ajoute une action a l'historique
+     *
+     * @param txt action
+     * @param ajrd date
+     * @throws IOException
+     */
     public void addHistorique(String txt, Date ajrd) throws IOException {
         ActionHistorique ah = new ActionHistorique(txt, ajrd);
         historique.addActionHistorique(ah);
@@ -208,7 +353,6 @@ public class Pilulier {
 //        histoLog.write(ah.ToString() + "\n");
 //
 //        histoLog.flush();
-
     }
 
 //    public void closeLog(boolean x) throws IOException {
