@@ -77,8 +77,8 @@ public class main {
 //        System.out.println(info);
         
 
-//        Moteur motor = null; //si moteur non raccordé à la raspberry
-        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
+        Moteur motor = null; //si moteur non raccordé à la raspberry
+//        Moteur motor = new Moteur(0, RaspiBcmPin.GPIO_22, RaspiBcmPin.GPIO_23, RaspiBcmPin.GPIO_24, RaspiBcmPin.GPIO_25); //si moteur raccordé à la raspberry
         HautParleur buzzer = null; //si hp non raccordé à la raspberry
 //        HautParleur buzzer = new HautParleur(0, RaspiBcmPin.GPIO_26); //si hp raccordé à la raspberry
         
