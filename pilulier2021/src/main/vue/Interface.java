@@ -47,7 +47,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel(), labelCode = new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
     private JTextField nomEcriture = new JTextField(), prenomEcriture = new JTextField(), fonctionEcriture = new JTextField(), adresseEcriture = new JTextField(), mailEcriture = new JTextField(), telEcriture = new JTextField();
-    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage = new JButton(), bouton1 = new JButton(), bouton2 = new JButton(), bouton3 = new JButton(), bouton4 = new JButton(), bouton5 = new JButton(), bouton6 = new JButton(), bouton7 = new JButton(), bouton8 = new JButton(), bouton9 = new JButton(), bouton0 = new JButton(), boutonEffacer = new JButton(), boutonValiderCode = new JButton();
+    private JButton calendrier = new JButton(), informations = new JButton(), menuSU = new JButton(), panicButton = new JButton(), boutonAlerte = new JButton(), boutonMenuSU0 = new JButton(), boutonMenuSU1 = new JButton(), boutonMenuSU2 = new JButton(), boutonRetour = new JButton(), flecheGauche = new JButton(), flecheDroite = new JButton(), validerInfos = new JButton(), validerCase = new JButton(), boutonParametre = new JButton(), boutonSnake = new JButton(), boutonFondAlea = new JButton(), boutonFondNoir = new JButton(), boutonFondBlanc = new JButton(), boutonFondVert = new JButton(), boutonTexteBlanc = new JButton(), boutonTexteNoir = new JButton(), boutonCalibrage = new JButton(), bouton1 = new JButton(), bouton2 = new JButton(), bouton3 = new JButton(), bouton4 = new JButton(), bouton5 = new JButton(), bouton6 = new JButton(), bouton7 = new JButton(), bouton8 = new JButton(), bouton9 = new JButton(), bouton0 = new JButton(), boutonEffacer = new JButton(), boutonValiderCode = new JButton(), boutonCalibrage2=new JButton();
     private LedMarche ledMarche = new LedMarche();
     private JComboBox boxMois = new JComboBox(), boxJour = new JComboBox(), boxHeure = new JComboBox(), boxMinute = new JComboBox();
     private JCheckBox checkRetard = new JCheckBox(), checkRemplissage = new JCheckBox();
@@ -107,6 +107,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonMenuSU1.addActionListener(this);
         boutonMenuSU2.addActionListener(this);
         boutonCalibrage.addActionListener(this);
+        boutonCalibrage2.addActionListener(this);
         flecheDroite.addActionListener(this);
         flecheGauche.addActionListener(this);
         nomEcriture.addFocusListener(this);
@@ -238,8 +239,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonsMenuVisible(false);
             boutonAlerteVisible(true, "Situation d'urgence");
             boutonRetourVisible(true);
-        } else if (e.getSource() == boutonCalibrage) {
-            System.out.println("tu gere louis");
+        }else if(e.getSource()==boutonCalibrage){
+            if (pilulier.getMotor() != null)
+                pilulier.getMotor().calibrage();  
+        }else if(e.getSource()==boutonCalibrage2){
+            System.out.println("tiens ton bouton joujou");
         } else if (e.getSource() == boutonParametre) {
             etat = EnumEtat.PARAMETRE;
             ledMarcheVisible(false);
@@ -939,17 +943,16 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.gridx = 0;
         cont.gridy = 1;
         cont.gridwidth = 4;
-        //cont.insets = new Insets(45, 5, 5, 5);
         pano.add(boutonMenuSU0, cont);
-        //cont.insets = new Insets(10, 10, 10, 10);
         cont.gridy = 2;
         pano.add(boutonMenuSU1, cont);
         cont.gridy = 3;
         pano.add(boutonMenuSU2, cont);
         cont.gridy = 4;
-        //cont.insets = new Insets(5, 5, 45, 5);
+        cont.gridwidth=2;
         pano.add(boutonCalibrage, cont);
-        //cont.insets = new Insets(10, 10, 10, 10);
+        cont.gridx=2;
+        pano.add(boutonCalibrage2, cont);
         cont.gridwidth = 1;
     }
 
@@ -1095,6 +1098,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonMenuSU1.setVisible(b);
         boutonMenuSU2.setVisible(b);
         boutonCalibrage.setVisible(b);
+        boutonCalibrage2.setVisible(b);
     }
 
     public void flechesVisible(boolean b) {
@@ -1137,8 +1141,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonValiderCode.setVisible(b);
         labelCode.setVisible(b);
     }
-    
-    
 
     //setters des éléments
     public void setCheckBox(JCheckBox bx) {
@@ -1691,6 +1693,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(boutonMenuSU1, "Remplissage", 40, blanc);
         setBoutonTexte(boutonMenuSU2, "Historique", 40, blanc);
         setBoutonTexte(boutonCalibrage, "Calibrage", 40, blanc);
+        setBoutonTexte(boutonCalibrage2, "Calibrage 2", 40, blanc);
         setBoutonTexte(boutonSnake, "Snake", 50, blanc);
         setBoutonTexte(boutonFondAlea, "Fond aléatoire", 50, blanc);
         setBoutonTexte(boutonFondNoir, "Fond noir", 50, blanc);

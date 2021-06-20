@@ -97,14 +97,8 @@ public class Moteur implements Execute{
         } catch (InterruptedException ex) {
            Logger.getLogger(StepperMotorGpio.class.getName()).log(Level.SEVERE, null, ex);
        }
-/*
-        // test motor control : ROTATE FORWARD with different timing and sequence
-        System.out.println("   Motor FORWARD with slower speed and higher torque for 1 revolution.");
-        motor.setStepSequence(double_step_sequence);
-        motor.setStepInterval(10);
-        motor.rotate(1);
-*/
-        System.out.println("   Motor STOPPED.");
+       
+        System.out.println("Motor STOPPED.");
 
         // final stop to ensure no motor activity
         motor.stop();
@@ -114,6 +108,33 @@ public class Moteur implements Execute{
         gpio.shutdown();
 
         System.out.println("Exiting StepperMotorGpio");
+    }
+    
+    public void calibrage(){
+        byte[] double_step_sequence = new byte[4];
+        double_step_sequence[0] = (byte) 0b0011;
+        double_step_sequence[1] = (byte) 0b0110;
+        double_step_sequence[2] = (byte) 0b1100;
+        double_step_sequence[3] = (byte) 0b1001;
+
+        // define stepper parameters before attempting to control motor
+        // anything lower than 2 ms does not work for my sample motor using single step sequence
+        motor.setStepInterval(2);
+        motor.setStepSequence(double_step_sequence);
+
+        // There are 32 steps per revolution on my sample motor, and inside is a ~1/64 reduction gear set.
+        // Gear reduction is actually: (32/9)/(22/11)x(26/9)x(31/10)=63.683950617
+        // This means is that there are really 32*63.683950617 steps per revolution =  2037.88641975 ~ 2038 steps!
+        motor.setStepsPerRevolution(2048);
+
+        motor.step((long)76.4);   
+       
+        // final stop to ensure no motor activity
+        motor.stop();
+
+        // stop all GPIO activity/threads by shutting down the GPIO controller
+        // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+        gpio.shutdown();
     }
     
     public void setAngle(int angle){

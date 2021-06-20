@@ -5,6 +5,16 @@
  */
 package main.modele;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinAnalog;
+import com.pi4j.io.gpio.GpioPinAnalogInput;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiBcmPin;
+import com.pi4j.io.gpio.RaspiGpioProvider;
+import com.pi4j.io.gpio.RaspiPinNumberingScheme;
 import java.util.ArrayList;
 
 /**
@@ -14,13 +24,36 @@ import java.util.ArrayList;
 public class NFC {
     protected ArrayList<Integer> carte;
     
-    public ArrayList<Integer> getCarte(){
-        return carte;
+    final private GpioPinAnalogInput pin;
+    final private GpioController gpio;
+    
+    public NFC(Pin pinNumber) throws UnsupportedOperationException{
+        // in order to use the Broadcom GPIO pin numbering scheme, we need to configure the
+        // GPIO factory to use a custom configured Raspberry Pi GPIO provider
+        GpioFactory.setDefaultProvider(new RaspiGpioProvider(RaspiPinNumberingScheme.BROADCOM_PIN_NUMBERING));
+
+        // create gpio controller
+        gpio = GpioFactory.getInstance();
+
+        // provision broadcom gpio pin #16 as an output pin and turn on
+        pin = gpio.provisionAnalogInputPin(pinNumber, "NFC");
+                
+                //provisionDigitalOutputPin(pinNumber, "NFC", PinState.HIGH);
+
     }
-    public void setCarte(int carte){
-        this.carte.add(carte);
+    
+    public void read(){
+        boolean etat = true;
+        while (etat == true)
+            System.out.println(gpio.getValue(pin));  
     }
-    // public int scan(){
-        
-    //}
+    
+    
+//    public ArrayList<Integer> getCarte(){
+//        return carte;
+//    }
+//    public void setCarte(int carte){
+//        this.carte.add(carte);
+//    }
+    
 }

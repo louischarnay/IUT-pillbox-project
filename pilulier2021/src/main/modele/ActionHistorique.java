@@ -36,6 +36,31 @@ public class ActionHistorique {
         this.texte = texte;
     }
     public String ToString(){
-        return date+" : "+texte;
+        String res="";
+        if(date.getDate()<=9){
+            res+="0"+date.getDate();
+        }else{
+            res+=date.getDate();
+        }
+        res+="/";
+        if((date.getMonth()+1)<=9){
+            res+="0"+(date.getMonth()+1);
+        }else{
+            res+=(date.getMonth()+1);
+        }
+        res+=" à ";
+        if((date.getHours()+1)<=9){
+            res+="0"+(date.getHours()+1);
+        }else{
+            res+=(date.getHours()+1);
+        }
+        res+="h";
+        if(date.getMinutes()<=9){
+            res+="0"+date.getMinutes();
+        }else{
+            res+=date.getMinutes();
+        }
+        res+=" : "+texte;
+        return res;
     }
 }
