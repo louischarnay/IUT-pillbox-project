@@ -11,7 +11,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 
 /**
- *
+ *Component Led qui indique l'état du pilulier
  * @author Pablo
  */
 public class LedMarche extends JComponent {

@@ -136,7 +136,6 @@ public class Pilulier {
         while ((line = buffered.readLine()) != null) {
             historiqueLog.add(line);
         }
-        System.out.println(listHisto);
         
     }
     public String getLogHistorique(int i){

@@ -6,7 +6,7 @@
 package main.vue;
 
 /**
- *
+ *Enumération qui contient tous les états possible du Timer
  * @author Pablo
  */
 public enum EnumTimer {
