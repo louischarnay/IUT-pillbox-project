@@ -265,18 +265,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
+            heureVisible(false);
             boutonRetourVisible(true);
             boutonsParametreVisible(true);
         } else if (e.getSource() == boutonSnake) {
             System.out.println("c'est pas encore codé");
-        } else if (e.getSource() == boutonFondAlea) {
-            double clr1, clr2, clr3;
-            clr1 = Math.random() * 100 % 255;
-            clr2 = Math.random() * 100 % 255;
-            clr3 = Math.random() * 100 % 255;
-            vertFond = new Color((int) clr1, (int) clr2, (int) clr3, 255);
-            pano.setBackground(vertFond);
-            composantsCreation();
+            } else if (e.getSource() == boutonFondAlea) {
+                double clr1, clr2, clr3, clr4;
+                clr1 = Math.random() * 1000 % 255;
+                clr2 = Math.random() * 1000 % 255;
+                clr3 = Math.random() * 1000 % 255;
+                vertFond = new Color((int) clr1, (int) clr2, (int) clr3, 255);
+                pano.setBackground(vertFond);
+                composantsCreation();
         } else if (e.getSource() == boutonFondNoir) {
             vertFond = Color.black;
             pano.setBackground(vertFond);
@@ -394,6 +395,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             switch (etat) {
                 case PARAMETRE:
                     boutonsParametreVisible(false);
+                    heureVisible(true);
                     break;
                 case MENUSU:
                     boutonRetourVisible(false);
