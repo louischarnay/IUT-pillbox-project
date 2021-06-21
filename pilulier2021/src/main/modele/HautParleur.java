@@ -30,8 +30,8 @@ public class HautParleur implements Execute{
     /**
      * constructeur
      * 
-     * @param i
-     * @param pinNumber
+     * @param i intensité du heaut-parleur
+     * @param pinNumber pins du haut-parleur
      * @throws UnsupportedOperationException 
      */
     public HautParleur(int i, Pin pinNumber) throws UnsupportedOperationException{
@@ -84,7 +84,7 @@ public class HautParleur implements Execute{
     
     /**
      * mutateur de l'intensité du haut-parleur
-     * @param i 
+     * @param i intensité du heaut-parleur
      */
     public void setIntensite(int i){
         intensite = i;
@@ -92,7 +92,7 @@ public class HautParleur implements Execute{
     
     /**
      * accesseur de l'intensité du haut-parleur
-     * @return intensite
+     * @return intensite intensité du heaut-parleur
      */
     public int getIntensite(){
         return intensite;
