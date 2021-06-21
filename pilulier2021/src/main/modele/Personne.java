@@ -58,28 +58,28 @@ public class Personne {
     }
     /**
      * set la fonction
-     * @param fonction 
+     * @param fonction fonction 
      */
     public void setAge(String fonction) {
         this.fonction = fonction;
     }
     /**
      * set l'adresse
-     * @param adresse 
+     * @param adresse adresse
      */
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
     /**
      * set le nom
-     * @param nom 
+     * @param nom nom
      */
     public void setNom(String nom) {
         this.nom = nom;
     }
     /**
      * set le prenom
-     * @param prenom 
+     * @param prenom prenom
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;

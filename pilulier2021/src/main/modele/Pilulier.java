@@ -76,7 +76,7 @@ public class Pilulier {
     /**
      * Retourne la case du calendrier à l'index passer en parametre
      *
-     * @param index
+     * @param index index 
      * @return Case
      */
     public Case getCase(int index) {
@@ -122,7 +122,7 @@ public class Pilulier {
     /**
      * Set le haut parleur
      *
-     * @param buzzer
+     * @param buzzer buzzer
      */
     public void setBuzzer(HautParleur buzzer) {
         this.buzzer = buzzer;
@@ -131,7 +131,7 @@ public class Pilulier {
     /**
      * Set le moteur
      *
-     * @param moteur
+     * @param moteur moteur
      */
     public void setMoteur(Moteur moteur) {
         this.moteur = moteur;
@@ -140,7 +140,7 @@ public class Pilulier {
     /**
      * Set le patient
      *
-     * @param patient
+     * @param patient patient
      */
     public void setPatient(Patient patient) {
         this.patient = patient;
@@ -149,7 +149,7 @@ public class Pilulier {
     /**
      * Set la list des referents
      *
-     * @param referents
+     * @param referents referents
      */
     public void setReferents(ArrayList<Referent> referents) {
         this.referents = referents;
@@ -158,7 +158,7 @@ public class Pilulier {
     /**
      * Set le calendrier
      *
-     * @param calendrier
+     * @param calendrier calendrier
      */
     public void setCalendrier(ArrayList<Case> calendrier) {
         this.calendrier = calendrier;

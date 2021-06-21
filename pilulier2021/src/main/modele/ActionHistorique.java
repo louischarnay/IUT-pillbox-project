@@ -40,14 +40,14 @@ public class ActionHistorique {
     }
 /**
  * set la date
- * @param date 
+ * @param date date actuelle
  */
     public void setDate(Date date) {
         this.date = date;
     }
 /** 
  * set l'action
- * @param texte 
+ * @param texte Action a mettre dans l'historique
  */
     public void setTexte(String texte) {
         this.texte = texte;

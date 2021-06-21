@@ -43,15 +43,15 @@ public class Referent extends Personne {
         return tel;
     }
     /**
-     * rSet le mail
-     * @param mail 
+     * Set le mail
+     * @param mail email
      */
     public void setMail(String mail) {
         this.mail = mail;
     }
     /** 
      * set le tel
-     * @param tel 
+     * @param tel tel
      */
     public void setTel(String tel) {
         this.tel = tel;

@@ -30,7 +30,7 @@ public class Historique {
     
     /**
      * set la liste d'action historique
-     * @param listeHistorique 
+     * @param listeHistorique list de l'historique
      */
     public void setListeHistorique(ArrayList<ActionHistorique> listeHistorique) {
         this.listeHistorique = listeHistorique;
@@ -46,7 +46,7 @@ public class Historique {
     }
     /**
      * retourne sous forme de string une action historique a l'indice passer en parametre
-     * @param i
+     * @param i index
      * @return ActionHistorique sous forma de string
      */
     public String toString(int i) {
