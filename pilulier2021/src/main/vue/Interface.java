@@ -13,16 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +39,7 @@ import main.modele.Pilulier;
  *
  * @author Pablo
  */
-public class Interface extends JFrame implements ActionListener, FocusListener {
+public final class Interface extends JFrame implements ActionListener, FocusListener {
 
     private JLabel heureAffiche = new JLabel(), infoAdresse = new JLabel(), infoTel = new JLabel(), infoMail = new JLabel(), infoFonction = new JLabel(), infoPrenom = new JLabel(), infoNom = new JLabel(), caseRemplissage = new JLabel(), caseMois = new JLabel(), caseJour = new JLabel(), caseHeure = new JLabel(), caseMinute = new JLabel(), retardAccepte = new JLabel(), remplissageOui = new JLabel(), labelCode = new JLabel();
     private JTextArea infosMenu = new JTextArea(), case1 = new JTextArea(), case2 = new JTextArea(), case3 = new JTextArea(), case4 = new JTextArea(), case5 = new JTextArea(), case6 = new JTextArea(), case7 = new JTextArea();
@@ -55,23 +51,20 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     private Pilulier pilulier;
     private Notification notif;
-    private boolean boutonPressed = false, retardPilule = false;
-    private int timerAlarme = 0;
     private int indexInfoLecture = 0, indexInfoEcriture = 0, indexHistorique = 0, indexCase = 0, nbCasesRestantes = 0, indexCaseOuvrir = 1, dureeTimer = 10000;
-    private String tempsRestant = "00 jours, 00 heures 00 minutes", code = "", bonCode = " 7 6 7 9";
+    private  String tempsRestant = "00 jours, 00 heures 00 minutes", code = "", bonCode = " 7 6 7 9";
     private Timer timer = createTimer(dureeTimer);
     private boolean couleurTexte = false;
 
     private EnumEtat etat;
     private EnumTimer etatTimer;
 
-    private JPanel pano = new JPanel();
-    private GridBagConstraints cont = new GridBagConstraints();
-    private String newLine = System.getProperty("line.separator");
+    private final JPanel pano = new JPanel();
+    private final GridBagConstraints cont = new GridBagConstraints();
+    private final String newLine = System.getProperty("line.separator");
     private Color blanc = Color.white;
     private Color vertFond = new Color(0, 128, 128, 255);
 
-    //boolean qui dit si il faure retourner au menu principal ou menu SU
     private boolean tmp = true;
 
     private ImageIcon panicImage = setImage("images/panicImage.png", 120, 120);
@@ -93,7 +86,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         pilulier = p;
         notif = n;
         this.setUndecorated(true);
-        //this.setTitle("fenetre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialisation();
         this.setSize(800, 480);
@@ -145,13 +137,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      */
     public void initialisation() {
         pano.setLayout(new GridBagLayout());
-        GridBagConstraints cont = new GridBagConstraints();
-        Date heure = new Date();
-        Border bordure = BorderFactory.createLineBorder(blanc);
 
-        //création des composants
-        //checkBox remplissage
-        //remplissage des ComboBox (calendrier remplissage)
         boxMois.addItem("Janvier");
         boxMois.addItem("Février");
         boxMois.addItem("Mars");
@@ -175,13 +161,11 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
         composantsCreation();
 
-        //affichage de tous les composants
         composantsAffiche();
 
         this.setContentPane(pano);
         this.pack();
 
-        //rend les éléments invisibles au lancement
         numCaseVisible(false);
         checkRetardVisible(false);
         boxCalendrierVisible(false);
@@ -196,7 +180,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonsParametreVisible(false);
         interfaceCodeVisible(false);
 
-        //désactive la flèche gauche
         flecheGauche.setEnabled(false);
 
         etat = EnumEtat.MENU;
@@ -226,7 +209,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     ledMarche.setCouleurLed(Color.green);
                 }
             }
-            String tmp = "0 jours, 0 heures, 0 minutes";
             if (nbCasesRestantes > 1) {
                 infosMenu.setText("Prochaine case : " + tempsRestant + newLine + newLine + nbCasesRestantes + " cases restantes");
             } else {
@@ -271,7 +253,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         } else if (e.getSource() == boutonSnake) {
             System.out.println("c'est pas encore codé");
         } else if (e.getSource() == boutonFondAlea) {
-            double clr1, clr2, clr3, clr4;
+            double clr1, clr2, clr3;
             clr1 = Math.random() * 1000 % 255;
             clr2 = Math.random() * 1000 % 255;
             clr3 = Math.random() * 1000 % 255;
@@ -364,7 +346,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonAlerte.setText("Refermer");
                     timer = createTimer(dureeTimer);
                     timer.start();
-//                    updateCasesRestantes();
                     etatTimer = EnumTimer.CLOSE;
                     break;
 
@@ -400,9 +381,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonRetourVisible(false);
                     boutonMenuSUVisible(false);
                     interfaceCodeVisible(false);
-                    break;
-                case BADGE:
-                    //faire le badge
                     break;
                 case INFOLECTURE:
                     indexInfoLecture = 0;
@@ -445,13 +423,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     flecheGauche.setEnabled(false);
                     flecheDroite.setEnabled(true);
                     break;
-//                case ANCIEN:
-//                    indexHistorique = 0;
-//                    infosEcritureVisible(false, false);
-//                    flechesVisible(false);
-//                    flecheGauche.setEnabled(false);
-//                    flecheDroite.setEnabled(true);
-//                    break;
+                /*case ANCIEN:
+                    indexHistorique = 0;
+                    infosEcritureVisible(false, false);
+                    flechesVisible(false);
+                    flecheGauche.setEnabled(false);
+                    flecheDroite.setEnabled(true);
+                    break;*/
                 case PANICBUTTON:
                     boutonAlerteAffiche("");
                     boutonAlerteVisible(false, "");
@@ -504,17 +482,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             infosEcritureVisible(true, false);
             chargerHistorique(indexHistorique);
-//        } else if (e.getSource() == boutonMenuSU3) {
-//            tmp = false;
-//            etat = EnumEtat.ANCIEN;
-//            boutonMenuSUVisible(false);
-//            flechesVisible(true);
-//            infosEcritureVisible(true, false);
-//            try {
-//                chargerLogHistorique(indexHistorique);
-//            } catch (IOException ex) {
-//                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+        /*} else if (e.getSource() == boutonMenuSU3) {
+            tmp = false;
+            etat = EnumEtat.ANCIEN;
+            boutonMenuSUVisible(false);
+            flechesVisible(true);
+            infosEcritureVisible(true, false);
+            try {
+                chargerLogHistorique(indexHistorique);
+            } catch (IOException ex) {
+                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         } else if (e.getSource() == validerInfos) {
             infosEcriture(indexInfoEcriture);
             if (indexInfoEcriture == 0) {
@@ -577,18 +555,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         flecheGauche.setEnabled(false);
                     }
                     break;
-//                case ANCIEN:
-//            try {
-//                    indexHistorique--;
-//                    chargerLogHistorique(indexHistorique);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                flecheDroite.setEnabled(true);
-//                if (indexHistorique == 0) {
-//                    flecheGauche.setEnabled(false);
-//                }
-//                break;
+                /*case ANCIEN:
+            try {
+                    indexHistorique--;
+                    chargerLogHistorique(indexHistorique);
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                flecheDroite.setEnabled(true);
+                if (indexHistorique == 0) {
+                    flecheGauche.setEnabled(false);
+                }
+                break;*/
             }
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
@@ -631,19 +609,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         flecheDroite.setEnabled(false);
                     }
                     break;
-//                case ANCIEN:
-//            try {
-//                    indexHistorique++;
-//                    chargerLogHistorique(indexHistorique);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                flecheGauche.setEnabled(true);
-//                boutonRetour.requestFocus();
-//                if (indexHistorique >= pilulier.getSizeHistorique() / 6) {
-//                    flecheDroite.setEnabled(false);
-//                }
-//                break;
+                /*case ANCIEN:
+            try {
+                    indexHistorique++;
+                    chargerLogHistorique(indexHistorique);
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                flecheGauche.setEnabled(true);
+                boutonRetour.requestFocus();
+                if (indexHistorique >= pilulier.getSizeHistorique() / 6) {
+                    flecheDroite.setEnabled(false);
+                }
+                break;*/
             }
         } else if (e.getSource() == bouton1) {
             if (code.length() < bonCode.length()) {
@@ -1377,7 +1355,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * @param clr couleur du background du bouton
      */
     public void setBoutonTexte(JButton bt, String txt, int sze, Color clr) {
-        Border bordure = BorderFactory.createLineBorder(clr);
         bt.setText(txt);
         bt.setBackground(clr);
         bt.setForeground(vertFond);
@@ -1453,8 +1430,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      */
     public ImageIcon setImage(String chemin, int x, int y) {
         ImageIcon imageBase = new ImageIcon(getClass().getResource(chemin));
-        Image image = imageBase.getImage();
-        Image newimg = image.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
         return imageBase;
     }
 
@@ -1494,167 +1469,167 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * charge les cases de l'interface Calendrier dans les TextFields prévus
      */
     public void chargerCasesLecture() {
-        String tmp;
-        tmp = "  Case 1" + newLine;
+        String tmpCasesLecture;
+        tmpCasesLecture = "  Case 1" + newLine;
         if (pilulier.getCase(0).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(0).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(0).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(0).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(0).getDate().getDate();
         }
         if (pilulier.getCase(0).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(0).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(0).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(0).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(0).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(0).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(0).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(0).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(0).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(0).getDate().getHours();
         }
         if (pilulier.getCase(0).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(0).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(0).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(0).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(0).getDate().getMinutes();
         }
-        case1.setText(tmp);
+        case1.setText(tmpCasesLecture);
 
-        tmp = "  Case 2" + newLine;
+        tmpCasesLecture = "  Case 2" + newLine;
         if (pilulier.getCase(1).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(1).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(1).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(1).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(1).getDate().getDate();
         }
         if (pilulier.getCase(1).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(1).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(1).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(1).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(1).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(1).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(1).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(1).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(1).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(1).getDate().getHours();
         }
         if (pilulier.getCase(1).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(1).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(1).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(1).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(1).getDate().getMinutes();
         }
-        case2.setText(tmp);
+        case2.setText(tmpCasesLecture);
 
-        tmp = "  Case 3" + newLine;
+        tmpCasesLecture = "  Case 3" + newLine;
         if (pilulier.getCase(2).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(2).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(2).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(2).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(2).getDate().getDate();
         }
         if (pilulier.getCase(2).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(2).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(2).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(2).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(2).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(2).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(2).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(2).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(2).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(2).getDate().getHours();
         }
         if (pilulier.getCase(2).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(2).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(2).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(2).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(2).getDate().getMinutes();
         }
-        case3.setText(tmp);
+        case3.setText(tmpCasesLecture);
 
-        tmp = "  Case 4" + newLine;
+        tmpCasesLecture = "  Case 4" + newLine;
         if (pilulier.getCase(3).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(3).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(3).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(3).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(3).getDate().getDate();
         }
         if (pilulier.getCase(3).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(3).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(3).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(3).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(3).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(3).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(3).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(3).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(3).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(3).getDate().getHours();
         }
         if (pilulier.getCase(3).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(3).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(3).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(3).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(3).getDate().getMinutes();
         }
-        case4.setText(tmp);
+        case4.setText(tmpCasesLecture);
 
-        tmp = "  Case 5" + newLine;
+        tmpCasesLecture = "  Case 5" + newLine;
         if (pilulier.getCase(4).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(4).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(4).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(4).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(4).getDate().getDate();
         }
         if (pilulier.getCase(4).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(4).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(4).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(4).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(4).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(4).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(4).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(4).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(4).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(4).getDate().getHours();
         }
         if (pilulier.getCase(4).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(4).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(4).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(4).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(4).getDate().getMinutes();
         }
-        case5.setText(tmp);
+        case5.setText(tmpCasesLecture);
 
-        tmp = "  Case 6" + newLine;
+        tmpCasesLecture = "  Case 6" + newLine;
         if (pilulier.getCase(5).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(5).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(5).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(5).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(5).getDate().getDate();
         }
         if (pilulier.getCase(5).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(5).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(5).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(5).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(5).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(5).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(5).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(5).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(5).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(5).getDate().getHours();
         }
         if (pilulier.getCase(5).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(5).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(5).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(5).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(5).getDate().getMinutes();
         }
-        case6.setText(tmp);
+        case6.setText(tmpCasesLecture);
 
-        tmp = "  Case 7" + newLine;
+        tmpCasesLecture = "  Case 7" + newLine;
         if (pilulier.getCase(6).getDate().getDate() <= 9) {
-            tmp += "  0" + pilulier.getCase(6).getDate().getDate();
+            tmpCasesLecture += "  0" + pilulier.getCase(6).getDate().getDate();
         } else {
-            tmp += "  " + pilulier.getCase(6).getDate().getDate();
+            tmpCasesLecture += "  " + pilulier.getCase(6).getDate().getDate();
         }
         if (pilulier.getCase(6).getDate().getMonth() + 1 <= 9) {
-            tmp += " / 0" + (pilulier.getCase(6).getDate().getMonth() + 1);
+            tmpCasesLecture += " / 0" + (pilulier.getCase(6).getDate().getMonth() + 1);
         } else {
-            tmp += " / " + (pilulier.getCase(6).getDate().getMonth() + 1);
+            tmpCasesLecture += " / " + (pilulier.getCase(6).getDate().getMonth() + 1);
         }
         if (pilulier.getCase(6).getDate().getHours() <= 9) {
-            tmp += newLine + "  0" + pilulier.getCase(6).getDate().getHours();
+            tmpCasesLecture += newLine + "  0" + pilulier.getCase(6).getDate().getHours();
         } else {
-            tmp += newLine + "  " + pilulier.getCase(6).getDate().getHours();
+            tmpCasesLecture += newLine + "  " + pilulier.getCase(6).getDate().getHours();
         }
         if (pilulier.getCase(6).getDate().getMinutes() <= 9) {
-            tmp += " : 0" + pilulier.getCase(6).getDate().getMinutes();
+            tmpCasesLecture += " : 0" + pilulier.getCase(6).getDate().getMinutes();
         } else {
-            tmp += " : " + pilulier.getCase(6).getDate().getMinutes();
+            tmpCasesLecture += " : " + pilulier.getCase(6).getDate().getMinutes();
         }
-        case7.setText(tmp);
+        case7.setText(tmpCasesLecture);
     }
 
     /**
@@ -1741,19 +1716,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * alerte
      */
     public void updateTempsRestant() {
-        int tmp = 0;
+        int tmpTempsRestant = 0;
         Date date = new Date();
         Date pro = new Date(2030, 01, 01, 01, 01);
         for (int i = 0; i < pilulier.getCalendrierSize(); i++) {
             if (pro.compareTo(pilulier.getCase(i).getDate()) > 0 && pilulier.getCase(i).getDate().getTime() > date.getTime() && pilulier.getCase(i).getEtatRemplissage()) {
-                tmp = i;
+                tmpTempsRestant = i;
                 pro = pilulier.getCase(i).getDate();
             }
         }
         long diff = pro.getTime() - date.getTime();
         long max = 2630974545L * 12;
         long jours = (diff / (1000 * 60 * 60 * 24)), heures = (diff / (1000 * 60 * 60)) % 24, minutes = (diff / (1000 * 60)) % 60;
-        if (diff < 0 | pilulier.getCase(tmp).getDate().getTime() < date.getTime() | diff >= max) {
+        if (diff < 0 | pilulier.getCase(tmpTempsRestant).getDate().getTime() < date.getTime() | diff >= max) {
             tempsRestant = "non définie";
         } else if (jours == 0 && heures == 0 && minutes == 0) {
             tempsRestant = "moins d'une minute";
@@ -1773,7 +1748,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * @return true si la fonction s'est bien déroulée
      */
     public boolean itsTime(int index) {
-        //efface tous les composants
         numCaseVisible(false);
         ledMarcheVisible(false);
         checkRetardVisible(false);
@@ -1788,7 +1762,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         boutonAlerteVisible(false, "");
         infosMenuVisible(false);
         boutonsMenuVisible(false);
-        //affiche bouton alerte
         System.out.println("début sonnerie");
         indexCaseOuvrir = index + 1;
         boutonAlerteVisible(true, "Heure traitement");
@@ -2030,7 +2003,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         telEcriture.setText("");
         mailEcriture.setText("");
 
-//        pilulier.loadHistorique();
         if (pilulier.getSizeLogHistorique() > 0 + (page * 6)) {
             fonctionEcriture.setText(pilulier.getLogHistorique(0 + (page * 6)));
         }
