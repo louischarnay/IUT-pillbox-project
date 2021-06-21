@@ -49,7 +49,7 @@ public class Notification {
     public boolean send(String alerte){
         for(int i = 1; i < pilulier.getReferents().size(); i++){
             if (pilulier.getReferents().get(i).getMail().contains("@")){
-                String message = "sendemail -f " + mail + " -t " + pilulier.getReferents().get(1).getMail() + " -u Pilulier de " + pilulier.getReferents().get(0).getPrenom() + " -m " + alerte + " -s " + server + " -o " + security + " -xu " + id + " -xp " + password;
+                String message = "sendemail -f " + mail + " -t " + pilulier.getReferents().get(i).getMail() + " -u Pilulier de " + pilulier.getReferents().get(0).getPrenom() + " -m " + alerte + " -s " + server + " -o " + security + " -xu " + id + " -xp " + password;
                 System.out.println(message);
                 try {
                     Runtime.getRuntime().exec(message);
