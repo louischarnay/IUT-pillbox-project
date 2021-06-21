@@ -29,6 +29,15 @@ public class Moteur implements Execute{
     final private GpioStepperMotorComponent motor;
     final private GpioController gpio;
     
+    /**
+     * constructeur
+     * 
+     * @param angle
+     * @param in1
+     * @param in2
+     * @param in3
+     * @param in4 
+     */
     public Moteur(int angle, Pin in1, Pin in2, Pin in3, Pin in4){
         angleRotation = angle;
         
@@ -54,7 +63,10 @@ public class Moteur implements Execute{
         // create motor component
         motor = new GpioStepperMotorComponent(pins);
     }
-    
+
+    /**
+     * méthode de rotation du moteur
+     */
     @Override
     public void start(){
         
@@ -110,6 +122,9 @@ public class Moteur implements Execute{
         System.out.println("Exiting StepperMotorGpio");
     }
     
+    /**
+     * méthode de callibration du moteur vers la gauche
+     */
     public void calibrageG(){
         byte[] double_step_sequence = new byte[4];
         double_step_sequence[0] = (byte) 0b0011;
@@ -137,6 +152,9 @@ public class Moteur implements Execute{
         gpio.shutdown();
     }
     
+    /**
+     * méthode de callibration du moteur vers la droite
+     */
     public void calibrageD(){
         byte[] double_step_sequence = new byte[4];
         double_step_sequence[0] = (byte) 0b0011;
@@ -164,11 +182,18 @@ public class Moteur implements Execute{
         gpio.shutdown();
     }
     
-    
+    /**
+     * méthode de modification de l'angle
+     * @param angle 
+     */
     public void setAngle(int angle){
         angleRotation = angle;
     }
     
+    /**
+     * méthode de lecture de l'ange
+     * @return angleRotation
+     */
     public int getAngleRotation(){
         return angleRotation;
     }

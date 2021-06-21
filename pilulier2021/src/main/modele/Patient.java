@@ -16,29 +16,56 @@ public class Patient extends Personne {
     protected ArrayList<String> maladie;
     protected ArrayList<String> allergie;
     
-    
-
+    /**
+     * constructeur
+     * 
+     * @param n
+     * @param p
+     * @param ag
+     * @param ad 
+     */
     public Patient(String n, String p, String ag, String ad) {
         super(n, p, ag, ad);
         allergie=new ArrayList<>();
         maladie=new ArrayList<>();
     }
 
+    /**
+     * accesseur de Allergie
+     * @return allergie
+     */
     public ArrayList<String> getAllergie() {
         return allergie;
     }
 
+    /**
+     * accesseur de Maladie
+     * @return maladie
+     */
     public ArrayList<String> getMaladie() {
         return maladie;
     }
-
+    
+     /**
+      * méthode d'ajout d'allergies
+      * @param allergie 
+      */
     public void addAllergie(String allergie) {
         this.allergie.add(allergie);
     }
-
+    
+    /**
+     * méthode d'ajout de maladies
+     * @param maladie 
+     */
     public void addMaladie(String maladie) {
         this.maladie.add(maladie);
     }
+    
+    /**
+     * accesseur d'informations
+     * @return info
+     */
     public String getInfo(){
         String newLine=System.getProperty("line.separator");
         String res="";

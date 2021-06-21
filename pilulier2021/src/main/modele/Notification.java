@@ -21,6 +21,16 @@ public class Notification {
     protected String id;
     protected String password;
     
+    /**
+     * constructeur
+     * 
+     * @param mail
+     * @param server
+     * @param security
+     * @param id
+     * @param password
+     * @param pilulier 
+     */
     public Notification(String mail, String server, String security, String id, String password, Pilulier pilulier){
         this.mail = mail;
         this.server = server;
@@ -30,6 +40,12 @@ public class Notification {
         this.pilulier = pilulier;
     }
     
+    /**
+     * méthode d'envoie de mail
+     * 
+     * @param alerte
+     * @return always true
+     */
     public boolean send(String alerte){
         for(int i = 1; i < pilulier.getReferents().size(); i++){
             if (pilulier.getReferents().get(i).getMail().contains("@")){

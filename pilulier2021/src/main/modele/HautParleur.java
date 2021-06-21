@@ -27,6 +27,13 @@ public class HautParleur implements Execute{
     final private GpioPinDigitalOutput pin;
     final private GpioController gpio;
     
+    /**
+     * constructeur
+     * 
+     * @param i
+     * @param pinNumber
+     * @throws UnsupportedOperationException 
+     */
     public HautParleur(int i, Pin pinNumber) throws UnsupportedOperationException{
         intensite= i;
         // in order to use the Broadcom GPIO pin numbering scheme, we need to configure the
@@ -43,6 +50,9 @@ public class HautParleur implements Execute{
         pin.setShutdownOptions(true, PinState.LOW);      
     }
     
+    /**
+     * méthode d'activation du haut-parleur
+     */
     @Override
     public void start()  {
         System.out.println("<--Pi4J--> GPIO Control LED on GPIO BCM_16 ... started.");
@@ -65,13 +75,25 @@ public class HautParleur implements Execute{
         }
     }
     
+    /**
+     * méthode d'arrêt du haut-parleur
+     */
     public void stop(){
         etatHP = false;
     }
     
+    /**
+     * mutateur de l'intensité du haut-parleur
+     * @param i 
+     */
     public void setIntensite(int i){
         intensite = i;
     }
+    
+    /**
+     * accesseur de l'intensité du haut-parleur
+     * @return intensite
+     */
     public int getIntensite(){
         return intensite;
     }
