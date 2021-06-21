@@ -93,7 +93,7 @@ public class Moteur implements Execute{
         motor.setStepsPerRevolution(2048);
 
        try {
-            motor.step(6114/8 * angleRotation);
+            motor.step((6114/8) * angleRotation);
             indexCase = indexCase + angleRotation;
             
             if (indexCase < 0){

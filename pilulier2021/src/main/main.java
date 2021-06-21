@@ -86,7 +86,9 @@ public class main {
 //        if(info!=null){
 //        pilulier.chargerInfo(info);
 //        }
+
         Notification notif = null;
+//        Notification notif = new Notification("mail.charnay@orange.fr", "smtp.orange.fr:587", "starttls=yes", "mail.charnay@orange.fr", "Maison_01000", pilulier);
 //        ArrayList<String>list=new ArrayList<>();
 //        pilulier.loadHistorique();
         Interface fenetre = new Interface(pilulier, notif);
