@@ -41,8 +41,12 @@ import ss2_rpi_2021.DigitaBCMGpio;
 public class main {
 
     /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
+     * classe main
+     * @param args main
+     * @throws InterruptedException exceptions
+     * @throws FileNotFoundException exceptions
+     * @throws UnsupportedEncodingException exceptions
+     * @throws IOException exceptions
      */
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, UnsupportedEncodingException, IOException {;
         

@@ -51,7 +51,7 @@ public class Pilulier {
      * @param c Liste de Case
      * @param b Haut parleur
      * @param m Moteur
-     * @throws IOException
+     * @throws IOException exceptions
      */
     public Pilulier(ArrayList<Referent> r, ArrayList<Case> c, HautParleur b, Moteur m) throws IOException {
         historique = new Historique();
@@ -168,7 +168,7 @@ public class Pilulier {
      * ajoute un referent a la liste
      *
      * @param r referent
-     * @throws IOException
+     * @throws IOException exceptions
      */
     public void addReferent(Referent r) throws IOException {
         referents.add(r);
@@ -344,7 +344,7 @@ public class Pilulier {
      *
      * @param txt action
      * @param ajrd date
-     * @throws IOException
+     * @throws IOException exceptions
      */
     public void addHistorique(String txt, Date ajrd) throws IOException {
         ActionHistorique ah = new ActionHistorique(txt, ajrd);

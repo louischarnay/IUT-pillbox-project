@@ -19,10 +19,10 @@ public class Patient extends Personne {
     /**
      * constructeur
      * 
-     * @param n
-     * @param p
-     * @param ag
-     * @param ad 
+     * @param n nom
+     * @param p prénom
+     * @param ag age
+     * @param ad adresse
      */
     public Patient(String n, String p, String ag, String ad) {
         super(n, p, ag, ad);
@@ -48,7 +48,7 @@ public class Patient extends Personne {
     
      /**
       * méthode d'ajout d'allergies
-      * @param allergie 
+      * @param allergie allergie à return
       */
     public void addAllergie(String allergie) {
         this.allergie.add(allergie);
@@ -56,7 +56,7 @@ public class Patient extends Personne {
     
     /**
      * méthode d'ajout de maladies
-     * @param maladie 
+     * @param maladie maladie à return
      */
     public void addMaladie(String maladie) {
         this.maladie.add(maladie);

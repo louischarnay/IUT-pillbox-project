@@ -34,10 +34,10 @@ import java.util.logging.Logger;
  * using the GPIO pins on the Raspberry Pi.
  *
  * @author Robert Savage
- *  simplified & adapted by Lionel Buathier
+ *  simplified  adapted by Lionel Buathier
  *  for CX28BYJ48-08 (4096 steps)
  * 
- *  connecteurs D22 & D23 / D24 & D25 (!! cables dédoublés)
+ *  connecteurs D22  D23 / D24  D25 (!! cables dédoublés)
  */
 public class StepperMotorGpio implements Execute{
 

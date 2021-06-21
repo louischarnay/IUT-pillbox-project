@@ -58,7 +58,7 @@ public class Referent extends Personne {
     }
     /**
      * retourne un String avec les info d'un referent 
-     * @return 
+     * @return infos du référent
      */
     public String getInfo(){
         

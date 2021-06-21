@@ -87,7 +87,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      *
      * @param p pilulier
      * @param n notification
-     * @throws InterruptedException
+     * @throws InterruptedException exception
      */
     public Interface(Pilulier p, Notification n) throws InterruptedException {
         pilulier = p;
@@ -445,13 +445,13 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     flecheGauche.setEnabled(false);
                     flecheDroite.setEnabled(true);
                     break;
-                case ANCIEN:
-                    indexHistorique = 0;
-                    infosEcritureVisible(false, false);
-                    flechesVisible(false);
-                    flecheGauche.setEnabled(false);
-                    flecheDroite.setEnabled(true);
-                    break;
+//                case ANCIEN:
+//                    indexHistorique = 0;
+//                    infosEcritureVisible(false, false);
+//                    flechesVisible(false);
+//                    flecheGauche.setEnabled(false);
+//                    flecheDroite.setEnabled(true);
+//                    break;
                 case PANICBUTTON:
                     boutonAlerteAffiche("");
                     boutonAlerteVisible(false, "");
@@ -504,17 +504,17 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             flechesVisible(true);
             infosEcritureVisible(true, false);
             chargerHistorique(indexHistorique);
-        } else if (e.getSource() == boutonMenuSU3) {
-            tmp = false;
-            etat = EnumEtat.ANCIEN;
-            boutonMenuSUVisible(false);
-            flechesVisible(true);
-            infosEcritureVisible(true, false);
-            try {
-                chargerLogHistorique(indexHistorique);
-            } catch (IOException ex) {
-                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        } else if (e.getSource() == boutonMenuSU3) {
+//            tmp = false;
+//            etat = EnumEtat.ANCIEN;
+//            boutonMenuSUVisible(false);
+//            flechesVisible(true);
+//            infosEcritureVisible(true, false);
+//            try {
+//                chargerLogHistorique(indexHistorique);
+//            } catch (IOException ex) {
+//                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         } else if (e.getSource() == validerInfos) {
             infosEcriture(indexInfoEcriture);
             if (indexInfoEcriture == 0) {
@@ -577,18 +577,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         flecheGauche.setEnabled(false);
                     }
                     break;
-                case ANCIEN:
-            try {
-                    indexHistorique--;
-                    chargerLogHistorique(indexHistorique);
-                } catch (IOException ex) {
-                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                flecheDroite.setEnabled(true);
-                if (indexHistorique == 0) {
-                    flecheGauche.setEnabled(false);
-                }
-                break;
+//                case ANCIEN:
+//            try {
+//                    indexHistorique--;
+//                    chargerLogHistorique(indexHistorique);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                flecheDroite.setEnabled(true);
+//                if (indexHistorique == 0) {
+//                    flecheGauche.setEnabled(false);
+//                }
+//                break;
             }
         } else if (e.getSource() == flecheDroite) {
             switch (etat) {
@@ -631,19 +631,19 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         flecheDroite.setEnabled(false);
                     }
                     break;
-                case ANCIEN:
-            try {
-                    indexHistorique++;
-                    chargerLogHistorique(indexHistorique);
-                } catch (IOException ex) {
-                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                flecheGauche.setEnabled(true);
-                boutonRetour.requestFocus();
-                if (indexHistorique >= pilulier.getSizeHistorique() / 6) {
-                    flecheDroite.setEnabled(false);
-                }
-                break;
+//                case ANCIEN:
+//            try {
+//                    indexHistorique++;
+//                    chargerLogHistorique(indexHistorique);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                flecheGauche.setEnabled(true);
+//                boutonRetour.requestFocus();
+//                if (indexHistorique >= pilulier.getSizeHistorique() / 6) {
+//                    flecheDroite.setEnabled(false);
+//                }
+//                break;
             }
         } else if (e.getSource() == bouton1) {
             if (code.length() < bonCode.length()) {
@@ -942,7 +942,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     }
 
     /**
-     * plcement du bouton Valider de l'interface Infos Lecture
+     * placement du bouton Valider de l'interface Infos Lecture
      */
     public void boutonValiderInfosAffiche() {
         cont.gridwidth = 2;
@@ -990,6 +990,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
 
     /**
      * placement du bouton Alerte de l'interface Panic Button
+     * @param msg texte à set sur le bouton
      */
     public void boutonAlerteAffiche(String msg) {
         boutonAlerte.setText(msg);
@@ -1180,6 +1181,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * gère la visibilité du bouton Alerte de toutes les interfaces
      *
      * @param b true = visible / false = invisible
+     * @param txt texte à set dans le bouton
      */
     public void boutonAlerteVisible(boolean b, String txt) {
         boutonAlerte.setText(txt);
@@ -1268,6 +1270,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * Ancien, Infos Lecture/Ecriture
      *
      * @param b true = visible / false = invisible
+     * @param c true = éditable / false = non éditable
      */
     public void infosEcritureVisible(boolean b, boolean c) {
         nomEcriture.setVisible(b);
@@ -1658,7 +1661,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      * charge un référent de l'interface Infos Lecture/Ecriture dans les
      * TextFields prévus
      *
-     * @param index
+     * @param index index de la page à charger
      */
     public void chargerReferent(int index) {
         nomEcriture.setText(pilulier.getReferents().get(index).getNom());

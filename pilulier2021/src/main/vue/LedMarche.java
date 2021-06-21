@@ -20,8 +20,8 @@ public class LedMarche extends JComponent {
     private Color couleurTour = Color.white;
     
     /**
-     * mutateur de la couleur de la led
-     * @param couleurLed 
+     * mutateur de la couleur intérieure de la led
+     * @param couleurLed couleur à set
      */
     public void setCouleurLed(Color couleurLed) {
         this.couleurLed = couleurLed;
@@ -30,7 +30,7 @@ public class LedMarche extends JComponent {
     
     /**
      * mutateur de la couleur du tour de la led
-     * @param couleurLed 
+     * @param couleurLed couleur à set
      */
     public void setCouleurTour(Color couleurLed) {
         this.couleurTour = couleurLed;
@@ -39,7 +39,7 @@ public class LedMarche extends JComponent {
 
     /**
      * accesseur de la taille du component
-     * @return dimension
+     * @return dimension dimension du component
      */
     @Override
     public Dimension getPreferredSize() {
@@ -49,7 +49,7 @@ public class LedMarche extends JComponent {
     
     /**
      * accesseur de la couleur de la led
-     * @return couleurLed
+     * @return couleurLed couleur de l'intérieur de la led
      */
     public Color getCouleurLed(){
         return couleurLed;
@@ -57,7 +57,7 @@ public class LedMarche extends JComponent {
 
     /**
      * méthode de changement de la couleur
-     * @param couleur 
+     * @param couleur couleur à set
      */
     public void couleurLedChange(Color couleur) {
         this.setCouleurLed(couleur);
@@ -66,7 +66,8 @@ public class LedMarche extends JComponent {
 
     
     /**
-     * méthode d'affichage du composant     * @param gra 
+     * méthode d'affichage du composant     
+     * @param gra graphics 
      */
     @Override
     protected void paintComponent(Graphics gra) {
