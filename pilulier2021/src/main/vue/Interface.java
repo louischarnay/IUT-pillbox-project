@@ -1860,7 +1860,6 @@ public final class Interface extends JFrame implements ActionListener, FocusList
         };
         return new Timer(duree, action);
     }
-    
     /**
      * affiche tous les composants de la fenêtre
      */
@@ -1886,7 +1885,6 @@ public final class Interface extends JFrame implements ActionListener, FocusList
         boutonsParametreAffiche();
         interfaceCodeAffiche();
     }
-
     /**
      * charge toutes les images et set tous les éléments de la fenêtre
      */
@@ -1986,7 +1984,6 @@ public final class Interface extends JFrame implements ActionListener, FocusList
         setLabel(retardAccepte, 20, blanc, true, "Retard accepté");
         setLabel(remplissageOui, 20, blanc, true, "Case Remplie");
     }
-
     /**
      * charge l'historique contenu dans le fichier HistoriqueLogs dans les
      * TextFields prévus
@@ -2002,7 +1999,6 @@ public final class Interface extends JFrame implements ActionListener, FocusList
         adresseEcriture.setText("");
         telEcriture.setText("");
         mailEcriture.setText("");
-
         if (pilulier.getSizeLogHistorique() > 0 + (page * 6)) {
             fonctionEcriture.setText(pilulier.getLogHistorique(0 + (page * 6)));
         }
