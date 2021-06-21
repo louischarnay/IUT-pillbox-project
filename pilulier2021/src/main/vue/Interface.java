@@ -331,7 +331,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
-                case "Situation d'urgence": {
+                case "Urgence": {
                     try {
                         pilulier.addHistorique("Appui sur le panic button", new Date());
                     } catch (IOException ex) {
