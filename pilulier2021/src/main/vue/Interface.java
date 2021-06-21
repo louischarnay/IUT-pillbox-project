@@ -1018,12 +1018,10 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         cont.gridy = 2;
         pano.add(boutonMenuSU1, cont);
         cont.gridy = 3;
-        cont.gridwidth = 2;
         pano.add(boutonMenuSU2, cont);
-        cont.gridx = 2;
-        pano.add(boutonMenuSU3, cont);
         cont.gridx = 0;
         cont.gridy = 4;
+        cont.gridwidth = 2;
         pano.add(boutonCalibrage, cont);
         cont.gridx = 2;
         pano.add(boutonCalibrage2, cont);
