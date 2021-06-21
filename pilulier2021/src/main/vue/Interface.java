@@ -247,7 +247,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
-            boutonAlerteVisible(true, "Situation d'urgence");
+            boutonAlerteVisible(true, "Urgence");
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonCalibrage) {
             if (pilulier.getMotor() != null) {
@@ -327,7 +327,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
-                case "Situation d'urgence":
+                case "Urgence":
                     if (notif != null) {
                         notif.send("SITUATION D'URGENCE Veuillez vous rendre au domicile du patient");
                     }
@@ -389,14 +389,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                         pilulier.getMotor().setAngle(-(indexCaseOuvrir - 1));
                         pilulier.getMotor().start();
                     }
-                    boutonAlerte.setText("Refermer le pilulier");
+                    boutonAlerte.setText("Refermer");
                     timer = createTimer(dureeTimer);
                     timer.start();
 //                    updateCasesRestantes();
                     etatTimer = EnumTimer.CLOSE;
                     break;
 
-                case "Refermer le pilulier":
+                case "Refermer":
                     System.out.println("fin sonnerie");
                     updateCasesRestantes();
                     if (nbCasesRestantes == 0) {
@@ -1212,7 +1212,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
      */
     public void boutonAlerteVisible(boolean b, String txt) {
         boutonAlerte.setText(txt);
-        if ("Situation d'urgence".equals(txt) | "Scanner votre  badge".equals(txt)) {
+        if ("Urgence".equals(txt) | "Scanner votre  badge".equals(txt)) {
             cont.fill = GridBagConstraints.BOTH;
             cont.anchor = GridBagConstraints.CENTER;
             cont.insets = new Insets(70, 5, 130, 5);
@@ -1963,12 +1963,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         }
         setHeureAffiche();
         setLabel(heureAffiche, 65, vertFond, false, "");
-        setLabel(infoNom, 30, vertFond, false, "Nom :");
-        setLabel(infoPrenom, 30, vertFond, false, "Prenom :");
-        setLabel(infoAdresse, 30, vertFond, false, "Adresse :");
-        setLabel(infoFonction, 30, vertFond, false, "Fonction :");
-        setLabel(infoTel, 30, vertFond, false, "Tel :");
-        setLabel(infoMail, 30, vertFond, false, "Mail :");
+        setLabel(infoNom, 25, vertFond, false, "Nom :");
+        setLabel(infoPrenom, 25, vertFond, false, "Prenom :");
+        setLabel(infoAdresse, 25, vertFond, false, "Adresse :");
+        setLabel(infoFonction, 25, vertFond, false, "Fonction :");
+        setLabel(infoTel, 25, vertFond, false, "Tel :");
+        setLabel(infoMail, 25, vertFond, false, "Mail :");
         setCheckBox(checkRetard);
         setCheckBox(checkRemplissage);
         infosMenu.setFont(new Font("Arial", Font.BOLD, 30));
@@ -2002,12 +2002,12 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         setBoutonTexte(boutonCalibrage, "Calibrage G", 40, blanc);
         setBoutonTexte(boutonCalibrage2, "Calibrage D", 40, blanc);
         setBoutonTexte(boutonSnake, "Snake", 50, blanc);
-        setBoutonTexte(boutonFondAlea, "Fond aléatoire", 50, blanc);
-        setBoutonTexte(boutonFondNoir, "Fond noir", 50, blanc);
-        setBoutonTexte(boutonFondBlanc, "Fond blanc", 50, blanc);
-        setBoutonTexte(boutonFondVert, "Fond vert", 50, blanc);
-        setBoutonTexte(boutonTexteBlanc, "Texte blanc", 50, blanc);
-        setBoutonTexte(boutonTexteNoir, "Texte noir", 50, blanc);
+        setBoutonTexte(boutonFondAlea, "Fond aléa", 40, blanc);
+        setBoutonTexte(boutonFondNoir, "Fond noir", 40, blanc);
+        setBoutonTexte(boutonFondBlanc, "Fond blanc", 40, blanc);
+        setBoutonTexte(boutonFondVert, "Fond vert", 40, blanc);
+        setBoutonTexte(boutonTexteBlanc, "Texte blanc", 40, blanc);
+        setBoutonTexte(boutonTexteNoir, "Texte noir", 40, blanc);
         setBoutonTexte(bouton1, "1", 30, blanc);
         setBoutonTexte(bouton2, "2", 30, blanc);
         setBoutonTexte(bouton3, "3", 30, blanc);
