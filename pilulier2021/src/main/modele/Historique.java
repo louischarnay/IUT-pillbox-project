@@ -51,6 +51,5 @@ public class Historique {
      */
     public String toString(int i) {
         return listeHistorique.get(i).getDate().getDate() + "/" + listeHistorique.get(i).getDate().getMonth() + " à " + listeHistorique.get(i).getDate().getHours() + "h" + listeHistorique.get(i).getDate().getMinutes() + "  : " + listeHistorique.get(i).getTexte();
-
     }
 }

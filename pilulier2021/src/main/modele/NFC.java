@@ -27,6 +27,12 @@ public class NFC {
     final private GpioPinAnalogInput pin;
     final private GpioController gpio;
     
+    /**
+     * constructeur
+     * 
+     * @param pinNumber
+     * @throws UnsupportedOperationException 
+     */
     public NFC(Pin pinNumber) throws UnsupportedOperationException{
         // in order to use the Broadcom GPIO pin numbering scheme, we need to configure the
         // GPIO factory to use a custom configured Raspberry Pi GPIO provider
@@ -42,18 +48,12 @@ public class NFC {
 
     }
     
+    /**
+     * méthode de lecture d'un badge
+     */
     public void read(){
         boolean etat = true;
         while (etat == true)
             System.out.println(gpio.getValue(pin));  
-    }
-    
-    
-//    public ArrayList<Integer> getCarte(){
-//        return carte;
-//    }
-//    public void setCarte(int carte){
-//        this.carte.add(carte);
-//    }
-    
+    }    
 }
