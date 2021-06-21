@@ -349,7 +349,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                             notif.send("SITUATION D'URGENCE Référent arrivé sur place");
                         }
                         pilulier.addHistorique("Référent arrivé", new Date());
-                        }catch (IOException ex) {
+                    } catch (IOException ex) {
                         Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -2057,7 +2057,6 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         mailEcriture.setText("");
 
 //        pilulier.loadHistorique();
-
         if (pilulier.getSizeLogHistorique() > 0 + (page * 6)) {
             fonctionEcriture.setText(pilulier.getLogHistorique(0 + (page * 6)));
         }
