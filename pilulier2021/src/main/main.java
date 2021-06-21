@@ -68,17 +68,15 @@ public class main {
         calendrier.add(new Case(6,new Date()));
         calendrier.add(new Case(7,new Date()));
         
-//        File rl = new File("ReferentLogs");
-//        BufferedReader buffered = null;
-//        
-//        FileReader fileReader = new FileReader(rl);
-//        buffered = new BufferedReader(fileReader);
-//        String line;
-//        ArrayList<String> info = new ArrayList<>();
-//        while ((line = buffered.readLine()) != null) {
-//            info.add(line);
-//        }
-//        System.out.println(info);
+        /*File rl = new File("ReferentLogs");
+        BufferedReader buffered = null;
+        FileReader fileReader = new FileReader(rl);
+        buffered = new BufferedReader(fileReader);
+        String line;
+        ArrayList<String> info = new ArrayList<>();
+        while ((line = buffered.readLine()) != null) {
+            info.add(line);
+        }*/
         
 
         Moteur motor = null; //si moteur non raccordé à la raspberry
@@ -93,7 +91,6 @@ public class main {
 
         Notification notif = null;
 //        Notification notif = new Notification("mail.charnay@orange.fr", "smtp.orange.fr:587", "starttls=yes", "mail.charnay@orange.fr", "Maison_01000", pilulier);
-//        ArrayList<String>list=new ArrayList<>();
 //        pilulier.loadHistorique();
         Interface fenetre = new Interface(pilulier, notif);
         fenetre.setVisible(true);
@@ -112,3 +109,5 @@ public class main {
 //        pilulier.closeLog(true);
     }
 }
+
+// VERSION FINALE
