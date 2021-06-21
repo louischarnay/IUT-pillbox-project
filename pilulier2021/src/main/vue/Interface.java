@@ -270,14 +270,14 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonsParametreVisible(true);
         } else if (e.getSource() == boutonSnake) {
             System.out.println("c'est pas encore codé");
-            } else if (e.getSource() == boutonFondAlea) {
-                double clr1, clr2, clr3, clr4;
-                clr1 = Math.random() * 1000 % 255;
-                clr2 = Math.random() * 1000 % 255;
-                clr3 = Math.random() * 1000 % 255;
-                vertFond = new Color((int) clr1, (int) clr2, (int) clr3, 255);
-                pano.setBackground(vertFond);
-                composantsCreation();
+        } else if (e.getSource() == boutonFondAlea) {
+            double clr1, clr2, clr3, clr4;
+            clr1 = Math.random() * 1000 % 255;
+            clr2 = Math.random() * 1000 % 255;
+            clr3 = Math.random() * 1000 % 255;
+            vertFond = new Color((int) clr1, (int) clr2, (int) clr3, 255);
+            pano.setBackground(vertFond);
+            composantsCreation();
         } else if (e.getSource() == boutonFondNoir) {
             vertFond = Color.black;
             pano.setBackground(vertFond);
@@ -331,19 +331,18 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
-                case "Situation d'urgence":
-                     {
-                        try {
-                            pilulier.addHistorique("Appui sur le panic button", new Date());
-                        } catch (IOException ex) {
-                            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                case "Situation d'urgence": {
+                    try {
+                        pilulier.addHistorique("Appui sur le panic button", new Date());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    boutonAlerteVisible(false, "");
-                    boutonRetourVisible(false);
-                    interfaceCodeVisible(true);
-                    break;
-                    
+                }
+                boutonAlerteVisible(false, "");
+                boutonRetourVisible(false);
+                interfaceCodeVisible(true);
+                break;
+
                 case "Heure traitement":
                     timer.stop();
                     pilulier.getCase(indexCaseOuvrir - 2).setEtatRemplissage(false);
@@ -1887,7 +1886,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
         };
         return new Timer(duree, action);
     }
-
+    
     /**
      * affiche tous les composants de la fenêtre
      */
