@@ -342,35 +342,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                     boutonRetourVisible(false);
                     interfaceCodeVisible(true);
                     break;
-
-                case "Scanner badge": {
-                    try {
-                        if (notif != null) {
-                            notif.send("SITUATION D'URGENCE Référent arrivé sur place");
-                        }
-                        pilulier.addHistorique("Référent arrivé", new Date());
-                    } catch (IOException ex) {
-                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                boutonAlerteVisible(false, "");
-                infosMenuVisible(true);
-                boutonsMenuVisible(true);
-                ledMarcheVisible(true);
-                break;
-
-                case "Scanner  badge": {
-                    try {
-                        pilulier.addHistorique("Référent 1 a accédé au menu SU", new Date());
-                    } catch (IOException ex) {
-                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                ledMarche.setCouleurLed(Color.green);
-                boutonAlerteAffiche("");
-                boutonAlerteVisible(false, "");
-                boutonMenuSUVisible(true);
-                break;
+                    
                 case "Heure traitement":
                     timer.stop();
                     pilulier.getCase(indexCaseOuvrir - 2).setEtatRemplissage(false);
@@ -741,7 +713,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
                 } else {
                     try {
                         if (notif != null) {
-                            notif.send("SITUATION D'URGENCE Référent arrivé sur place");
+                            notif.send("SITUATION D'URGENCE Referent arrive sur place");
                         }
                         pilulier.addHistorique("Référent arrivé", new Date());
                     } catch (IOException ex) {
