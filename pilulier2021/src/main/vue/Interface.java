@@ -244,6 +244,9 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panicButton) {
             etat = EnumEtat.PANICBUTTON;
+            if (notif != null) {
+                notif.send("SITUATION D'URGENCE Veuillez vous rendre au domicile du patient");
+            }
             ledMarcheVisible(false);
             infosMenuVisible(false);
             boutonsMenuVisible(false);
@@ -327,10 +330,7 @@ public class Interface extends JFrame implements ActionListener, FocusListener {
             boutonRetourVisible(true);
         } else if (e.getSource() == boutonAlerte) {
             switch (boutonAlerte.getText()) {
-                case "Urgence":
-                    if (notif != null) {
-                        notif.send("SITUATION D'URGENCE Veuillez vous rendre au domicile du patient");
-                    }
+                case "Situation d'urgence":
                      {
                         try {
                             pilulier.addHistorique("Appui sur le panic button", new Date());
