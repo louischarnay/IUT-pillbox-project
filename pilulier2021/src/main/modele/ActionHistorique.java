@@ -54,7 +54,7 @@ public class ActionHistorique {
     }
     /**
      * retourne une ActionHistorique sous forme de String
-     * @return 
+     * @return ActionHistorique dous forme de string
      */
     public String ToString(){
         String res="";

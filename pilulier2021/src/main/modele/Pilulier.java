@@ -86,7 +86,7 @@ public class Pilulier {
     /**
      * Retourne le calendrier
      *
-     * @return
+     * @return calendrier
      */
     public ArrayList<Case> getCalendrier() {
         return calendrier;
@@ -280,7 +280,7 @@ public class Pilulier {
     /**
      * retourne un String contenant toutes les infi des referents et du patient
      *
-     * @return
+     * @return information sur les referents et patient
      */
     public String getInfoAll() {
         String res = "";
@@ -333,7 +333,7 @@ public class Pilulier {
     /**
      * retourne la taille de l'historique
      *
-     * @return
+     * @return taille de l'historique
      */
     public int getSizeHistorique() {
         return historique.getListeHistorique().size();
