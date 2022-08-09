@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> React Native application with web dashboard for the users/workers of the Centre Psychotérapique de l'Ain (CPA).
+> Java program running on Raspberry Pi3 to handle pillbox functionnalities (motor, speaker, ...).
 
 ## Authors
 
